@@ -194,7 +194,66 @@ data class DailyWorkDTO(
     val value : DailyWorkD
 )
 data class DailyWorkD(
-    val daily : String
-
+    val cons_code : String,
+    val cons_date : String,
+    val cons_name : String,
+    val work_diary : String,
+    val cons_content_info : ConsContentInfo,
+    val cons_manp_info : ArrayList<ConsManpInfo>,
+    val cons_work_info : ArrayList<ConsWorkInfo>
+)
+data class ConsContentInfo(
+    val next_content : String,
+    val today_content : String
+)
+data class ConsManpInfo(
+    val cons_type_cd : String,
+    val cons_type_explain : String,
+    val cons_type_nm : String,
+    val level1_name : String,
+    val level2_name : String,
+    val level3_name : String,
+    val next_manpower : Int,
+    val prev_manpower : Int,
+    val product : String,
+    val today_manpower : Int,
+    val work_log_cons_code : String,
+    val work_log_cons_lv1 : Int,
+    val work_log_cons_lv2 : Int,
+    val work_log_cons_lv3 : Int,
+    val work_log_cons_lv4 : Int
+)
+data class ConsWorkInfo(
+    val cons_type_cd : String,
+    val cons_type_explain : String,
+    val cons_type_nm : String,
+    val level1_name : String,
+    val level2_name : String,
+    val level3_name : String,
+    val next_workload : Int,
+    val prev_workload : Int,
+    val product : String,
+    val quantity : Int,
+    val today_workload : Int,
+    val total_workload : Int,
+    val unit : String,
+    val work_log_cons_code : String,
+    val work_log_cons_lv1 : Int,
+    val work_log_cons_lv2 : Int,
+    val work_log_cons_lv3 : Int,
+    val work_log_cons_lv4 : Int,
+    val imageList : ArrayList<ImageData>
+)
+data class ImageData(
+    val change_name : String,
+    val cons_date : String,
+    val cons_type_cd : String,
+    val cons_type_explain : String,
+    val cons_type_nm : String,
+    val file_index : Int,
+    val origin_name : String,
+    val path : String,
+    val title : String,
+    val upload_date : String
 )
 

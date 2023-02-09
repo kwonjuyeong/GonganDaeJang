@@ -120,7 +120,6 @@ interface WorkDetailDiary{
     ): Call<DailyWorkDTO>
 }
 
-
 //사진등록
 interface PostGallery{
     @Multipart

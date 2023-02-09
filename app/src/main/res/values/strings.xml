@@ -1,10 +1,21 @@
 <resources>
 
     <string name="daily_work">작업일지</string>
+    <string name="work_">작업량</string>
     <string name="content">내용</string>
     <string name="use_price">사용 금액</string>
+    <string name="cons_type_nm">공사종류</string>
+    <string name="work_log_cons_code">공사코드</string>
+
+    <string name="work_diary">내용</string>
+    <string name="today_content">금일 공사 내용</string>
+    <string name="next_content">명일 공사 예정 내용</string>
     <string name="work_doc">공사일보</string>
+    <string name="work_doc2">공사일지</string>
+    <string name="man_power">인력</string>
     <string name="photo_gallery">사진대지</string>
+    <string name="write_date">작성날짜</string>
+    <string name="division_how">배열방식</string>
     <string name="search_date">검색날짜</string>
     <string name="title_activity_gallery">Gallery</string>
     <string name="watch_daily_work">작업일보 조회</string>

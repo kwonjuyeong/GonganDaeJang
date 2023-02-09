@@ -194,11 +194,7 @@ class PhotoGalleryFragment : Fragment() {
             binding.endDate.text = ""
         }
 
-        binding.addPicBtn.setOnClickListener {
-            val intent = Intent(context, PhotoGalleryPostDocument::class.java)
-            intent.putExtra("code", consCode)
-            startActivity(intent)
-        }
+
 
     }
 

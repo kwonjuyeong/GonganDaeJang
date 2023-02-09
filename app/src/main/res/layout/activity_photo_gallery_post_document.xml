@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PhotoGalleryPostDocument">
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_original"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="@string/post_picture"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:background="@color/little_gray">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/add_date"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.2"/>
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/square_table"
+                    android:layout_weight="0.8">
+                    <TextView
+                        android:id="@+id/picture_date"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:padding="8sp"
+                        android:textColor="@color/black"
+                        android:layout_weight="0.9"
+                        tools:ignore="NestedWeights" />
+                    <ImageButton
+                        android:id="@+id/visit_date_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10sp"
+                        android:layout_marginEnd="5sp"
+                        android:background="@drawable/ico_calendar"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding ="10sp"
+                android:background="@drawable/square_table"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0sp"
+                        android:layout_height="match_parent"
+                        android:text="@string/file_title"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/AllScape_deep_blue"
+                        android:layout_weight="0.2"/>
+                    <EditText
+                        android:id="@+id/title"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+                        android:padding="8sp"
+                        android:layout_weight="0.8"
+                        android:background="@drawable/square_table"
+                        tools:ignore="Autofill,TextFields" />
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/photo_list_add_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/AllScape_deep_blue"
+                    android:text="@string/add_pic"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="5sp"/>
+            </LinearLayout>
+
+            <!--문서양식-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/request_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/little_gray" />
+
+        </LinearLayout>
+    </ScrollView>
+        <Button
+            android:id="@+id/bottom_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_btn_blue"
+            android:text="@string/post"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_margin="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ButtonStyle" />
+</androidx.constraintlayout.widget.ConstraintLayout>

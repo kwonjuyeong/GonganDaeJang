@@ -109,7 +109,6 @@ fun convertDateFormat3(date :String?) : String {
     }
 }
 
-
 //날짜 포맷 바꾸기 ex) 2022-10-26 -> 20221026
 fun convertDateFormat4(date :String?) : String {
     return if(date == ""){

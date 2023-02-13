@@ -44,9 +44,6 @@ class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
         val levelNameResult = "(${listPosition.level1_name}${listPosition.level2_name}${listPosition.level3_name}${listPosition.product})"
 
         viewHolder.binding.levelName.text = levelNameResult
-
-
-
     }
 
     override fun getItemCount() = dataset.size

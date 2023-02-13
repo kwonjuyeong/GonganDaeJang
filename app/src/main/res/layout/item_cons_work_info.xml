@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/delete_btn"
+    android:background="@color/little_gray"
     android:layout_marginTop="10dp">
     <TextView
         android:id="@+id/cons_type_nm"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/cons_type_nm"
         android:textColor="@color/AllScape_gray"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:padding="10sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -7,41 +7,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.allscapeservice.a22allscape_app.objects.convertDateFormat
 import com.example.gonggandaejang.R
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoBinding
 
-
-
 data class ConsWorkInfoData(
-    val cons_type_cd : String,
-    val cons_type_explain : String,
     val cons_type_nm : String,
-    val level1_name : String,
-    val level2_name : String,
-    val level3_name : String,
-    val next_workload : Int,
-    val prev_workload : Int,
-    val product : String,
-    val quantity : Int,
-    val today_workload : Int,
-    val total_workload : Int,
-    val unit : String,
-    val work_log_cons_code : String,
-    val work_log_cons_lv1 : Int,
-    val work_log_cons_lv2 : Int,
-    val work_log_cons_lv3 : Int,
-    val work_log_cons_lv4 : Int,
-    //val imageList : ArrayList<ImageListData>,
     val ConsWorkInfoInputListData : ArrayList<ConsWorkInputList>
-)
-data class ImageListData(
-    val cons_type_explain : String,
-    val cons_type_nm : String,
-    val file_index : Int,
-    val origin_name : String,
-    val path : String,
-    val title : String,
-    val upload_date : String
 )
 data class ConsWorkInputList(
     val cons_type_cd : String,
@@ -62,7 +34,7 @@ data class ConsWorkInputList(
     val work_log_cons_lv2 : Int,
     val work_log_cons_lv3 : Int,
     val work_log_cons_lv4 : Int,
-   // val imageList : ArrayList<ImageInputList>
+    //val imageList : ArrayList<ImageInputList>
 )
 data class ImageInputList(
     val cons_type_explain : String,
@@ -84,11 +56,10 @@ class ConsWorkInfoAdapter(private val context: Context, private val dataset: Lis
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(viewHolder: ConsWorkInfoViewHolder, position: Int) {
-        //인력
+        val listPosition = dataset[position]
         val bluePrintDetailData = arrayListOf<ConsWorkInputList>()
         var bluePrintDetailInputData : ConsWorkInputList
 
-        val listPosition = dataset[position]
         viewHolder.binding.consTypeNm.text = listPosition.cons_type_nm
 
         viewHolder.binding.insideRecycler.layoutManager = LinearLayoutManager(context)
@@ -96,7 +67,6 @@ class ConsWorkInfoAdapter(private val context: Context, private val dataset: Lis
 
         for(i in 0 until listPosition.ConsWorkInfoInputListData.size){
             Log.d("input_data_list", i.toString())
-
             Log.d("input_data_list", listPosition.ConsWorkInfoInputListData[i].cons_type_cd)
             Log.d("input_data_list_title", listPosition.ConsWorkInfoInputListData[i].cons_type_explain)
             Log.d("input_data_list_path", listPosition.ConsWorkInfoInputListData[i].quantity.toString())
@@ -105,8 +75,6 @@ class ConsWorkInfoAdapter(private val context: Context, private val dataset: Lis
             bluePrintDetailData.add(bluePrintDetailInputData)
         }
         viewHolder.binding.insideRecycler.adapter?.notifyDataSetChanged()
-
     }
-
     override fun getItemCount() = dataset.size
 }

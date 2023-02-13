@@ -112,22 +112,6 @@
                         android:background="@drawable/calendar"
                         tools:ignore="ContentDescription" />
                 </LinearLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0sp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.2"
-                        android:text="@string/division_how"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
                         android:id="@+id/search_btn"
@@ -136,12 +120,13 @@
                         android:background="@drawable/search_btn"
                         android:maxHeight="42dp"
                         android:padding="10sp"
+                        android:layout_marginTop="10sp"
                         android:src="@drawable/btn_ico_search"
+                        android:layout_gravity="end"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

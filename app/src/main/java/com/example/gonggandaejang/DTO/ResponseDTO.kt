@@ -186,7 +186,6 @@ data class PostGalleryDTO(
     val value : String
 )
 
-
 //작업일지 상세 조회
 data class DailyWorkDTO(
     val code : Int,
@@ -233,7 +232,7 @@ data class ConsWorkInfo(
     val next_workload : Int,
     val prev_workload : Int,
     val product : String,
-    val quantity : Int,
+    val quantity : Float,
     val today_workload : Int,
     val total_workload : Int,
     val unit : String,

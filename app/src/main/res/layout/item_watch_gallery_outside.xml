@@ -16,11 +16,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_margin="10sp"
         android:layout_gravity="center"
         android:background="@color/AllScape_deep_blue"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_item_recycler"
+        android:padding="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

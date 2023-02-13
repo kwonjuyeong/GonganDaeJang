@@ -71,6 +71,16 @@ interface GetUserInfoService {
     ): Call<UserInfoDTO>
 }
 
+//3.2.9 사용자 상세 정보 조회 요청
+interface GetUserDetailInfoService {
+    @Headers("Content-Type: application/json")
+    @GET("/userManage/getUserInfo/{userId}")
+    fun requestDetailUserInfo(
+        @Path("userId") userId : String,
+        @Header("token") token: String?,
+        @Header("sysCd") sysCd: String?
+    ): Call<UserInfoDTO>
+}
 
 //프로젝트 리스트 조회(Project Go)
 interface ProjectGoService {

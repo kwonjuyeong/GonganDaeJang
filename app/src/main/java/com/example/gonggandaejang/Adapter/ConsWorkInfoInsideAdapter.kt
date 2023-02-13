@@ -1,5 +1,6 @@
 package com.example.gonggandaejang.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +45,15 @@ class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
         val levelNameResult = "(${listPosition.level1_name}${listPosition.level2_name}${listPosition.level3_name}${listPosition.product})"
 
         viewHolder.binding.levelName.text = levelNameResult
+
+        viewHolder.binding.pictureBtn.setOnClickListener {
+            for(i in 0 until listPosition.imageList.size){
+                Log.d("clicked_image", listPosition.imageList[i].title)
+            }
+        }
+
+
+
     }
 
     override fun getItemCount() = dataset.size

@@ -1,16 +1,24 @@
 package com.example.gonggandaejang.Adapter
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.renderscript.ScriptGroup
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggandaejang.R
+import com.example.gonggandaejang.WorkEditPhoto
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoBinding
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoInsideBinding
 import java.io.File
 import java.text.DecimalFormat
 
-class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
+class ConsWorkInfoInsideAdapter(private val context: Context, private val dataset: List<ConsWorkInputList>, private val sysDocCode : String, private val consCode : String):
     RecyclerView.Adapter<ConsWorkInfoInsideAdapter.ConsWorkInfoInsideViewHolder>() {
 
     class ConsWorkInfoInsideViewHolder(val binding: ItemConsWorkInfoInsideBinding) : RecyclerView.ViewHolder(binding.root)
@@ -19,6 +27,7 @@ class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
         return ConsWorkInfoInsideViewHolder(ItemConsWorkInfoInsideBinding.bind(view))
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(viewHolder: ConsWorkInfoInsideViewHolder, position: Int) {
         val listPosition = dataset[position]
 
@@ -46,14 +55,15 @@ class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
         viewHolder.binding.levelName.text = levelNameResult
 
         //================================================================================================================================================
-        viewHolder.binding.pictureBtn.setOnClickListener {
-
-            for(i in 0 until listPosition.imageList.size){
-                Log.d("clicked_image", listPosition.imageList[i].title)
-                Log.d("clicked_image", listPosition.imageList[i].path)
-                Log.d("clicked_image", listPosition.imageList[i].file_index.toString())
-                }
-        }
+       viewHolder.binding.pictureBtn.setOnClickListener {
+           //조회버튼 클릭
+            val intent = Intent(context, WorkEditPhoto::class.java)
+            intent.putExtra("sysDocCode", sysDocCode)
+            intent.putExtra("code", consCode)
+            intent.putExtra("work_log_cons_code", listPosition.work_log_cons_code)
+            intent.putExtra("data", listPosition)
+            context.startActivity(intent)
+       }
 
 
 

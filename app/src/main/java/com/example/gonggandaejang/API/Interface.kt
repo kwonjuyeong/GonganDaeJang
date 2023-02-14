@@ -130,16 +130,32 @@ interface WorkDetailDiary{
     ): Call<DailyWorkDTO>
 }
 
-//사진등록
+//이미지 등록
 interface PostGallery{
     @Multipart
-    @POST("/projPhotoSiteManage/PhotoSite/{cons_code}/{cons_date}")
-    fun requestPostGALLERY(
+    @POST("/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{file_index}")
+    fun requestPostGallery(
         @Path("cons_code") cons_code : String,
-        @Path("cons_date") cons_date : String,
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Path("file_index") file_index : String,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String,
+        //cons_date, work_log_cons_code, cons_type_cd, title
         @Part("data") data : RequestBody,
-        @Part filename : ArrayList<MultipartBody.Part>
+        @Part f_image : MultipartBody.Part
+    ): Call<PostGalleryDTO>
+}
+
+//이미지 등록
+interface DeleteGallery{
+    @Headers("Content-Type: application/json")
+    @DELETE("/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{file_index}")
+    fun requestDeleteGallery(
+        @Path("cons_code") cons_code : String,
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Path("file_index") file_index : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String
+        //cons_date, work_log_cons_code, cons_type_cd, title
     ): Call<PostGalleryDTO>
 }

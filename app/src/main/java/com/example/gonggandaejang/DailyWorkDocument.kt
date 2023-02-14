@@ -56,7 +56,7 @@ class DailyWorkDocument : AppCompatActivity() {
         //작업일보 상세보기====================================================================================================================
         //작업량
         binding.consWorkInfoRecycler.layoutManager = LinearLayoutManager(this)
-        binding.consWorkInfoRecycler.adapter = ConsWorkInfoAdapter(this, consWorkInfoData)
+        binding.consWorkInfoRecycler.adapter = ConsWorkInfoAdapter(this, consWorkInfoData, sysDocNum, constCode)
         //인력
         binding.consManpInfoRecycler.layoutManager = LinearLayoutManager(this)
         binding.consManpInfoRecycler.adapter = ConsManPInfoAdapter(this, consManpInfoData)
@@ -137,26 +137,6 @@ class DailyWorkDocument : AppCompatActivity() {
                         }
                     }
                 }
-
-//                for (m in 0 until consWorkInfoData.size) {
-//                    for (j in 0 until dailywork?.value?.cons_work_info!!.size) {
-//                        for(l in 0 until dailywork?.value?.cons_work_info?.get(j)?.imageList!!.size){
-//                            consWorkInfoData[m].ConsWorkInfoInputListData[j].imageList.add(ImageInputList(
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.change_name.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_date.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_cd.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_nm.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_explain.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.file_index!!.toInt(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.origin_name.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.path.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.title.toString(),
-//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.upload_date.toString()
-//                            ))
-//                    }
-//                    }
-//                }
-
                     binding.consWorkInfoRecycler.adapter?.notifyDataSetChanged()
                 //========================================================================================================
 

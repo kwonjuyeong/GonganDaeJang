@@ -2,13 +2,14 @@ package com.example.gonggandaejang.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggandaejang.R
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoBinding
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ConsWorkInfoData(
     val cons_type_nm : String,
@@ -34,7 +35,7 @@ data class ConsWorkInputList(
     val work_log_cons_lv3 : Int,
     val work_log_cons_lv4 : Int,
     val imageList : ArrayList<ImageInputList>
-)
+) : Serializable
 data class ImageInputList(
     val change_name : String,
     val cons_date : String,
@@ -46,8 +47,8 @@ data class ImageInputList(
     val path : String,
     val title : String,
     val upload_date: String
-)
-class ConsWorkInfoAdapter(private val context: Context, private val dataset: List<ConsWorkInfoData>):
+) : Serializable
+class ConsWorkInfoAdapter(private val context: Context, private val dataset: List<ConsWorkInfoData>, private val sysDocCode : String, private val consCode : String):
     RecyclerView.Adapter<ConsWorkInfoAdapter.ConsWorkInfoViewHolder>() {
 
     class ConsWorkInfoViewHolder(val binding: ItemConsWorkInfoBinding) : RecyclerView.ViewHolder(binding.root)
@@ -66,7 +67,7 @@ class ConsWorkInfoAdapter(private val context: Context, private val dataset: Lis
         viewHolder.binding.consTypeNm.text = listPosition.cons_type_nm
 
         viewHolder.binding.insideRecycler.layoutManager = LinearLayoutManager(context)
-        viewHolder.binding.insideRecycler.adapter = ConsWorkInfoInsideAdapter(workData)
+        viewHolder.binding.insideRecycler.adapter = ConsWorkInfoInsideAdapter(context, workData, sysDocCode, consCode)
 
         val imageData = arrayListOf<ImageInputList>()
         var imageInputData : ImageInputList

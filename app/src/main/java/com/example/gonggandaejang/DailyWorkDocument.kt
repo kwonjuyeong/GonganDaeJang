@@ -40,8 +40,7 @@ class DailyWorkDocument : AppCompatActivity() {
     private lateinit var consManpInfoInputData : ConsManPInfoData
 
     //작업량
-    private var imageData = arrayListOf<ConsWorkInputList>()
-    private lateinit var imageInputData : ConsWorkInputList
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,43 +88,75 @@ class DailyWorkDocument : AppCompatActivity() {
                 val insideConsTypeList = ArrayList<String>()
 
                 for(i in 0 until dailywork?.value?.cons_work_info?.size!!){
-                        if (!insideConsTypeList.contains(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString())) {
-                            insideConsTypeList.add(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString())
-                            val division = arrayListOf<ConsWorkInputList>()
-                            consWorkInfoInputData = ConsWorkInfoData(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString(), division)
-                            consWorkInfoData.add(consWorkInfoInputData)
-                        }
+                    if (!insideConsTypeList.contains(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString())) {
+                        insideConsTypeList.add(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString())
+                        val division = arrayListOf<ConsWorkInputList>()
+                        consWorkInfoInputData = ConsWorkInfoData(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString(), division)
+                        consWorkInfoData.add(consWorkInfoInputData)
+                    }
                 }
 
-                    for (m in 0 until consWorkInfoData.size) {
-                        for (j in 0 until dailywork?.value?.cons_work_info!!.size) {
-                            if (consWorkInfoData[m].cons_type_nm == dailywork?.value?.cons_work_info?.get(j)?.cons_type_nm.toString()) {
-                                for(l in 0 until dailywork?.value?.cons_work_info?.get(m)?.imageList!!.size){
-                                consWorkInfoData[m].ConsWorkInfoInputListData.add(
-                                    ConsWorkInputList(
-                                        dailywork?.value?.cons_work_info?.get(j)?.cons_type_cd.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.cons_type_explain.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.cons_type_nm.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.level1_name.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.level2_name.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.level3_name.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.next_workload!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.prev_workload!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.product.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.quantity!!.toFloat(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.today_workload!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.total_workload!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.unit.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_code.toString(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv1!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv2!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv3!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv4!!.toInt(),
-                                        dailywork?.value?.cons_work_info?.get(j)?.imageList.get(l)?.change_name.toString()))
-                                }
+                for (m in 0 until consWorkInfoData.size) {
+                    for (j in 0 until dailywork?.value?.cons_work_info!!.size) {
+                        if (consWorkInfoData[m].cons_type_nm == dailywork?.value?.cons_work_info?.get(j)?.cons_type_nm.toString()) {
+                            var imageData = arrayListOf<ImageInputList>()
+                            var imageInputData : ImageInputList
+                            imageData.clear()
+                            for(l in 0 until dailywork?.value?.cons_work_info!![j].imageList.size){
+                                imageInputData = ImageInputList(dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.change_name.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_date.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_cd.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_nm.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_explain.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.file_index!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.origin_name.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.path.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.title.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.upload_date.toString())
+                                imageData.add(imageInputData)
                             }
+                            consWorkInfoData[m].ConsWorkInfoInputListData.add(ConsWorkInputList(
+                                    dailywork?.value?.cons_work_info?.get(j)?.cons_type_cd.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.cons_type_explain.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.cons_type_nm.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.level1_name.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.level2_name.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.level3_name.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.next_workload!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.prev_workload!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.product.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.quantity!!.toFloat(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.today_workload!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.total_workload!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.unit.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_code.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv1!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv2!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv3!!.toInt(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.work_log_cons_lv4!!.toInt(), imageData))
                         }
                     }
+                }
+
+//                for (m in 0 until consWorkInfoData.size) {
+//                    for (j in 0 until dailywork?.value?.cons_work_info!!.size) {
+//                        for(l in 0 until dailywork?.value?.cons_work_info?.get(j)?.imageList!!.size){
+//                            consWorkInfoData[m].ConsWorkInfoInputListData[j].imageList.add(ImageInputList(
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.change_name.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_date.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_cd.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_nm.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_explain.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.file_index!!.toInt(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.origin_name.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.path.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.title.toString(),
+//                                dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.upload_date.toString()
+//                            ))
+//                    }
+//                    }
+//                }
+
                     binding.consWorkInfoRecycler.adapter?.notifyDataSetChanged()
                 //========================================================================================================
 
@@ -170,7 +201,6 @@ class DailyWorkDocument : AppCompatActivity() {
         binding.bottomBtn.setOnClickListener {
             finish()
         }
-
     }
 
     private fun init() {

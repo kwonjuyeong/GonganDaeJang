@@ -22,6 +22,7 @@ class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
     override fun onBindViewHolder(viewHolder: ConsWorkInfoInsideViewHolder, position: Int) {
         val listPosition = dataset[position]
 
+        //작업량 inside data================================================================================================================================
         viewHolder.binding.totalWorkload.text = listPosition.total_workload.toString()
         viewHolder.binding.todayWorkload.text = listPosition.today_workload.toString()
         viewHolder.binding.nextWorkload.text = listPosition.next_workload.toString()
@@ -41,15 +42,17 @@ class ConsWorkInfoInsideAdapter(private val dataset: List<ConsWorkInputList>):
         if(listPosition.product != ""){
             listPosition.product = " | ${listPosition.product}"
         }
-
         val levelNameResult = "(${listPosition.level1_name}${listPosition.level2_name}${listPosition.level3_name}${listPosition.product})"
-
         viewHolder.binding.levelName.text = levelNameResult
 
+        //================================================================================================================================================
         viewHolder.binding.pictureBtn.setOnClickListener {
+
             for(i in 0 until listPosition.imageList.size){
                 Log.d("clicked_image", listPosition.imageList[i].title)
-            }
+                Log.d("clicked_image", listPosition.imageList[i].path)
+                Log.d("clicked_image", listPosition.imageList[i].file_index.toString())
+                }
         }
 
 

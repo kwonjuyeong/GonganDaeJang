@@ -52,13 +52,8 @@ class ConsManPInfoAdapter(private val context: Context, private val dataset: Lis
         viewHolder.binding.insideRecycler.layoutManager = LinearLayoutManager(context)
         viewHolder.binding.insideRecycler.adapter = ConsManPInfoInsideAdapter(manPData)
 
-        Log.d("dataaa", listPosition.ConsManPInfoInputListData.size.toString())
 
         for(i in 0 until listPosition.ConsManPInfoInputListData.size){
-            Log.d("dataaa", listPosition.ConsManPInfoInputListData[i].cons_type_cd)
-            Log.d("dataaa", listPosition.ConsManPInfoInputListData[i].cons_type_explain)
-            Log.d("dataaa", listPosition.ConsManPInfoInputListData[i].prev_manpower.toString())
-
             manPInputData = ConsManPInputList(listPosition.ConsManPInfoInputListData[i].cons_type_cd, listPosition.ConsManPInfoInputListData[i].cons_type_explain, listPosition.ConsManPInfoInputListData[i].cons_type_nm, listPosition.ConsManPInfoInputListData[i].level1_name, listPosition.ConsManPInfoInputListData[i].level2_name,listPosition.ConsManPInfoInputListData[i].level3_name,listPosition.ConsManPInfoInputListData[i].next_manpower,listPosition.ConsManPInfoInputListData[i].prev_manpower,listPosition.ConsManPInfoInputListData[i].product,listPosition.ConsManPInfoInputListData[i].today_manpower, listPosition.ConsManPInfoInputListData[i].work_log_cons_code, listPosition.ConsManPInfoInputListData[i].work_log_cons_lv1,listPosition.ConsManPInfoInputListData[i].work_log_cons_lv2,listPosition.ConsManPInfoInputListData[i].work_log_cons_lv3,listPosition.ConsManPInfoInputListData[i].work_log_cons_lv4)
             manPData.add(manPInputData)
         }

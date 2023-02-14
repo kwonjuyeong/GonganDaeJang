@@ -81,10 +81,10 @@ class PhotoGalleryFragment : Fragment() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<GetGallery>, response: Response<GetGallery>) {
                 gallery = response.body()
-
-                val insideList = ArrayList<String>()
                 galleryData.clear()
-
+                Log.d("gallery", gallery?.value.toString())
+                val insideList = ArrayList<String>()
+                if(gallery?.value?.size != 0){
                 for (i in 0 until gallery?.value?.size!!) {
                     Log.d("input_data_all", convertDateFormat(gallery?.value?.get(i)?.upload_date))
                     if (!insideList.contains(convertDateFormat(gallery?.value?.get(i)?.upload_date))) {
@@ -106,6 +106,7 @@ class PhotoGalleryFragment : Fragment() {
                     }
                 }
                 binding.galleryRecycler.adapter?.notifyDataSetChanged()
+            }
             }
         })
         //검색조건 - 날짜 선택=============================================================================================================================================

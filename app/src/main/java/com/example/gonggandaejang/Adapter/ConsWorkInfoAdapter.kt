@@ -2,6 +2,7 @@ package com.example.gonggandaejang.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +39,7 @@ data class ImageInputList(
     val change_name : String,
     val cons_date : String,
     val cons_type_cd : String,
+    val cons_type_nm: String,
     val cons_type_explain: String,
     val file_index: Int,
     val origin_name: String,
@@ -57,6 +59,7 @@ class ConsWorkInfoAdapter(private val context: Context, private val dataset: Lis
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(viewHolder: ConsWorkInfoViewHolder, position: Int) {
         val listPosition = dataset[position]
+
         val workData = arrayListOf<ConsWorkInputList>()
         var workInputData : ConsWorkInputList
 
@@ -65,11 +68,19 @@ class ConsWorkInfoAdapter(private val context: Context, private val dataset: Lis
         viewHolder.binding.insideRecycler.layoutManager = LinearLayoutManager(context)
         viewHolder.binding.insideRecycler.adapter = ConsWorkInfoInsideAdapter(workData)
 
+        val imageData = arrayListOf<ImageInputList>()
+        var imageInputData : ImageInputList
+
         for(i in 0 until listPosition.ConsWorkInfoInputListData.size){
-            for(j in 0 until listPosition.ConsWorkInfoInputListData[i].imageList.size){
-                workInputData = ConsWorkInputList(listPosition.ConsWorkInfoInputListData[i].cons_type_cd, listPosition.ConsWorkInfoInputListData[i].cons_type_explain, listPosition.ConsWorkInfoInputListData[i].cons_type_nm, listPosition.ConsWorkInfoInputListData[i].level1_name, listPosition.ConsWorkInfoInputListData[i].level2_name, listPosition.ConsWorkInfoInputListData[i].level3_name, listPosition.ConsWorkInfoInputListData[i].next_workload, listPosition.ConsWorkInfoInputListData[i].prev_workload, listPosition.ConsWorkInfoInputListData[i].product, listPosition.ConsWorkInfoInputListData[i].quantity, listPosition.ConsWorkInfoInputListData[i].today_workload, listPosition.ConsWorkInfoInputListData[i].total_workload, listPosition.ConsWorkInfoInputListData[i].unit, listPosition.ConsWorkInfoInputListData[i].work_log_cons_code, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv1, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv2, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv3, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv4, listPosition.ConsWorkInfoInputListData[i].imageList)
+                imageData.clear()
+                for(k in 0 until listPosition.ConsWorkInfoInputListData[i].imageList.size){
+                    imageInputData = ImageInputList(listPosition.ConsWorkInfoInputListData[i].imageList[k].change_name, listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_date, listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_type_cd,listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_type_nm,
+                    listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_type_explain,listPosition.ConsWorkInfoInputListData[i].imageList[k].file_index,listPosition.ConsWorkInfoInputListData[i].imageList[k].origin_name,listPosition.ConsWorkInfoInputListData[i].imageList[k].path,listPosition.ConsWorkInfoInputListData[i].imageList[k].title,
+                    listPosition.ConsWorkInfoInputListData[i].imageList[k].upload_date)
+                    imageData.add(imageInputData)
+                }
+                workInputData = ConsWorkInputList(listPosition.ConsWorkInfoInputListData[i].cons_type_cd, listPosition.ConsWorkInfoInputListData[i].cons_type_explain, listPosition.ConsWorkInfoInputListData[i].cons_type_nm, listPosition.ConsWorkInfoInputListData[i].level1_name, listPosition.ConsWorkInfoInputListData[i].level2_name, listPosition.ConsWorkInfoInputListData[i].level3_name, listPosition.ConsWorkInfoInputListData[i].next_workload, listPosition.ConsWorkInfoInputListData[i].prev_workload, listPosition.ConsWorkInfoInputListData[i].product, listPosition.ConsWorkInfoInputListData[i].quantity, listPosition.ConsWorkInfoInputListData[i].today_workload, listPosition.ConsWorkInfoInputListData[i].total_workload, listPosition.ConsWorkInfoInputListData[i].unit, listPosition.ConsWorkInfoInputListData[i].work_log_cons_code, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv1, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv2, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv3, listPosition.ConsWorkInfoInputListData[i].work_log_cons_lv4, imageData)
                 workData.add(workInputData)
-            }
         }
         viewHolder.binding.insideRecycler.adapter?.notifyDataSetChanged()
     }

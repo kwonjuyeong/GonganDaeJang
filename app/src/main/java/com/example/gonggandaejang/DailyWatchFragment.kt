@@ -105,8 +105,6 @@ class DailyWatchFragment : Fragment() {
         binding.watchDailyRecycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!binding.watchDailyRecycler.canScrollVertically(1)) {
-                    Log.d("end_num", endNum.toString())
-                    Log.d("max_num", maxNum.toString())
                     if(endNum < maxNum){
                         endNum += 10
 

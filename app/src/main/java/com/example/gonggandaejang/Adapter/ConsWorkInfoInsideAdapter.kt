@@ -3,6 +3,7 @@ package com.example.gonggandaejang.Adapter
 //작업량 2차 구분 아이템
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import com.example.gonggandaejang.WorkEditPhoto
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoInsideBinding
 import java.text.DecimalFormat
 
-class ConsWorkInfoInsideAdapter(private val context: Context, private val dataset: List<ConsWorkInputList>, private val sysDocCode : String, private val consCode : String):
+class ConsWorkInfoInsideAdapter(private val context: Context, private val dataset: List<ConsWorkInputList>, private val sysDocCode : String, private val consCode : String, private val consDate : String):
     RecyclerView.Adapter<ConsWorkInfoInsideAdapter.ConsWorkInfoInsideViewHolder>() {
 
     class ConsWorkInfoInsideViewHolder(val binding: ItemConsWorkInfoInsideBinding) : RecyclerView.ViewHolder(binding.root)
@@ -51,13 +52,16 @@ class ConsWorkInfoInsideAdapter(private val context: Context, private val datase
 
         //================================================================================================================================================
        viewHolder.binding.pictureBtn.setOnClickListener {
-           //조회버튼 클릭
+           //조회버튼 클릭 - 이미지 수정 화면
             val intent = Intent(context, WorkEditPhoto::class.java)
             intent.putExtra("sysDocCode", sysDocCode)
             intent.putExtra("code", consCode)
             intent.putExtra("work_log_cons_code", listPosition.work_log_cons_code)
+            intent.putExtra("cons_type_cd", listPosition.cons_type_cd)
+            intent.putExtra("cons_date", consDate)
             intent.putExtra("data", listPosition)
             context.startActivity(intent)
+            (context as Activity).finish()
        }
 
 

@@ -1,6 +1,6 @@
 package com.example.gonggandaejang.Adapter
 
-//공사일보 2차 구분 아이템
+//공사일보 인력 2차 구분 아이템
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

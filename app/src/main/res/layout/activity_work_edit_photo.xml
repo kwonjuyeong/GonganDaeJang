@@ -15,14 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:text="사진 조회/수정"
+        android:text="사진 목록"
         android:textColor="@color/AllScape_deep_blue"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="제목"
+        android:textColor="@color/AllScape_deep_blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/image_recycler"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/AllScape_gray"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/image_recycler"
+        app:layout_constraintEnd_toStartOf="@+id/add_image_btn"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/add_image_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
@@ -36,10 +59,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_btn"
+        app:layout_constraintTop_toBottomOf="@+id/add_image_btn" />
+
+    <Button
+        android:id="@+id/bottom_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_btn_blue"
+        android:text="@string/OK"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_margin="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ButtonStyle" />
 
 
 

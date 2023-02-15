@@ -137,7 +137,7 @@ interface PostGallery{
     fun requestPostGallery(
         @Path("cons_code") cons_code : String,
         @Path("sys_doc_num") sys_doc_num: String,
-        @Path("file_index") file_index : String,
+        @Path("file_index") file_index : Int,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String,
         //cons_date, work_log_cons_code, cons_type_cd, title
@@ -149,11 +149,12 @@ interface PostGallery{
 //이미지 삭제
 interface DeleteGallery{
     @Headers("Content-Type: application/json")
-    @DELETE("/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{file_index}")
+    @DELETE("/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}")
     fun requestDeleteGallery(
         @Path("cons_code") cons_code : String,
         @Path("sys_doc_num") sys_doc_num: String,
-        @Path("file_index") file_index : String,
+        @Path("work_log_cons_code") work_log_cons_code : String,
+        @Path("file_index") file_index : Int,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String
     ): Call<PostGalleryDTO>

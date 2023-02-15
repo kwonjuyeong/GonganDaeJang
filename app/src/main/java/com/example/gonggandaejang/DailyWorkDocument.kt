@@ -39,9 +39,6 @@ class DailyWorkDocument : AppCompatActivity() {
     private var consManpInfoData = arrayListOf<ConsManPInfoData>()
     private lateinit var consManpInfoInputData : ConsManPInfoData
 
-    //작업량
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDailyWorkDocumentBinding.inflate(layoutInflater)
@@ -91,7 +88,7 @@ class DailyWorkDocument : AppCompatActivity() {
                     if (!insideConsTypeList.contains(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString())) {
                         insideConsTypeList.add(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString())
                         val division = arrayListOf<ConsWorkInputList>()
-                        consWorkInfoInputData = ConsWorkInfoData(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString(), division)
+                        consWorkInfoInputData = ConsWorkInfoData(dailywork?.value?.cons_work_info?.get(i)?.cons_type_nm.toString(), dailywork?.value?.cons_date.toString(), division)
                         consWorkInfoData.add(consWorkInfoInputData)
                     }
                 }

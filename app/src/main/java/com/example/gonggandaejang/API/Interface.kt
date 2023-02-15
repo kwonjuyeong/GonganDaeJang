@@ -146,7 +146,7 @@ interface PostGallery{
     ): Call<PostGalleryDTO>
 }
 
-//이미지 등록
+//이미지 삭제
 interface DeleteGallery{
     @Headers("Content-Type: application/json")
     @DELETE("/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{file_index}")
@@ -156,6 +156,5 @@ interface DeleteGallery{
         @Path("file_index") file_index : String,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String
-        //cons_date, work_log_cons_code, cons_type_cd, title
     ): Call<PostGalleryDTO>
 }

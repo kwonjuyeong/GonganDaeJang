@@ -1,5 +1,7 @@
 package com.example.gonggandaejang.Adapter
 
+//사진 첨부/삭제 아이템
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

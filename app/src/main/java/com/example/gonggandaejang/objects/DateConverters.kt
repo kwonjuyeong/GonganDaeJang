@@ -108,17 +108,3 @@ fun convertDateFormat3(date :String?) : String {
         result
     }
 }
-
-//날짜 포맷 바꾸기 ex) 2022-10-26 -> 20221026
-fun convertDateFormat4(date :String?) : String {
-    return if(date == ""){
-        ""
-    } else{
-        val result : String
-        val year : String = date!!.substring(0, 4)
-        val month : String = date.substring(5, 7)
-        val day : String = date.substring(8, 10)
-        result = "${year}${month}${day}"
-        result
-    }
-}

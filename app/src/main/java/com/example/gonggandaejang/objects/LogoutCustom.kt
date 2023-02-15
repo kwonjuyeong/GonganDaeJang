@@ -10,8 +10,6 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.allscapeservice.a22allscape_app.DTO.LogoutDTO
 import com.allscapeservice.a22allscape_app.objects.callRetrofit
 import com.example.gonggandaejang.API.LogoutService

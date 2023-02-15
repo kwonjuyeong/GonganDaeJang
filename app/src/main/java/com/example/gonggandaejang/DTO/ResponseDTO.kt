@@ -244,13 +244,13 @@ data class ConsWorkInfo(
     val imageList : ArrayList<ImageData>
 )
 data class ImageData(
-    val change_name : String,
+    val chan_name : String,
     val cons_date : String,
     val cons_type_cd : String,
     val cons_type_explain : String,
     val cons_type_nm : String,
     val file_index : Int,
-    val origin_name : String,
+    val orig_name : String,
     val path : String,
     val title : String,
     val upload_date : String

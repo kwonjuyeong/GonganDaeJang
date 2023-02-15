@@ -1,21 +1,15 @@
 package com.example.gonggandaejang.objects
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Matrix
 import android.graphics.PointF
-import android.media.Image
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import com.allscapeservice.a22allscape_app.objects.convertDateFormat
-import com.allscapeservice.a22allscape_app.objects.getSHA512
 import com.example.gonggandaejang.R
 import kotlin.math.sqrt
 

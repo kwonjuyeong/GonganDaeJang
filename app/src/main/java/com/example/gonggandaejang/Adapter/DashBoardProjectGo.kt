@@ -1,5 +1,7 @@
 package com.example.gonggandaejang.Adapter
 
+//DashBoard project list item
+
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater

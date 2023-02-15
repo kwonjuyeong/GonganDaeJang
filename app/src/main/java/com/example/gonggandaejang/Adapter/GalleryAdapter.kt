@@ -1,8 +1,9 @@
 package com.example.gonggandaejang.Adapter
 
+//사진대지 타임라인 바깥 리스트
+
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull

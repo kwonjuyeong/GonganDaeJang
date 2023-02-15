@@ -1,5 +1,7 @@
 package com.example.gonggandaejang.Adapter
 
+//작업량 공종 별 1차 구분 아이템
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,13 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggandaejang.R
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoBinding
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class ConsWorkInfoData(
     val cons_type_nm : String,
     val ConsWorkInfoInputListData : ArrayList<ConsWorkInputList>
-)
+): Serializable
+
 data class ConsWorkInputList(
     val cons_type_cd : String,
     val cons_type_explain : String,
@@ -36,6 +38,7 @@ data class ConsWorkInputList(
     val work_log_cons_lv4 : Int,
     val imageList : ArrayList<ImageInputList>
 ) : Serializable
+
 data class ImageInputList(
     val change_name : String,
     val cons_date : String,

@@ -1,7 +1,8 @@
 package com.example.gonggandaejang.Adapter
 
+//사진대지 안쪽 사진 데이터
+
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

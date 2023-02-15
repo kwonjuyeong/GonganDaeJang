@@ -99,17 +99,17 @@ class DailyWorkDocument : AppCompatActivity() {
                 for (m in 0 until consWorkInfoData.size) {
                     for (j in 0 until dailywork?.value?.cons_work_info!!.size) {
                         if (consWorkInfoData[m].cons_type_nm == dailywork?.value?.cons_work_info?.get(j)?.cons_type_nm.toString()) {
-                            var imageData = arrayListOf<ImageInputList>()
+                            val imageData = arrayListOf<ImageInputList>()
                             var imageInputData : ImageInputList
                             imageData.clear()
                             for(l in 0 until dailywork?.value?.cons_work_info!![j].imageList.size){
-                                imageInputData = ImageInputList(dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.change_name.toString(),
+                                imageInputData = ImageInputList(dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.chan_name.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_date.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_cd.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_nm.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.cons_type_explain.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.file_index!!.toInt(),
-                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.origin_name.toString(),
+                                    dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.orig_name.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.path.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.title.toString(),
                                     dailywork?.value?.cons_work_info?.get(j)?.imageList?.get(l)?.upload_date.toString())

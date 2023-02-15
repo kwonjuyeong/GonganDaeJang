@@ -1,21 +1,16 @@
 package com.example.gonggandaejang.Adapter
 
+//작업량 2차 구분 아이템
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.renderscript.ScriptGroup
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggandaejang.R
 import com.example.gonggandaejang.WorkEditPhoto
-import com.example.gonggandaejang.databinding.ItemConsWorkInfoBinding
 import com.example.gonggandaejang.databinding.ItemConsWorkInfoInsideBinding
-import java.io.File
 import java.text.DecimalFormat
 
 class ConsWorkInfoInsideAdapter(private val context: Context, private val dataset: List<ConsWorkInputList>, private val sysDocCode : String, private val consCode : String):

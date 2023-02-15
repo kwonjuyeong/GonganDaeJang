@@ -1,5 +1,7 @@
 package com.example.gonggandaejang.Adapter
 
+//공사일보 리스트 조회
+
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater

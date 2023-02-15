@@ -16,11 +16,6 @@ fun requestMultiplePermissions(context: Context) {
         .withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
         .withListener(object : MultiplePermissionsListener {
             override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                /*
-                //모든 권한이 체크되었을 떄
-                if (report.areAllPermissionsGranted()) {
-                }*/
-                // 권한이 거절되었을 때
                 if (report.isAnyPermissionPermanentlyDenied) {
                     Toast.makeText(context, "저장소 및 카메라 권한이 거절되었습니다.\n[설정]에서 권한을 허용해주세요.", Toast.LENGTH_SHORT).show() } }
             override fun onPermissionRationaleShouldBeShown(permissions: List<PermissionRequest?>?, token: PermissionToken) { token.continuePermissionRequest() } }).withErrorListener {

@@ -1,8 +1,9 @@
 package com.example.gonggandaejang.Adapter
 
+//공사일보 인력 1차 구분 아이템
+
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager

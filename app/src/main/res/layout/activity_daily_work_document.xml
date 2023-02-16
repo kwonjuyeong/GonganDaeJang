@@ -5,10 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DailyWorkDocument">
+
     <include
         android:id="@+id/include"
         layout="@layout/toolbar_original"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/comment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10sp"
+        android:src="@drawable/ic_baseline_comment_24"
+        android:background="@drawable/item_round_background_deep_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0sp"
@@ -16,6 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

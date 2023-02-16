@@ -65,7 +65,7 @@
     <string name="in_house_project">관내 프로젝트</string>
     <string name="writer_and_write_date">작성자 | 작성일</string>
     <string name="calender_day_format">%1$s-%2$s-%3$s</string>
-
+    <string name="star">*</string>
     <!-- Strings used for fragments for navigation -->
     <string name="title_activity_quality_management_material_response_document">
     </string>

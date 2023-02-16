@@ -9,5 +9,4 @@
     android:layout_gravity="end"
     android:gravity="end"
     app:title="공간대장"
-    app:titleTextColor="@color/white">
-</androidx.appcompat.widget.Toolbar>
+    app:titleTextColor="@color/white"/>

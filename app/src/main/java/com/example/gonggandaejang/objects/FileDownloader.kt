@@ -23,8 +23,6 @@ data class DocFileDownLoadDTO(
 @SuppressLint("SimpleDateFormat")
 fun loadFile(userToken: String ,imageView: ImageView, data : DocFileDownLoadDTO) {
     Thread {
-
-
         var `is`: InputStream? = null
         val handler = Handler(Looper.getMainLooper())
         try {

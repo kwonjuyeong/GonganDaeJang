@@ -15,8 +15,6 @@ import com.allscapeservice.a22allscape_app.objects.convertDateFormat
 import com.example.gonggandaejang.R
 import com.example.gonggandaejang.databinding.ItemWatchGalleryOutsideBinding
 
-
-
 data class GalleryData(
     val upload_date : String,
     val GalleryList : ArrayList<GalleryListData>

@@ -11,7 +11,6 @@
         tools:ignore="UselessParent">
         <LinearLayout
             android:padding="10sp"
-            android:background="@color/little_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -28,7 +27,6 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_vertical_split_24"
                     tools:ignore="ContentDescription" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

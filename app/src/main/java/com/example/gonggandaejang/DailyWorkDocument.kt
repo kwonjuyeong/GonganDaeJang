@@ -1,10 +1,12 @@
 package com.example.gonggandaejang
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allscapeservice.a22allscape_app.DTO.DailyWorkDTO
 import com.allscapeservice.a22allscape_app.DTO.ImageData
@@ -175,6 +177,13 @@ class DailyWorkDocument : AppCompatActivity() {
             }
         })
 
+        //댓글 작성
+        binding.commentBtn.setOnClickListener {
+            val intent = Intent(this@DailyWorkDocument, CommentActivity ::class.java)
+            intent.putExtra("sysDocNum", sysDocNum)
+            startActivity(intent)
+        }
+
         binding.bottomBtn.setOnClickListener {
             finish()
         }
@@ -186,6 +195,21 @@ class DailyWorkDocument : AppCompatActivity() {
         userToken = sharedPreference.getString("token", "").toString()
         sysDocNum = intent.getStringExtra("sysDocNum")!!
         constCode = intent.getStringExtra("code")!!
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
 

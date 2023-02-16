@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#4DBDEF"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
@@ -71,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/auto_login"
-                android:textColor="@color/AllScape_gray"
+                android:textColor="@color/white"
                 android:textStyle="bold"/>
         </LinearLayout>
         <Button

@@ -28,23 +28,25 @@ private var oldDistance = 0f
 @SuppressLint("StaticFieldLeak")
 private lateinit var images : ImageView
 
-//회원정보 수정 페이지 접속
 @SuppressLint("ClickableViewAccessibility")
 fun customDetailGallery(context: Context, token: String, consCode : String, path : String, originName : String, changeName : String, uploadDate : String, title : String){
     val dialog = Dialog(context)
     dialog.setContentView(R.layout.custom_dialog_galley_detail_watch)
 
     val titleName =dialog.findViewById<TextView>(R.id.detail_gallery_title)
-    images = dialog.findViewById<ImageView>(R.id.detail_gallery_imageview)
+    val titles =dialog.findViewById<TextView>(R.id.textView14)
+    images = dialog.findViewById(R.id.detail_gallery_imageview)
     val ok = dialog.findViewById<Button>(R.id.ok_btn)
     val filename = dialog.findViewById<TextView>(R.id.detail_gallery_file_name)
     val date = dialog.findViewById<TextView>(R.id.detail_gallery_date)
 
-    titleName.text = "사진 상세정보"
+    titles.text = "사진 정보"
+    titleName.text = "상세정보"
     filename.text = title
     date.text = convertDateFormat(uploadDate)
 
     loadFile(token, images, DocFileDownLoadDTO(consCode, "", path, originName, changeName))
+
     matrix = Matrix()
     savedMatrix = Matrix()
 

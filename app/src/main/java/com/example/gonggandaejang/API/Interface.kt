@@ -49,8 +49,6 @@ interface GetCurTimeInfoService {
     ): Call<GetCurTimeInfoDTO>
 }
 
-
-
 //코드 리스트
 interface GetCodeListService {
     @Headers("Content-Type: application/json")
@@ -158,4 +156,53 @@ interface DeleteGallery{
         @Header("sysCd") sysCd: String,
         @Header("token") token : String
     ): Call<PostGalleryDTO>
+}
+
+//공사일보 댓글 관리 =======================================================================================
+//공사일보 댓글 조회
+interface GetReply{
+    @Headers("Content-Type: application/json")
+    @GET("/projWorkReplyManage/WorkReply/{sys_doc_num}")
+    fun requestGetReply(
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Query("parent_uuid") parent_uuid : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String
+    ): Call<ReplyDTO>
+}
+
+//공사일보 댓글 삭제
+interface DeleteReply{
+    @Headers("Content-Type: application/json")
+    @DELETE("/projWorkLogManage/WorkReply/{sys_doc_num}")
+    fun requestDeleteReply(
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Query("uuid") uuid : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String
+    ): Call<PostGalleryDTO>
+}
+
+//공사일보 댓글 작성
+interface PostReply{
+    @Headers("Content-Type: application/json")
+    @POST("/projWorkLogManage/WorkReply/{sys_doc_num}")
+    fun requestPostReply(
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Query("parent_uuid") parent_uuid: String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String
+    ): Call<ReplyDTO>
+}
+
+//공사일보 댓글 수정
+interface PutReply{
+    @Headers("Content-Type: application/json")
+    @PUT("/projWorkLogManage/WorkReply/{sys_doc_num}")
+    fun requestPutReply(
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Query("uuid") uuid: String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String
+    ): Call<ReplyDTO>
 }

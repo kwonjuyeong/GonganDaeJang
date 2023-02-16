@@ -68,20 +68,11 @@ class WorkEditPhoto : AppCompatActivity() {
 
         //이미지 조회================================================================================================
         binding.imageRecycler.layoutManager = LinearLayoutManager(this)
-        binding.imageRecycler.adapter = ConsWorkInfoInsideFileAdapter(ImageInfoData) { deleteBtn(it) }
+        binding.imageRecycler.adapter = ConsWorkInfoInsideFileAdapter(ImageInfoData, {deleteBtn(it)}, userToken, consCode, sysDocNum)
 
         ImageInfoData.clear()
         for(i in 0 until imageGetData.imageList.size){
-            ImageInfoInputData = ImageInputList(
-                imageGetData.imageList[i].change_name,
-                imageGetData.imageList[i].cons_date,
-                imageGetData.imageList[i].cons_type_cd,
-                imageGetData.imageList[i].cons_type_nm,
-                imageGetData.imageList[i].cons_type_explain,
-                imageGetData.imageList[i].file_index,
-                imageGetData.imageList[i].origin_name,
-                imageGetData.imageList[i].path, imageGetData.imageList[i].title,
-                imageGetData.imageList[i].upload_date)
+            ImageInfoInputData = ImageInputList(imageGetData.imageList[i].change_name, imageGetData.imageList[i].cons_date, imageGetData.imageList[i].cons_type_cd, imageGetData.imageList[i].cons_type_nm, imageGetData.imageList[i].cons_type_explain, imageGetData.imageList[i].file_index, imageGetData.imageList[i].origin_name, imageGetData.imageList[i].path, imageGetData.imageList[i].title, imageGetData.imageList[i].upload_date)
             ImageInfoData.add(ImageInfoInputData)
         }
         //=========================================================================================================
@@ -168,10 +159,12 @@ class WorkEditPhoto : AppCompatActivity() {
                                         Log.d("post_gallery_code", delete?.value.toString())
                                         if(delete?.code == 200){
                                             Toast.makeText(this@WorkEditPhoto, "사진 등록", Toast.LENGTH_SHORT).show()
-                                            ImageInfoInputData = ImageInputList("","","","", "", ImageInfoData.size , filename ,"" , title,"")
+                                            ImageInfoInputData = ImageInputList("","1","","", "", ImageInfoData.size , filename ,file.path , title,"")
                                             ImageInfoData.add(ImageInfoInputData)
                                             binding.imageRecycler.adapter?.notifyDataSetChanged()
                                             binding.title.setText("")
+                                        }else{
+                                            Toast.makeText(this@WorkEditPhoto, "사진 등록 실패", Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                 })
@@ -218,7 +211,7 @@ class WorkEditPhoto : AppCompatActivity() {
 
                                     Log.d("json", jsonObject)
 
-                                    photoPost.requestPostGallery(consCode, sysDocNum, ImageInfoData.size+1 ,CodeList.sysCd, userToken, jsonBody, fileBody).enqueue(object :
+                                    photoPost.requestPostGallery(consCode, sysDocNum, ImageInfoData.size ,CodeList.sysCd, userToken, jsonBody, fileBody).enqueue(object :
                                         Callback<PostGalleryDTO> {
                                         override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {Log.d("retro", t.toString())}
                                         @SuppressLint("NotifyDataSetChanged")
@@ -227,19 +220,17 @@ class WorkEditPhoto : AppCompatActivity() {
                                             Log.d("post_gallery_code", delete?.code.toString())
                                             Log.d("post_gallery_code", delete?.msg.toString())
                                             Log.d("post_gallery_code", delete?.value.toString())
-
                                             if(delete?.code == 200){
                                                 Toast.makeText(this@WorkEditPhoto, "사진 등록", Toast.LENGTH_SHORT).show()
                                                 ImageInfoInputData = ImageInputList("",consDate ,consTypeCd,"", "", ImageInfoData.size , filename ,"" , title,"")
                                                 ImageInfoData.add(ImageInfoInputData)
                                                 binding.imageRecycler.adapter?.notifyDataSetChanged()
                                                 binding.title.setText("")
+                                            }else{
+                                                Toast.makeText(this@WorkEditPhoto, "사진 등록 실패", Toast.LENGTH_SHORT).show()
                                             }
                                         }
                                     })
-
-
-
                                 } finally {
                                     out.close()
                                 }

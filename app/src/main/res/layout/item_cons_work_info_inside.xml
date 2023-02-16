@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:text="층수"
+            android:text=""
             android:textColor="@color/AllScape_gray"
             android:textSize="16sp"
             android:textStyle="bold"

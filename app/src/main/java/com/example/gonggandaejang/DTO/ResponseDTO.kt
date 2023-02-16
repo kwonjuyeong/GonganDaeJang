@@ -256,3 +256,19 @@ data class ImageData(
     val upload_date : String
 )
 
+//공사일보 댓글 관리
+data class ReplyDTO(
+   val code : Int,
+   val msg : String,
+   val value : ArrayList<ReplyData>
+)
+data class ReplyData(
+    val child_count : Int,
+    val content : String,
+    val parent_uuid : String,
+    val reg_date : String,
+    val sys_doc_num : String,
+    val uuid : String,
+    val writer_id : String,
+    val writer_name : String
+)

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggandaejang.R
 import com.example.gonggandaejang.databinding.ItemDailyWorkDocPhotoPostBinding
+import com.example.gonggandaejang.objects.DocFileDownLoadDTO
+import com.example.gonggandaejang.objects.loadFile
 
-class ConsWorkInfoInsideFileAdapter(private val dataset: List<ImageInputList>,  private val deleteButton : (data : ImageInputList) -> Unit):
+class ConsWorkInfoInsideFileAdapter(private val dataset: List<ImageInputList>,  private val deleteButton : (data : ImageInputList) -> Unit, private val token : String, private val consCode : String, private val sysDocNum : String):
     RecyclerView.Adapter<ConsWorkInfoInsideFileAdapter.ConsWorkInfoInsideFileViewHolder>() {
 
     class ConsWorkInfoInsideFileViewHolder(val binding: ItemDailyWorkDocPhotoPostBinding) : RecyclerView.ViewHolder(binding.root)
@@ -20,6 +22,8 @@ class ConsWorkInfoInsideFileAdapter(private val dataset: List<ImageInputList>,  
     override fun onBindViewHolder(viewHolder: ConsWorkInfoInsideFileViewHolder, position: Int) {
         val listPosition = dataset[position]
         viewHolder.binding.title.text = listPosition.title
+
+        loadFile(token ,viewHolder.binding.images , DocFileDownLoadDTO(consCode,sysDocNum,listPosition.path,listPosition.origin_name,listPosition.change_name))
 
         viewHolder.binding.deleteBtn.setOnClickListener {
            deleteButton.invoke(listPosition)

@@ -174,7 +174,7 @@ interface GetReply{
 //공사일보 댓글 삭제
 interface DeleteReply{
     @Headers("Content-Type: application/json")
-    @DELETE("/projWorkLogManage/WorkReply/{sys_doc_num}")
+    @DELETE("/projWorkReplyManage/WorkReply/{sys_doc_num}")
     fun requestDeleteReply(
         @Path("sys_doc_num") sys_doc_num: String,
         @Query("uuid") uuid : String,
@@ -186,13 +186,14 @@ interface DeleteReply{
 //공사일보 댓글 작성
 interface PostReply{
     @Headers("Content-Type: application/json")
-    @POST("/projWorkLogManage/WorkReply/{sys_doc_num}")
+    @POST("/projWorkReplyManage/WorkReply/{sys_doc_num}")
     fun requestPostReply(
         @Path("sys_doc_num") sys_doc_num: String,
         @Query("parent_uuid") parent_uuid: String,
         @Header("sysCd") sysCd: String,
-        @Header("token") token : String
-    ): Call<ReplyDTO>
+        @Header("token") token : String,
+        @Body ReplyPostRequestDTO : ReplyPostRequestDTO
+    ): Call<PostGalleryDTO>
 }
 
 //공사일보 댓글 수정

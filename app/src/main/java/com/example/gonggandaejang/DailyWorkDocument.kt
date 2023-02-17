@@ -30,7 +30,7 @@ class DailyWorkDocument : AppCompatActivity() {
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var userToken: String
-    private lateinit var constCode : String
+    private lateinit var consCode : String
     private lateinit var sysDocNum : String
 
     //작업량
@@ -55,7 +55,7 @@ class DailyWorkDocument : AppCompatActivity() {
         //작업일보 상세보기====================================================================================================================
         //작업량
         binding.consWorkInfoRecycler.layoutManager = LinearLayoutManager(this)
-        binding.consWorkInfoRecycler.adapter = ConsWorkInfoAdapter(this, consWorkInfoData, sysDocNum, constCode)
+        binding.consWorkInfoRecycler.adapter = ConsWorkInfoAdapter(this, consWorkInfoData, sysDocNum, consCode)
         //인력
         binding.consManpInfoRecycler.layoutManager = LinearLayoutManager(this)
         binding.consManpInfoRecycler.adapter = ConsManPInfoAdapter(this, consManpInfoData)
@@ -63,7 +63,7 @@ class DailyWorkDocument : AppCompatActivity() {
         val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/DailyWork/{cons_code}/{sys_doc_num}/")
         val detailDoc: WorkDetailDiary = retrofit.create(WorkDetailDiary::class.java)
 
-        detailDoc.requestDailyWork(constCode, sysDocNum, CodeList.sysCd, userToken).enqueue(object :
+        detailDoc.requestDailyWork(consCode, sysDocNum, CodeList.sysCd, userToken).enqueue(object :
             Callback<DailyWorkDTO> {
             override fun onFailure(call: Call<DailyWorkDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
@@ -194,7 +194,7 @@ class DailyWorkDocument : AppCompatActivity() {
         editor = sharedPreference.edit()
         userToken = sharedPreference.getString("token", "").toString()
         sysDocNum = intent.getStringExtra("sysDocNum")!!
-        constCode = intent.getStringExtra("code")!!
+        consCode = intent.getStringExtra("code")!!
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

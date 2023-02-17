@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +33,13 @@ class ConsWorkInfoInsideAdapter(private val context: Context, private val datase
         viewHolder.binding.todayWorkload.text = listPosition.today_workload.toString()
         viewHolder.binding.nextWorkload.text = listPosition.next_workload.toString()
         viewHolder.binding.prevWorkload.text = listPosition.prev_workload.toString()
-        viewHolder.binding.explain.text = listPosition.cons_type_explain
+
+        val floor = listPosition.level1_name.split(" ")
+
+        if(floor[0].contains("F")){
+            viewHolder.binding.floor.text = floor[0]
+        }
+
         val tDecUp = DecimalFormat("#,###")
         viewHolder.binding.quantity.text = tDecUp.format(listPosition.quantity)
         viewHolder.binding.unit.text = listPosition.unit

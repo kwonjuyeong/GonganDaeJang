@@ -16,6 +16,7 @@ import com.allscapeservice.a22allscape_app.objects.callRetrofit
 import com.allscapeservice.a22allscape_app.objects.convertDateFormat4
 import com.example.gonggandaejang.API.GetReply
 import com.example.gonggandaejang.R
+import com.example.gonggandaejang.databinding.ItemCommentChildBinding
 import com.example.gonggandaejang.databinding.ItemCommentParentsBinding
 import com.example.gonggandaejang.objects.CodeList
 import com.google.gson.Gson
@@ -23,37 +24,26 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-data class CommentData(
-    val child_count : Int,
-    val content : String,
-    val parent_uuid : String,
-    val reg_date : String,
-    val sys_doc_num :String,
-    val uuid : String,
-    val write_id : String,
-    val writer_name :String
-)
 
 private var getReply : ReplyDTO ?= null
 
-class CommentAdapter(private val context: Context, private val dataset: List<CommentData>,  private val writeCommentBtn : (data : CommentData) -> Unit, private val sysDocNum : String, private val token : String):
-    RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+class CommentChildAdapter(private val context: Context, private val dataset: List<CommentData>,  private val writeCommentBtn : (data : CommentData) -> Unit, private val sysDocNum : String, private val token : String):
+    RecyclerView.Adapter<CommentChildAdapter.CommentChildViewHolder>() {
 
-    class CommentViewHolder(val binding: ItemCommentParentsBinding) : RecyclerView.ViewHolder(binding.root)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CommentViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_comment_parents, viewGroup, false)
-        return CommentViewHolder(ItemCommentParentsBinding.bind(view))
+    class CommentChildViewHolder(val binding: ItemCommentChildBinding) : RecyclerView.ViewHolder(binding.root)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CommentChildViewHolder {
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_comment_child, viewGroup, false)
+        return CommentChildViewHolder(ItemCommentChildBinding.bind(view))
     }
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
-    override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: CommentChildViewHolder, position: Int) {
         val listPosition = dataset[position]
         var replyState = 0
 
         viewHolder.binding.writer.text = listPosition.writer_name
         viewHolder.binding.content.text = listPosition.content
         viewHolder.binding.writeDate.text = convertDateFormat4(listPosition.reg_date)
-
 
         //대댓글 확인==========================================================
         viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count}"

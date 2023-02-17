@@ -6,29 +6,37 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <!--android:background="@drawable/square_table"-->
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_color_arrow_right_24"
+        app:layout_constraintBottom_toBottomOf="@+id/writer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/writer" />
     <TextView
         android:id="@+id/writer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5sp"
         android:text="작성자"
         android:textColor="@color/AllScape_deep_blue"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:padding="5sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="내용입니다."
         android:padding="5sp"
+        android:text="내용입니다."
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/writer" />
 
     <TextView
@@ -74,8 +82,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_marginStart="10sp"
+        android:background="@drawable/squer_"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reply_count" />
+        app:layout_constraintTop_toBottomOf="@+id/reply_count"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

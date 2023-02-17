@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_color_arrow_right_24"
-        app:layout_constraintBottom_toBottomOf="@+id/writer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/writer" />
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/writer"
         android:layout_width="wrap_content"
@@ -24,42 +24,48 @@
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/modify_btn"
+    <LinearLayout
+        android:id="@+id/delete_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10sp"
-        android:layout_marginEnd="10sp"
-        android:text="수정"
-        android:textColor="@color/AllScape_gray"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/content"
-        app:layout_constraintEnd_toStartOf="@+id/view2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:layout_margin="10sp"
-        android:background="@color/AllScape_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/delete_btn"
-        app:layout_constraintEnd_toStartOf="@+id/delete_btn"
-        app:layout_constraintTop_toTopOf="@+id/delete_btn" />
-
-    <TextView
-        android:id="@+id/delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10sp"
-        android:text="삭제"
-        android:textColor="@color/AllScape_gray"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/content"
+        app:layout_constraintBottom_toBottomOf="@+id/writer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/writer">
+        <TextView
+            android:id="@+id/modify_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="수정"
+            android:textColor="@color/AllScape_gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/content"
+            app:layout_constraintEnd_toStartOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10sp"
+            android:background="@color/AllScape_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/delete_btn"
+            app:layout_constraintEnd_toStartOf="@+id/delete_btn"
+            app:layout_constraintTop_toTopOf="@+id/delete_btn" />
+        <TextView
+            android:id="@+id/delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="삭제"
+            android:textColor="@color/AllScape_gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/content"
         android:layout_width="0dp"

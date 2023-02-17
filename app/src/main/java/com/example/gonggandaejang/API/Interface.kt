@@ -199,7 +199,7 @@ interface PostReply{
 //공사일보 댓글 수정
 interface PutReply{
     @Headers("Content-Type: application/json")
-    @PUT("/projWorkLogManage/WorkReply/{sys_doc_num}")
+    @PUT("/projWorkReplyManage/WorkReply/{sys_doc_num}")
     fun requestPutReply(
         @Path("sys_doc_num") sys_doc_num: String,
         @Query("uuid") uuid: String,

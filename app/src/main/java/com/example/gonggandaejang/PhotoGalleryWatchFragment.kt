@@ -178,8 +178,6 @@ class PhotoGalleryFragment : Fragment() {
             binding.endDate.text = ""
         }
 
-
-
     }
 
     override fun onCreateView(

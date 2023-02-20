@@ -24,7 +24,8 @@
             android:src="@drawable/ico_out"
             android:background="@drawable/blue_btn_background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <ScrollView
             android:id="@+id/scrollView4"
@@ -196,7 +197,8 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -252,7 +254,8 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -311,7 +314,8 @@
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -358,7 +362,6 @@
                                 android:background="#46CE9B"
                                 android:src="@drawable/ico_tit1_1_5"
                                 tools:ignore="ContentDescription" />
-
                             <LinearLayout
                                 android:layout_width="0sp"
                                 android:layout_height="wrap_content"
@@ -366,12 +369,11 @@
                                 android:layout_weight="0.8"
                                 android:gravity="end"
                                 android:orientation="vertical">
-
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -381,7 +383,6 @@
                                         android:textColor="@color/AllScape_deep_blue"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
-
                                     <TextView
                                         android:id="@+id/complete_proj"
                                         android:layout_width="wrap_content"

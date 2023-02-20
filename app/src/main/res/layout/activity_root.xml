@@ -21,7 +21,8 @@
         android:background="@drawable/blue_btn_background"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/top_navi"

@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10sp"
-    android:background="@drawable/delete_btn">
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/delete_btn"
+        android:orientation="vertical"
+        android:padding="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -24,11 +39,11 @@
             android:id="@+id/work_log_cons_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
             android:text="@string/cons_type_nm"
             android:textColor="@color/AllScape_gray"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginStart="10sp"
             app:layout_constraintStart_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="@+id/title" />
 
@@ -39,91 +54,128 @@
             android:text="@string/cons_type_nm"
             android:textColor="@color/AllScape_gray"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/work_log_cons_code"
             app:layout_constraintTop_toBottomOf="@+id/work_log_cons_code" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10sp"
-        android:orientation="horizontal">
-        <TextView
-            android:text="전일"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textColor="@color/AllScape_deep_blue"
-            android:textSize="16sp"
-            android:layout_weight="0.1"/>
-        <TextView
-            android:id="@+id/prev_manpower"
-            android:text="층수"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/AllScape_gray"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_weight="0.2"/>
-        <TextView
-            android:text="금일"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textColor="@color/AllScape_deep_blue"
-            android:textSize="16sp"
-            android:layout_weight="0.1"/>
-        <TextView
-            android:id="@+id/today_manpower"
-            android:text="단위량"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/AllScape_gray"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_weight="0.2"/>
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/level_name"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/level_name">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10sp"
-        android:orientation="horizontal">
-        <TextView
-            android:text="총계"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textColor="@color/AllScape_deep_blue"
-            android:textSize="16sp"
-            android:layout_weight="0.1"/>
-        <TextView
-            android:id="@+id/total_manpower"
-            android:text="물량"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/AllScape_gray"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_weight="0.2"/>
-        <TextView
-            android:text="명일"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textColor="@color/AllScape_deep_blue"
-            android:textSize="16sp"
-            android:layout_weight="0.1"/>
-        <TextView
-            android:id="@+id/next_manpower"
-            android:text="층수"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/AllScape_gray"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_weight="0.2"/>
-    </LinearLayout>
-</LinearLayout>
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="전일"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/level_name" />
+
+            <TextView
+                android:id="@+id/prev_manpower"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="층수"
+                android:textColor="@color/AllScape_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintStart_toEndOf="@+id/textView16"
+                app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="금일"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintStart_toEndOf="@+id/prev_manpower"
+                app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/today_manpower"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="단위량"
+                android:textColor="@color/AllScape_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                app:layout_constraintStart_toEndOf="@+id/textView17"
+                app:layout_constraintTop_toTopOf="@+id/textView17" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="총계"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/prev_manpower" />
+
+            <TextView
+                android:id="@+id/total_manpower"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="물량"
+                android:textColor="@color/AllScape_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                app:layout_constraintStart_toEndOf="@+id/textView18"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="명일"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                app:layout_constraintStart_toEndOf="@+id/total_manpower"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/next_manpower"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:text="층수"
+                android:textColor="@color/AllScape_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.25"
+                app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

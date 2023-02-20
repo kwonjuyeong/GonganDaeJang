@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:text="사진 목록"
+        android:text="@string/photo_list"
         android:textColor="@color/AllScape_deep_blue"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:text="새로 추가한 사진은 이미지를 다시 조회하면 보입니다"
+        android:text="@string/photo_info"
         android:textColor="@color/AllScape_gray"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
-        android:text="제목"
+        android:text="@string/title"
         android:textColor="@color/AllScape_deep_blue"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -70,7 +70,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toStartOf="@+id/add_image_btn"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        tools:ignore="Autofill,LabelFor,TextFields" />
 
     <ImageButton
         android:id="@+id/add_image_btn"
@@ -81,7 +82,8 @@
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/image_recycler"

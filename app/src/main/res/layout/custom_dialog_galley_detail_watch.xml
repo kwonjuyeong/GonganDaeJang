@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
            android:padding="10sp"
-            android:text="사진 정보"
+            android:text="@string/photo_info2"
             android:textColor="@color/AllScape_deep_blue"
             android:textSize="22sp"
             android:textStyle="bold"

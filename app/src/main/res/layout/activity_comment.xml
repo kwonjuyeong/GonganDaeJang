@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CommentActivity">
-
     <include
         android:id="@+id/include"
         layout="@layout/toolbar_original"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
@@ -28,7 +26,7 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comment"
+            android:text="@string/comment"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="italic"
@@ -40,17 +38,20 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10sp"
-            android:background="@drawable/squer_"
+            android:background="@drawable/square_reply"
+            android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/post_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
 
         <Button
             android:id="@+id/post_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="등록"
+            android:text="@string/post"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"

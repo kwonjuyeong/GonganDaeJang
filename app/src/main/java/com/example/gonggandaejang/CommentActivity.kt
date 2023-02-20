@@ -76,10 +76,11 @@ class CommentActivity : AppCompatActivity() {
             }
         })
         //=========================================================================================================
-
-
         binding.postBtn.setOnClickListener {
+
             val content = binding.postEditText.text.toString()
+
+            if(content != ""){
 
             val retrofitPost = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
             val postReply: PostReply = retrofitPost.create(PostReply::class.java)
@@ -92,7 +93,6 @@ class CommentActivity : AppCompatActivity() {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(call: Call<PostGalleryDTO>, response: Response<PostGalleryDTO>) {
                     postReplyD = response.body()
-
 
                     if(postReplyD?.code == 200){
                         binding.postEditText.setText("")
@@ -107,25 +107,20 @@ class CommentActivity : AppCompatActivity() {
                                 getReply = response.body()
 
                                 commentData.clear()
+
                                 for(i in 0 until getReply?.value!!.size){
                                     commentInputData = CommentData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(),
-                                        getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(),
-                                        getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
+                                    getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(),
+                                    getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                                     commentData.add(commentInputData)
                                 }
                                 binding.commentParentRecycler.adapter?.notifyDataSetChanged()
                             }
                         })
-
                     }
-
                 }
             })
-
-
-
-
-
+          }
         }
 
 

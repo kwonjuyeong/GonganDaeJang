@@ -6,7 +6,8 @@
     <string name="use_price">사용 금액</string>
     <string name="cons_type_nm">공사종류</string>
     <string name="work_log_cons_code">공사코드</string>
-
+    <string name="modify">수정</string>
+    <string name="write_reply">답글쓰기</string>
     <string name="work_diary">내용</string>
     <string name="today_content">금일 공사 내용</string>
     <string name="next_content">명일 공사 예정 내용</string>
@@ -19,17 +20,22 @@
     <string name="search_date">검색날짜</string>
     <string name="title_activity_gallery">Gallery</string>
     <string name="watch_daily_work">작업일보 조회</string>
+    <string name="watch">조회</string>
     <string name="post_picture">사진 등록</string>
     <string name="file_title">사진 제목</string>
     <string name="title">제목</string>
     <string name="add_date">등록날짜</string>
     <string name="post">등록</string>
+    <string name="reply">댓글…</string>
+    <string name="comment">Comment</string>
     <string name="file_name">파일명</string>
     <string name="add_pic">사진추가</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_name">공간대장</string>
     <string name="Id">아이디</string>
+    <string name="photo_list">사진 목록</string>
+    <string name="photo_info">새로 추가한 사진은 이미지를 다시 조회하면 보입니다</string>
+    <string name="photo_info2">사진 정보</string>
     <string name="work_date">공사일</string>
     <string name="work_name">공사명</string>
     <string name="select">선택</string>
@@ -66,12 +72,13 @@
     <string name="writer_and_write_date">작성자 | 작성일</string>
     <string name="calender_day_format">%1$s-%2$s-%3$s</string>
     <string name="star">*</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="title_activity_quality_management_material_response_document">
-    </string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="tomorrow_date">명일</string>
+    <string name="previous_date">전일</string>
+    <string name="today_date">금일</string>
+    <string name="total">총계</string>
+    <string name="floor">층수</string>
 </resources>

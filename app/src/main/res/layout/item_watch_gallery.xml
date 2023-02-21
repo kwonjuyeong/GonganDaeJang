@@ -10,17 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:adjustViewBounds="true"
-        android:background="@drawable/delete_btn"
         android:padding="10sp"
         tools:ignore="ContentDescription"/>
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginTop="10sp"
-        android:text="123132"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/AllScape_deep_blue"/>

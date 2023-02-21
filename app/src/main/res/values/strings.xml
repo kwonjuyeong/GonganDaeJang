@@ -81,4 +81,5 @@
     <string name="today_date">금일</string>
     <string name="total">총계</string>
     <string name="floor">층수</string>
+    <string name="weather_format">%1$sC / %2$s / %3$s</string>
 </resources>

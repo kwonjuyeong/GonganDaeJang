@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allscapeservice.a22allscape_app.DTO.*
 import com.allscapeservice.a22allscape_app.objects.*
+import com.example.gonggandaejang.API.GetCurTimeInfoService
+import com.example.gonggandaejang.API.GetWeatherService
 import com.example.gonggandaejang.API.ProjectGoService
 import com.example.gonggandaejang.API.ProjectListService
 import com.example.gonggandaejang.Adapter.DashBoardProjectGo
@@ -27,6 +29,7 @@ import com.example.gonggandaejang.objects.CodeList.project_stop
 import com.example.gonggandaejang.objects.CodeList.sysCd
 import com.example.gonggandaejang.objects.startCloseLogoutCustom
 import com.google.gson.Gson
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +41,10 @@ private lateinit var userToken : String
 private var projectGo : ProjectGoDTO? = null
 private var projectList : ProjectListDTO? = null
 private var userInfo: UserInfoDTO? = null
+//Response DTO 정의=============================================================================
+private var job : Job?= null
+private var curTime: GetCurTimeInfoDTO? = null
+private var weather: GetWeatherInfoDTO? = null
 
 class DashboardUsers : AppCompatActivity() {
     private lateinit var binding: ActivityDashUsersBinding
@@ -64,6 +71,55 @@ class DashboardUsers : AppCompatActivity() {
         init()
         requestMultiplePermissions(this)
 
+        //날씨정보 표시 =============================================================================================================================================
+        val retrofitWeather = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
+        val getWeatherService: GetWeatherService = retrofitWeather.create(GetWeatherService::class.java)
+
+        getWeatherService.requestWeather(CodeList.sysCd, userToken).enqueue(object :
+            Callback<GetWeatherInfoDTO> { override fun onFailure(call: Call<GetWeatherInfoDTO>, t: Throwable) { Log.d("retrofit_weather", t.toString()) }
+            override fun onResponse(call: Call<GetWeatherInfoDTO>, response: Response<GetWeatherInfoDTO>) {
+                weather = response.body()
+
+                val ptyResult = weather?.value?.ptyResult
+                val skyResult = weather?.value?.skyResult
+                val t1kResult = weather?.value?.t1hResult
+
+                if (weather?.code == 200) {
+                    val weather = weatherCode(ptyResult, skyResult, binding.weatherIcon)
+                    val ptyReturn = weather["pty"]
+                    val skyReturn = weather["sky"]
+                    if(ptyReturn == "") {binding.weatherSet.text = "$skyReturn"
+                    }else{
+                        binding.weatherSet.text = getString(R.string.weather_format, t1kResult, ptyReturn, skyReturn)
+                    }
+                }
+            }
+        })
+        //시간정보 표시=============================================================================================================================================
+        val retrofitCurTime = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCurTimeInfo/")
+        val getCurTimeInfoService: GetCurTimeInfoService = retrofitCurTime.create(GetCurTimeInfoService::class.java)
+
+        job = CoroutineScope(Dispatchers.IO).launch {
+            while (true) {
+                getCurTimeInfoService.requestCurTime(CodeList.sysCd, userToken).enqueue(object :
+                    Callback<GetCurTimeInfoDTO> {
+                    override fun onFailure(call: Call<GetCurTimeInfoDTO>, t: Throwable) {
+                        Log.d("retrofit", t.toString())
+                    }
+                    override fun onResponse(call: Call<GetCurTimeInfoDTO>, response: Response<GetCurTimeInfoDTO>) {
+                        curTime = response.body()
+                        if (curTime?.code == 200) {
+                            binding.timeSet.text = curTime?.value
+                        }
+                    }
+                })
+                delay(1000)
+            }
+        }
+        //시간 코루틴 사용
+        CoroutineScope(Dispatchers.IO).launch {
+            job!!.join()
+        }
         //프로젝트 상태 통계 현황 조회 표시 =====================================================================================================
         val retroProjList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/")
         val getProjectListService : ProjectListService = retroProjList.create(ProjectListService::class.java)
@@ -269,6 +325,11 @@ class DashboardUsers : AppCompatActivity() {
         sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
         editor = sharedPreference.edit()
         userToken = sharedPreference.getString("token", "").toString()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job?.cancel()
     }
 }
 

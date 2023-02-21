@@ -26,6 +26,15 @@ interface LogoutService {
     ): Call<LogoutDTO>
 }
 
+interface GetWeatherService {
+    @Headers("Content-Type: application/json")
+    @GET("/commManage/getWeatherInfo")
+    fun requestWeather(
+        @Header("sysCd") sysCd: String?,
+        @Header("token") token: String?,
+    ): Call<GetWeatherInfoDTO>
+}
+
 //사진대지 조회
 interface GetGalleryPic{
     @Headers("Content-Type: application/json")
@@ -204,6 +213,7 @@ interface PutReply{
         @Path("sys_doc_num") sys_doc_num: String,
         @Query("uuid") uuid: String,
         @Header("sysCd") sysCd: String,
-        @Header("token") token : String
+        @Header("token") token : String,
+        @Body ReplyPutRequestDTO : ReplyPutRequestDTO
     ): Call<ReplyDTO>
 }

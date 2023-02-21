@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,43 +10,44 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="UselessParent">
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:padding="10sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false">
-            <LinearLayout
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_vertical_split_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+            <TextView
                 android:layout_width="0sp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="0.7"
-                tools:ignore="UseCompoundDrawables">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_vertical_split_24"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:gravity="start"
-                    android:layout_gravity="center"
-                    android:text="@string/work_management"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/AllScape_deep_blue"/>
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:text="@string/work_management"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!-- 검색 목록-->
         <LinearLayout
             android:id="@+id/filter_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/square_table_deep_blue"
+            android:background="@drawable/square_table"
             android:layout_margin="5sp"
             android:padding="10sp">
 
@@ -59,7 +61,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.2"
                     android:text="@string/work_date"
-                    android:textColor="@color/white"
+                    android:textColor="@color/AllScape_deep_blue"
                     android:textSize="16sp"
                     android:textStyle="bold" />
                 <TextView
@@ -68,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.35"
-                    android:textColor="@color/white"
+                    android:textColor="@color/AllScape_deep_blue"
                     android:ems="6"
                     android:gravity="center"
                     android:minHeight="36dp"
@@ -78,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/calendar"
+                    android:background="@drawable/ico_calendar"
                     tools:ignore="ContentDescription" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,7 +88,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.05"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/AllScape_deep_blue"
                     android:text="~"
                     tools:ignore="HardcodedText" />
                 <TextView
@@ -97,7 +99,7 @@
                     android:layout_weight="0.35"
                     android:ems="6"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/AllScape_deep_blue"
                     android:minHeight="36dp"
                     android:textSize="16sp" />
                 <ImageButton
@@ -105,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/calendar"
+                    android:background="@drawable/ico_calendar"
                     tools:ignore="ContentDescription" />
             </LinearLayout>
 

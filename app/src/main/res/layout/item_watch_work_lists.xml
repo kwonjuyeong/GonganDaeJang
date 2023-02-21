@@ -7,10 +7,9 @@
     android:orientation="vertical"
     android:padding="15sp"
     android:background="@drawable/delete_btn"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginTop="10dp">
-
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp">
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -21,8 +20,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -34,12 +31,10 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
-
     <TextView
         android:id="@+id/work_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_gallery"
         android:textColor="@color/AllScape_gray"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -47,7 +42,6 @@
         app:layout_constraintEnd_toEndOf="@+id/write_date"
         app:layout_constraintStart_toStartOf="@+id/writer"
         app:layout_constraintTop_toTopOf="@+id/textView" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -60,20 +54,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <TextView
         android:id="@+id/writer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_marginStart="10sp"
-        android:text="ddddddd"
         android:textColor="@color/AllScape_gray"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
-
     <View
         android:id="@+id/view"
         android:layout_width="2dp"
@@ -84,12 +75,10 @@
         app:layout_constraintEnd_toStartOf="@+id/write_date"
         app:layout_constraintStart_toEndOf="@+id/writer"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
-
     <TextView
         android:id="@+id/write_date"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="ddddddd"
         android:textColor="@color/AllScape_gray"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -97,7 +86,6 @@
         app:layout_constraintEnd_toStartOf="@+id/detail_btn"
         app:layout_constraintStart_toEndOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
-
     <ImageButton
         android:id="@+id/detail_btn"
         android:layout_width="wrap_content"

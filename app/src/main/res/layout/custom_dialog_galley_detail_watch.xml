@@ -31,14 +31,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/square_table"
-        android:padding="10sp"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-           android:padding="10sp"
+            android:padding="10sp"
+            android:background="@drawable/square_table"
             android:text="@string/photo_info2"
             android:textColor="@color/AllScape_deep_blue"
             android:textSize="22sp"
@@ -46,16 +45,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10sp"
+            android:layout_margin="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -64,7 +61,6 @@
                 android:textColor="@color/AllScape_deep_blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/detail_gallery_date"
                 android:layout_width="0dp"
@@ -79,11 +75,10 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10sp"
+            android:layout_margin="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14">
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -92,7 +87,6 @@
                 android:textColor="@color/AllScape_deep_blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/detail_gallery_file_name"
                 android:layout_width="0dp"
@@ -118,5 +112,4 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
             tools:ignore="ButtonStyle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

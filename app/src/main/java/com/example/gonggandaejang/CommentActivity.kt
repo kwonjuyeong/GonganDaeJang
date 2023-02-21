@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allscapeservice.a22allscape_app.DTO.PostGalleryDTO
 import com.allscapeservice.a22allscape_app.DTO.ReplyDTO
 import com.allscapeservice.a22allscape_app.DTO.ReplyPostRequestDTO
+import com.allscapeservice.a22allscape_app.DTO.UserInfoDTO
 import com.allscapeservice.a22allscape_app.objects.callRetrofit
 import com.example.gonggandaejang.API.GetReply
+import com.example.gonggandaejang.API.GetUserInfoService
 import com.example.gonggandaejang.API.PostReply
 import com.example.gonggandaejang.Adapter.CommentAdapter
 import com.example.gonggandaejang.Adapter.CommentData
@@ -25,9 +29,10 @@ import retrofit2.Response
 private var getReply : ReplyDTO ?= null
 private var postReplyD : PostGalleryDTO ?= null
 
+
+
 private var commentData = arrayListOf<CommentData>()
 private lateinit var commentInputData : CommentData
-
 
 class CommentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommentBinding
@@ -48,13 +53,13 @@ class CommentActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
         supportActionBar?.title = "댓글"
 
-        //부모댓글 조회 =========================================================================================================
-        //작업량
-        binding.commentParentRecycler.layoutManager = LinearLayoutManager(this)
-        binding.commentParentRecycler.adapter = CommentAdapter(this, commentData,sysDocNum,userToken)
-
         val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
         val workReply: GetReply = retrofit.create(GetReply::class.java)
+
+        //부모댓글 조회 =========================================================================================================
+        //작업량
+        binding.commentParentRecycler.layoutManager = LinearLayoutManager(this@CommentActivity)
+        binding.commentParentRecycler.adapter = CommentAdapter(this@CommentActivity, commentData,sysDocNum,userToken)
 
         workReply.requestGetReply(sysDocNum, "", CodeList.sysCd, userToken).enqueue(object :
             Callback<ReplyDTO> {

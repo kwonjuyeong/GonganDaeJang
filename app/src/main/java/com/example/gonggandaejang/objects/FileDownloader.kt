@@ -1,6 +1,7 @@
 package com.example.gonggandaejang.objects
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
@@ -56,9 +57,8 @@ fun loadFile(userToken: String ,imageView: ImageView, data : DocFileDownLoadDTO)
             // Status 가 200 일 때
             if (conn.responseCode == HttpURLConnection.HTTP_OK) {
                 `is` = conn.inputStream
-
                 val bitmap = BitmapFactory.decodeStream(`is`)
-
+                BitmapFactory.Options().inSampleSize = 200
                 handler.postDelayed({
                     imageView.setImageBitmap(bitmap)
                 }, 0)

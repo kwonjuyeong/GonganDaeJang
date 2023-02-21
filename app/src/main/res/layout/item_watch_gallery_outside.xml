@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/delete_btn"
     android:orientation="vertical">
     <TextView
         android:id="@+id/date"
@@ -11,12 +10,11 @@
         android:layout_margin="10sp"
         android:text="날짜"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textColor="@color/AllScape_deep_blue"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_gravity="center"
         android:background="@color/AllScape_deep_blue"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_item_recycler"

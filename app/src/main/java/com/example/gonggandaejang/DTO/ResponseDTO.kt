@@ -41,6 +41,18 @@ data class GetCurTimeInfoDTO(
     val value : String
 )
 
+//날씨 및 온도 제공
+data class GetWeatherInfoDTO(
+    val code : Int,
+    val msg : String,
+    val value : Weather
+)
+data class Weather(
+    val ptyResult : String?,
+    val skyResult : String?,
+    val t1hResult : String?
+)
+
 //코드 리스트 제공
 data class GetCodeListDTO(
     val code : Int,

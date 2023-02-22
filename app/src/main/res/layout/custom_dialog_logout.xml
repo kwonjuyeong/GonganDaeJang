@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,14 +19,43 @@
         android:textColor="@color/AllScape_deep_blue"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="로그아웃 하시겠습니까?" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/logout_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/logout_text"
+        app:layout_constraintStart_toStartOf="@+id/logout_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/logout" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/wave_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/logout_text"
+        app:layout_constraintStart_toStartOf="@+id/logout_text"
+        app:layout_constraintTop_toBottomOf="@+id/logout_animation"
+        android:visibility="gone"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/waving_hands" />
     <LinearLayout
+        android:id="@+id/logout_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout_text">
         <Button
             android:id="@+id/logout_btn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -32,22 +63,20 @@
             android:text="@string/logout"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/logout_cancel_btn"
-            android:layout_marginStart="10sp"
-            android:background="@color/AllScape_gray"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginStart="10sp"
             android:layout_marginEnd="7dp"
             android:layout_weight="1"
+            android:background="@color/AllScape_gray"
             android:text="@string/Cancel"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            style="?android:attr/buttonBarButtonStyle" />
-
+            android:textStyle="bold" />
     </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

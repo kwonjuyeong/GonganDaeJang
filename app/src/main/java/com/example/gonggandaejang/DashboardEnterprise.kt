@@ -61,6 +61,8 @@ class DashboardEnterprise : AppCompatActivity() {
         //사용자 권한 체크
         requestMultiplePermissions(this)
 
+            binding.lottieAnimation.playAnimation()
+
             //날씨정보 표시 =============================================================================================================================================
             val retrofitWeather = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
             val getWeatherService: GetWeatherService = retrofitWeather.create(GetWeatherService::class.java)

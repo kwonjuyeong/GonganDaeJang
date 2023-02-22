@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="start"
-                android:text="@string/work_management"
+                android:text="@string/work_doc"
                 android:textColor="@color/AllScape_deep_blue"
                 android:textSize="16sp"
                 android:textStyle="bold"

@@ -100,15 +100,17 @@ interface ProjectGoService {
     ): Call<ProjectGoDTO>
 }
 
+
 //프로젝트 상태 통계현황 조회
 interface ProjectListService {
     @Headers("Content-Type: application/json")
-    @GET("/projStatistManage/getProjStatusStatistics")
+    @GET("/projStatistManage/ProjStatusStatistics")
     fun requestProjectsList(
         @Header("sysCd") sysCd: String,
         @Header("token") token : String
     ): Call<ProjectListDTO>
 }
+
 
 //작업일지 조회
 interface WorkDiary {

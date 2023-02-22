@@ -26,7 +26,7 @@ import retrofit2.Response
 private var userInfo: UserInfoDTO? = null
 
 data class CommentData(
-    val child_count : Int,
+    var child_count : Int,
     val content : String,
     val parent_uuid : String,
     val reg_date : String,
@@ -75,7 +75,7 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
         viewHolder.binding.writeDate.text = convertDateFormat4(listPosition.reg_date)
 
         //대댓글 확인==========================================================
-        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count}"
+        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▲"
 
         val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
         val workReply: GetReply = retrofit.create(GetReply::class.java)
@@ -109,6 +109,7 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                                 getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                             commentData.add(commentInputData)
                         }
+                        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▼"
                         viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                     }
                 })
@@ -117,6 +118,7 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
             else if(replyState == 1){
                 replyState = 0
                 commentData.clear()
+                viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▲"
                 viewHolder.binding.childRecycler.visibility = GONE
             }
         }
@@ -160,10 +162,6 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
 
                     if(postReplyD?.code == 200){
                         Toast.makeText(context, "등록", Toast.LENGTH_SHORT).show()
-                        writeState = 0
-                        viewHolder.binding.writeBtn.text = "답글쓰기"
-                        viewHolder.binding.postEditText.setText("")
-                        viewHolder.binding.constraintLayout.visibility = GONE
 
                         workReply.requestGetReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
                             Callback<ReplyDTO> {
@@ -181,7 +179,13 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                                         getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                                     commentData.add(commentInputData)
                                 }
-                                viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count + 1}"
+                                writeState = 0
+                                viewHolder.binding.writeBtn.text = "답글쓰기"
+                                viewHolder.binding.postEditText.setText("")
+                                viewHolder.binding.childRecycler.visibility = VISIBLE
+                                viewHolder.binding.constraintLayout.visibility = GONE
+                                listPosition.child_count = listPosition.child_count + 1
+                                viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▼"
                                 viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                             }
                         })
@@ -288,7 +292,7 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
             })
         }
 
-        viewHolder.binding.modifyedBtn.setOnClickListener {
+        viewHolder.binding.modifyGoBtn.setOnClickListener {
 
             val retrofitPut = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
             val putReplys: PutReply = retrofitPut.create(PutReply::class.java)

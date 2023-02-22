@@ -72,7 +72,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
 
         viewHolder.binding.writeDate.text = convertDateFormat4(listPosition.reg_date)
         //대댓글 확인==========================================================
-        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count}"
+        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▲"
         viewHolder.binding.replyCount.setOnClickListener {
             //대댓글 열기
             if(replyState == 0)
@@ -96,6 +96,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
                                 getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                             commentData.add(commentInputData)
                         }
+                        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▼"
                         viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                     }
                 })
@@ -104,6 +105,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
             else if(replyState == 1){
                 replyState = 0
                 commentData.clear()
+                viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▲"
                 viewHolder.binding.childRecycler.visibility = GONE
             }
         }
@@ -147,10 +149,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
 
                     if(postReplyD?.code == 200){
                         Toast.makeText(context, "등록", Toast.LENGTH_SHORT).show()
-                        writeState = 0
-                        viewHolder.binding.writeBtn.text = "답글쓰기"
-                        viewHolder.binding.postEditText.setText("")
-                        viewHolder.binding.constraintLayout.visibility = GONE
+
 
                         workReply.requestGetReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
                             Callback<ReplyDTO> {
@@ -168,7 +167,13 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
                                         getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                                     commentData.add(commentInputData)
                                 }
-                                viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count + 1}"
+                                writeState = 0
+                                viewHolder.binding.writeBtn.text = "답글쓰기"
+                                viewHolder.binding.postEditText.setText("")
+                                viewHolder.binding.childRecycler.visibility = VISIBLE
+                                viewHolder.binding.constraintLayout.visibility = GONE
+                                listPosition.child_count = listPosition.child_count + 1
+                                viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▼"
                                 viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                             }
                         })
@@ -276,7 +281,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
         }
 
 
-        viewHolder.binding.modifyedBtn.setOnClickListener {
+        viewHolder.binding.modifyGoBtn.setOnClickListener {
             val retrofitPut = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
             val putReplys: PutReply = retrofitPut.create(PutReply::class.java)
 

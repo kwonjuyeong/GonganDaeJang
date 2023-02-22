@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5sp"
     android:orientation="vertical">
 
     <ImageView
@@ -118,7 +119,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:padding="5sp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reply_count"
@@ -151,7 +152,7 @@
         android:id="@+id/modify_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:padding="5sp"
         android:orientation="horizontal"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
@@ -164,13 +165,13 @@
             android:background="@drawable/square_reply"
             android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/modifyed_btn"
+            app:layout_constraintEnd_toStartOf="@+id/modify_go_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="LabelFor" />
 
         <Button
-            android:id="@+id/modifyed_btn"
+            android:id="@+id/modify_go_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/modify"

@@ -13,10 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allscapeservice.a22allscape_app.DTO.*
 import com.allscapeservice.a22allscape_app.objects.*
-import com.example.gonggandaejang.API.GetCurTimeInfoService
-import com.example.gonggandaejang.API.GetWeatherService
-import com.example.gonggandaejang.API.ProjectGoService
-import com.example.gonggandaejang.API.ProjectListService
+import com.example.gonggandaejang.API.*
 import com.example.gonggandaejang.Adapter.DashBoardProjectGo
 import com.example.gonggandaejang.Adapter.DashBoardProjectGoAdapter
 import com.example.gonggandaejang.databinding.ActivityDashUsersBinding
@@ -41,6 +38,7 @@ private lateinit var userToken : String
 private var projectGo : ProjectGoDTO? = null
 private var projectList : ProjectListDTO? = null
 private var userInfo: UserInfoDTO? = null
+
 //Response DTO 정의=============================================================================
 private var job : Job?= null
 private var curTime: GetCurTimeInfoDTO? = null
@@ -49,15 +47,7 @@ private var weather: GetWeatherInfoDTO? = null
 class DashboardUsers : AppCompatActivity() {
     private lateinit var binding: ActivityDashUsersBinding
     private lateinit var context : Context
-
-    private lateinit var projectListArray : ArrayList<ProjectList>
     private var allProj = 0
-    private var residentProj = 0
-    private var normalProj = 0
-    private var readyProj = 0
-    private var progressProj = 0
-    private var stopProj = 0
-    private var completeProj = 0
 
     private lateinit var projectGoData: DashBoardProjectGo
     private var projectListData = arrayListOf<DashBoardProjectGo>()
@@ -75,7 +65,7 @@ class DashboardUsers : AppCompatActivity() {
         val retrofitWeather = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
         val getWeatherService: GetWeatherService = retrofitWeather.create(GetWeatherService::class.java)
 
-        getWeatherService.requestWeather(CodeList.sysCd, userToken).enqueue(object :
+        getWeatherService.requestWeather(sysCd, userToken).enqueue(object :
             Callback<GetWeatherInfoDTO> { override fun onFailure(call: Call<GetWeatherInfoDTO>, t: Throwable) { Log.d("retrofit_weather", t.toString()) }
             override fun onResponse(call: Call<GetWeatherInfoDTO>, response: Response<GetWeatherInfoDTO>) {
                 weather = response.body()
@@ -101,7 +91,7 @@ class DashboardUsers : AppCompatActivity() {
 
         job = CoroutineScope(Dispatchers.IO).launch {
             while (true) {
-                getCurTimeInfoService.requestCurTime(CodeList.sysCd, userToken).enqueue(object :
+                getCurTimeInfoService.requestCurTime(sysCd, userToken).enqueue(object :
                     Callback<GetCurTimeInfoDTO> {
                     override fun onFailure(call: Call<GetCurTimeInfoDTO>, t: Throwable) {
                         Log.d("retrofit", t.toString())
@@ -120,57 +110,44 @@ class DashboardUsers : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             job!!.join()
         }
-        //프로젝트 상태 통계 현황 조회 표시 =====================================================================================================
-        val retroProjList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/")
-        val getProjectListService : ProjectListService = retroProjList.create(ProjectListService::class.java)
+
+        //프로젝트 상태 통계 현황 조회==============================================================================================================================
+        val retrofitProjectList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/")
+        val getProjectListService : ProjectListService = retrofitProjectList.create(ProjectListService::class.java)
 
         getProjectListService.requestProjectsList(sysCd, userToken).enqueue(object :
             Callback<ProjectListDTO> {
-            override fun onFailure(call: Call<ProjectListDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
+            override fun onFailure(call: Call<ProjectListDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             override fun onResponse(
                 call: Call<ProjectListDTO>,
                 response: Response<ProjectListDTO>
             ) {
                 projectList = response.body()
-                Log.d("projectList", Gson().toJson(projectList?.value))
-                if (projectList?.code == 200) {
-                    projectListArray = projectList?.value!!
-                    val len = projectListArray.size
-                    for(i in 0 until len)
-                    {
-                    allProj += projectListArray[i].cnt
 
-                    when(projectListArray[i].reside_class_cd){
-                        "SD010000" -> {
-                            residentProj += projectListArray[i].cnt
+                Log.d("projectList", projectList?.value.toString())
+                Log.d("projectList", projectList.toString())
+
+                if (projectList?.code == 200) {
+
+                    for(i in 0 until projectList?.value!!.size){
+                        when(projectList?.value?.get(i)?.status){
+                            "ST000001" -> {
+                                binding.readyProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                            "ST000002" -> {
+                                binding.progressProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                            "ST000003" -> {
+                                binding.stopProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                            "ST000004" -> {
+                                binding.completeProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
                         }
-                        "SD010001" -> {
-                            normalProj += projectListArray[i].cnt
-                        }
-                        }
-                    when (projectListArray[i].proj_status_cd) {
-                        project_ready -> {
-                            readyProj += projectListArray[i].cnt
-                        }
-                        project_progress -> {
-                            progressProj += projectListArray[i].cnt
-                        }
-                        project_stop -> {
-                            stopProj += projectListArray[i].cnt
-                        }
-                        project_complete -> {
-                            completeProj += projectListArray[i].cnt
-                        }
+                        allProj += projectList!!.value[i].count
                     }
-                 }
+                    binding.allProj.text = allProj.toString()
                 }
-                binding.allProj.text = allProj.toString()
-                binding.readyProj.text = readyProj.toString()
-                binding.progressProj.text = progressProj.toString()
-                binding.stopProj.text = stopProj.toString()
-                binding.completeProj.text = completeProj.toString()
             }
         })
 

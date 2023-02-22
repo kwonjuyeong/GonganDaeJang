@@ -13,6 +13,8 @@
     <string name="next_content">명일 공사 예정 내용</string>
     <string name="work_doc">공사일보</string>
     <string name="work_doc2">공사일지</string>
+    <string name="unit">단위</string>
+    <string name="quantity">물량</string>
     <string name="man_power">인력</string>
     <string name="photo_gallery">사진대지</string>
     <string name="write_date">작성날짜</string>
@@ -67,8 +69,9 @@
     <string name="complete">완료</string>
     <string name="normal">일반</string>
     <string name="resident">상주</string>
+    <string name="more">자세히</string>
     <string name="project">프로젝트</string>
-    <string name="in_house_project">관내 프로젝트</string>
+    <string name="in_house_project">전체 프로젝트</string>
     <string name="writer_and_write_date">작성자 | 작성일</string>
     <string name="calender_day_format">%1$s-%2$s-%3$s</string>
     <string name="star">*</string>
@@ -81,5 +84,6 @@
     <string name="today_date">금일</string>
     <string name="total">총계</string>
     <string name="floor">층수</string>
+    <string name="zero">0</string>
     <string name="weather_format">%1$sC / %2$s / %3$s</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted = 'true'>
-        <domain includeSubdomains = 'true'>http://211.107.220.103:50403/</domain>
+        <domain includeSubdomains = 'true'>http://211.107.220.103:50406/</domain>
     </domain-config>
 </network-security-config>

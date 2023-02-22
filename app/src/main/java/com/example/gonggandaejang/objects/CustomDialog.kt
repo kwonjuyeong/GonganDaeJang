@@ -33,6 +33,7 @@ fun customDetailGallery(context: Context, token: String, consCode : String, path
     val dialog = Dialog(context)
     dialog.setContentView(R.layout.custom_dialog_galley_detail_watch)
 
+    val titleName =dialog.findViewById<TextView>(R.id.detail_gallery_title)
     val titles =dialog.findViewById<TextView>(R.id.textView14)
     images = dialog.findViewById(R.id.detail_gallery_imageview)
     val ok = dialog.findViewById<Button>(R.id.ok_btn)
@@ -40,6 +41,7 @@ fun customDetailGallery(context: Context, token: String, consCode : String, path
     val date = dialog.findViewById<TextView>(R.id.detail_gallery_date)
 
     titles.text = "사진 정보"
+    titleName.text = "상세정보"
     filename.text = title
     date.text = convertDateFormat(uploadDate)
 

@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:padding="10sp"
         android:layout_margin="10sp"
-        android:text="time"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -27,15 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20sp"
-        android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/time_set" />
+        app:layout_constraintTop_toTopOf="@+id/time_set"
+        android:contentDescription="@string/weather_format"/>
 
     <TextView
         android:id="@+id/weather_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="weather"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/weather_icon"
@@ -49,7 +47,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_set">
+        app:layout_constraintTop_toBottomOf="@+id/time_set">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,8 +113,6 @@
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,7 +143,7 @@
                             tools:ignore="ContentDescription" />
 
                         <TextView
-                            android:layout_width="0sp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="0.5"
@@ -164,6 +160,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
                             android:gravity="end"
+                            android:text="@string/zero"
                             android:textColor="@color/AllScape_deep_blue"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -209,6 +206,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
                             android:gravity="end"
+                            android:text="@string/zero"
                             android:textColor="@color/AllScape_deep_blue"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -254,6 +252,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
                             android:gravity="end"
+                            android:text="@string/zero"
                             android:textColor="@color/AllScape_deep_blue"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -299,6 +298,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
                             android:gravity="end"
+                            android:text="@string/zero"
                             android:textColor="@color/AllScape_deep_blue"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -348,18 +348,21 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
 
-                    <ImageButton
-                        android:id="@+id/logout_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10sp"
-                        android:padding="5sp"
-                        android:src="@drawable/ico_out"
-                        android:background="@drawable/blue_btn_background"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/user_project_go_recycler"
-                        tools:ignore="ContentDescription" />
+                <ImageButton
+                    android:id="@+id/logout_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10sp"
+                    android:background="@drawable/blue_btn_background"
+                    android:contentDescription="@string/logout"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:padding="5sp"
+                    android:src="@drawable/ico_out"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_project_go_recycler"
+                    tools:ignore="ContentDescription" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.gonggandaejang.objects
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -58,9 +59,9 @@ fun loadFile(userToken: String ,imageView: ImageView, data : DocFileDownLoadDTO)
             if (conn.responseCode == HttpURLConnection.HTTP_OK) {
                 `is` = conn.inputStream
                 val bitmap = BitmapFactory.decodeStream(`is`)
-                BitmapFactory.Options().inSampleSize = 200
+
                 handler.postDelayed({
-                    imageView.setImageBitmap(bitmap)
+                    imageView.setImageBitmap(getResizedBitmap(bitmap, 1000, 1000))
                 }, 0)
             }
             conn.disconnect()
@@ -74,4 +75,14 @@ fun loadFile(userToken: String ,imageView: ImageView, data : DocFileDownLoadDTO)
             }
         }
     }.start()
+}
+
+fun getResizedBitmap(bm: Bitmap, newHeight: Int, newWidth: Int): Bitmap {
+    val width = bm.width
+    val height = bm.height
+    val scaleWidth = newWidth.toFloat() / width
+    val scaleHeight = newHeight.toFloat() / height
+    val matrix = Matrix()
+    matrix.postScale(scaleWidth, scaleHeight)
+    return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
 }

@@ -159,18 +159,15 @@ data class FieldRating(
     val rating_name : String
 )
 
-//프로젝트 상태 통계현황 조회
 data class ProjectListDTO(
     val code : Int,
     val msg : String,
-    val value : ArrayList<ProjectList>
+    val value : ArrayList<ProjectList>,
+    val length : Int
 )
 data class ProjectList(
-    val cnt : Int,
-    val proj_status_cd : String,
-    val proj_status_nm : String,
-    val reside_class_cd : String,
-    val reside_class_nm : String
+    val count : Int,
+    val status : String
 )
 
 //작업일지 리스트 조회

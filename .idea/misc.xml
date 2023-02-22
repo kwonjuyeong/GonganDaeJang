@@ -58,7 +58,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_comment.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_daily_work_document.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_daily_work_root.xml" value="0.33" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_enterprise.xml" value="0.67" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_enterprise.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_users.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_gallery.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -72,7 +72,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_work_edit_photo.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/content_gallery.xml" value="0.23177083333333334" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/custom_dialog_camera.xml" value="0.33" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/custom_dialog_galley_detail_watch.xml" value="0.5" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/custom_dialog_galley_detail_watch.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/custom_dialog_logout.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/fragment_daily_post_picture.xml" value="0.18" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/fragment_daily_watch.xml" value="0.2" />
@@ -81,7 +81,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_comment_parents.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_manp_info.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_info.xml" value="0.5" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_info_inside.xml" value="0.25" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_info_inside.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_manp_inside.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_daily_work_doc.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_daily_work_doc_photo_post.xml" value="0.25" />

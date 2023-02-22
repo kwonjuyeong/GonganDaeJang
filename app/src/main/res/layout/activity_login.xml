@@ -22,6 +22,7 @@
         android:id="@+id/checked_lottie"
         android:layout_width="0sp"
         android:layout_height="0sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

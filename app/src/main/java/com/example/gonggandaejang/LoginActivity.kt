@@ -140,7 +140,6 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                 })
                             }
-                            Toast.makeText(this@LoginActivity, "정상적으로 로그인되었습니다.", Toast.LENGTH_SHORT).show()
 
                             //자동로그인 체크 확인(체크 시 : userId, userPw, token 값 저장)
                             if (binding.autoLogin.isChecked) {

@@ -72,7 +72,6 @@ fun startCloseLogoutCustom(context: Context, userToken: String, sharedPreference
                         (context as Activity).finish()
                         dialog.dismiss()
                     }
-
                 }
             }
         })

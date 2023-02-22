@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import com.allscapeservice.a22allscape_app.objects.convertDateFormat
+import com.example.gonggandaejang.Adapter.GalleryListData
 import com.example.gonggandaejang.R
 import kotlin.math.sqrt
 
@@ -29,30 +30,40 @@ private var oldDistance = 0f
 private lateinit var images : ImageView
 
 @SuppressLint("ClickableViewAccessibility")
-fun customDetailGallery(context: Context, token: String, consCode : String, path : String, originName : String, changeName : String, uploadDate : String, title : String){
+fun customDetailGallery(context: Context, token: String, data : GalleryListData){
     val dialog = Dialog(context)
     dialog.setContentView(R.layout.custom_dialog_galley_detail_watch)
 
-    val titleName =dialog.findViewById<TextView>(R.id.detail_gallery_title)
-    val titles =dialog.findViewById<TextView>(R.id.textView14)
     images = dialog.findViewById(R.id.detail_gallery_imageview)
+    val titleName =dialog.findViewById<TextView>(R.id.detail_gallery_title)
+    val titles =dialog.findViewById<TextView>(R.id.detail_title)
+    val consDate = dialog.findViewById<TextView>(R.id.detail_cons_date)
+    val pcName = dialog.findViewById<TextView>(R.id.detail_pc_name)
+    val product = dialog.findViewById<TextView>(R.id.detail_product)
     val ok = dialog.findViewById<Button>(R.id.ok_btn)
-    val filename = dialog.findViewById<TextView>(R.id.detail_gallery_file_name)
-    val date = dialog.findViewById<TextView>(R.id.detail_gallery_date)
+    val uploadDate = dialog.findViewById<TextView>(R.id.detail_upload_date)
 
-    titles.text = "사진 정보"
+    //상단 내용
     titleName.text = "상세정보"
-    filename.text = title
-    date.text = convertDateFormat(uploadDate)
+    //사진 제목
+    titles.text = data.title
+    //작업일 날짜
+    consDate.text = convertDateFormat(data.cons_date)
+    //사진 업로드 날짜
+    uploadDate.text = convertDateFormat(data.upload_date)
+    //공종
+    pcName.text = data.pc_name
+    //품목
+    product.text = data.product
 
-    loadFile(token, images, DocFileDownLoadDTO(consCode, "", path, originName, changeName))
-
+    //이미지 처리
+    loadFile(token, images, DocFileDownLoadDTO(data.cons_code, "", data.path, data.origin_name, data.change_name))
     matrix = Matrix()
     savedMatrix = Matrix()
-
     images.setOnTouchListener(onTouch)
     images.scaleType = ImageView.ScaleType.MATRIX
 
+    //확인 버튼
     ok.setOnClickListener {
         dialog.dismiss()
     }

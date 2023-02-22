@@ -26,11 +26,19 @@ data class GetGallery(
     val value : ArrayList<Gallerys>
 )
 data class Gallerys(
+    val co_code : String,
     val cons_code : String,
-    val image_title : String,
-    val image_path : String,
-    val image_orig_name : String,
+    val cons_date : String,
+    val file_index : Int,
     val image_chan_name : String,
+    val image_orig_name : String,
+    val image_path : String,
+    val image_title : String,
+    val item_code : String,
+    val pc_code : String,
+    val pc_name : String,
+    val product : String,
+    val standard : String,
     val upload_date : String
 )
 

@@ -20,11 +20,19 @@ data class GalleryData(
     val GalleryList : ArrayList<GalleryListData>
 )
 data class GalleryListData(
+    val co_code : String,
     val cons_code : String,
-    val title : String,
-    val path : String,
-    val origin_name : String,
+    val cons_date : String,
+    val file_index : Int,
     val change_name : String,
+    val origin_name : String,
+    val path : String,
+    val title : String,
+    val item_code : String,
+    val pc_code : String,
+    val pc_name : String,
+    val product : String,
+    val standard : String,
     val upload_date : String
 )
 
@@ -65,7 +73,9 @@ class GalleryAdapter(private val context: Context?, private val dataset: List<Ga
         })
 
         for(i in 0 until listPosition.GalleryList.size){
-            galleryInputData = GalleryListData(listPosition.GalleryList[i].cons_code, listPosition.GalleryList[i].title, listPosition.GalleryList[i].path, listPosition.GalleryList[i].origin_name, listPosition.GalleryList[i].change_name, listPosition.GalleryList[i].upload_date)
+           galleryInputData = GalleryListData(listPosition.GalleryList[i].co_code,listPosition.GalleryList[i].cons_code, listPosition.GalleryList[i].cons_date,listPosition.GalleryList[i].file_index,listPosition.GalleryList[i].change_name,
+               listPosition.GalleryList[i].origin_name,listPosition.GalleryList[i].path,listPosition.GalleryList[i].title,listPosition.GalleryList[i].item_code,listPosition.GalleryList[i].pc_code,listPosition.GalleryList[i].pc_name,
+               listPosition.GalleryList[i].product,listPosition.GalleryList[i].standard,listPosition.GalleryList[i].upload_date)
             galleryData.add(galleryInputData)
         }
     }

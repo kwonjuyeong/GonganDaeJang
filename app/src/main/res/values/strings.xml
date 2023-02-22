@@ -1,64 +1,15 @@
 <resources>
-
-    <string name="daily_work">작업일지</string>
-    <string name="work_">작업량</string>
-    <string name="content">내용</string>
-    <string name="use_price">사용 금액</string>
-    <string name="cons_type_nm">공사종류</string>
-    <string name="work_log_cons_code">공사코드</string>
-    <string name="modify">수정</string>
-    <string name="write_reply">답글쓰기</string>
-    <string name="work_diary">내용</string>
-    <string name="today_content">금일 공사 내용</string>
-    <string name="next_content">명일 공사 예정 내용</string>
-    <string name="work_doc">공사일보</string>
-    <string name="work_doc2">공사일지</string>
-    <string name="unit">단위</string>
-    <string name="quantity">물량</string>
-    <string name="man_power">인력</string>
-    <string name="photo_gallery">사진대지</string>
-    <string name="write_date">작성날짜</string>
-    <string name="division_how">배열방식</string>
-    <string name="search_date">검색날짜</string>
-    <string name="title_activity_gallery">Gallery</string>
-    <string name="watch_daily_work">작업일보 조회</string>
-    <string name="watch">조회</string>
-    <string name="post_picture">사진 등록</string>
-    <string name="file_title">사진 제목</string>
-    <string name="title">제목</string>
-    <string name="add_date">등록날짜</string>
-    <string name="post">등록</string>
-    <string name="reply">댓글…</string>
-    <string name="comment">Comment</string>
-    <string name="file_name">파일명</string>
-    <string name="add_pic">사진추가</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_name">공간대장</string>
+
+    <!--로그인-->
     <string name="Id">아이디</string>
-    <string name="photo_list">사진 목록</string>
-    <string name="photo_info">새로 추가한 사진은 이미지를 다시 조회하면 보입니다</string>
-    <string name="photo_info2">사진 정보</string>
-    <string name="work_date">공사일</string>
-    <string name="work_name">공사명</string>
-    <string name="select">선택</string>
-    <string name="add">추가</string>
-    <string name="delete">삭제</string>
-    <string name="attach">첨부</string>
-    <string name="OK">확인</string>
-    <string name="return_">반려</string>
-    <string name="go_to_list">목록으로</string>
-    <string name="Re_OK">중복확인</string>
-    <string name="auto_login">자동 로그인</string>
-    <string name="Cancel">취소</string>
-    <string name="save">저장</string>
-    <string name="work_management">공사일보</string>
-    <string name="apply">적용</string>
     <string name="Id_eng">ID</string>
+    <string name="auto_login">자동 로그인</string>
     <string name="Password">Password</string>
     <string name="login">로그인</string>
     <string name="logout">로그아웃</string>
-    <string name="camera">카메라</string>
-    <string name="album">앨범</string>
+
+    <!--대시보드-->
     <string name="my_project">내 프로젝트</string>
     <string name="project_num">건</string>
     <string name="all">전체</string>
@@ -72,7 +23,73 @@
     <string name="more">자세히</string>
     <string name="project">프로젝트</string>
     <string name="in_house_project">전체 프로젝트</string>
+
+    <!--버튼-->
+    <string name="add">추가</string>
+    <string name="delete">삭제</string>
+    <string name="attach">첨부</string>
+    <string name="OK">확인</string>
+    <string name="return_">반려</string>
+    <string name="go_to_list">목록으로</string>
+    <string name="Cancel">취소</string>
+    <string name="save">저장</string>
+    <string name="modify">수정</string>
+    <string name="watch">조회</string>
+    <string name="select">선택</string>
+    <string name="post">등록</string>
+    <string name="camera">카메라</string>
+    <string name="album">앨범</string>
+    <string name="apply">적용</string>
+
+    <!--공사일보-->
+    <string name="daily_work">작업일지</string>
+    <string name="watch_daily_work">작업일보 조회</string>
+    <string name="work_">작업량</string>
+    <string name="content">내용</string>
+    <string name="use_price">사용 금액</string>
+    <string name="cons_type_nm">공사종류</string>
+    <string name="work_log_cons_code">공사코드</string>
+    <string name="work_doc">공사일보</string>
+    <string name="work_doc2">공사일지</string>
+    <string name="today_content">금일 공사 내용</string>
+    <string name="next_content">명일 공사 예정 내용</string>
+    <string name="unit">단위</string>
+    <string name="quantity">물량</string>
+    <string name="man_power">인력</string>
     <string name="writer_and_write_date">작성자 | 작성일</string>
+    <string name="add_date">등록날짜</string>
+    <string name="write_date">작성날짜</string>
+    <!--댓글 -->
+    <string name="reply">댓글…</string>
+    <string name="write_reply">답글쓰기</string>
+    <string name="comment">Comment</string>
+    <!--사진대지-->
+    <string name="photo_gallery">사진대지</string>
+    <string name="post_picture">사진 등록</string>
+    <string name="file_title">사진 제목</string>
+    <string name="title">제목</string>
+    <string name="detail_cons_date">작업일</string>
+    <string name="detail_upload_date">업로드일</string>
+    <string name="detail_pc_name">공종</string>
+    <string name="detail_product">품목</string>
+    <string name="photo_list">사진 목록</string>
+    <string name="photo_info">새로 추가한 사진은 이미지를 다시 조회하면 보입니다</string>
+    <string name="photo_info2">사진 정보</string>
+    <string name="work_date">공사일</string>
+    <string name="work_name">공사명</string>
+    <string name="file_name">파일명</string>
+    <string name="add_pic">사진추가</string>
+
+    <!--기타-->
+    <string name="work_diary">내용</string>
+    <string name="weather_format">%1$sC / %2$s / %3$s</string>
+
+    <string name="division_how">배열방식</string>
+    <string name="search_date">검색날짜</string>
+    <string name="title_activity_gallery">Gallery</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="calender_day_format">%1$s-%2$s-%3$s</string>
     <string name="star">*</string>
     <string name="first_fragment_label">First Fragment</string>
@@ -85,5 +102,4 @@
     <string name="total">총계</string>
     <string name="floor">층수</string>
     <string name="zero">0</string>
-    <string name="weather_format">%1$sC / %2$s / %3$s</string>
 </resources>

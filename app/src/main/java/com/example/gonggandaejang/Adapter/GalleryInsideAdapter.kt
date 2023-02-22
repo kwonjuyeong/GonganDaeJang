@@ -3,6 +3,7 @@ package com.example.gonggandaejang.Adapter
 //사진대지 안쪽 사진 데이터
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.example.gonggandaejang.databinding.ItemWatchGalleryBinding
 import com.example.gonggandaejang.objects.DocFileDownLoadDTO
 import com.example.gonggandaejang.objects.customDetailGallery
 import com.example.gonggandaejang.objects.loadFile
+import com.google.gson.Gson
 
 //갤러리 2차 아이템
 class GalleryInsideAdapter(private val context: Context, private val dataset: List<GalleryListData>, private val token : String):
@@ -27,10 +29,10 @@ class GalleryInsideAdapter(private val context: Context, private val dataset: Li
         viewHolder.binding.title.text = listPosition.title
 
         loadFile(token, viewHolder.binding.imageview, DocFileDownLoadDTO(listPosition.cons_code, "", listPosition.path, listPosition.origin_name, listPosition.change_name))
-        viewHolder.binding.detailBtn.setOnClickListener {
-            customDetailGallery(context, token, listPosition.cons_code, listPosition.path, listPosition.origin_name, listPosition.change_name, listPosition.upload_date, listPosition.title)
-        }
 
+        viewHolder.binding.detailBtn.setOnClickListener {
+        customDetailGallery(context, token, GalleryListData(listPosition.co_code, listPosition.cons_code,listPosition.cons_date, listPosition.file_index, listPosition.change_name, listPosition.origin_name, listPosition.path, listPosition.title, listPosition.item_code, listPosition.pc_code, listPosition.pc_name, listPosition.product, listPosition.standard, listPosition.upload_date))
+        }
     }
 
     override fun getItemCount() = dataset.size

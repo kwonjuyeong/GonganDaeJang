@@ -34,35 +34,50 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:padding="10sp"
+
+            android:background="@drawable/square_table"
+            android:text="@string/title"
+            android:textColor="@color/AllScape_deep_blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/detail_title"
+            android:layout_width="0sp"
             android:layout_height="0dp"
             android:padding="10sp"
             android:background="@drawable/square_table"
-            android:text="@string/photo_info2"
             android:textColor="@color/AllScape_deep_blue"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView14"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/cons_date_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
+            android:padding="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+            app:layout_constraintTop_toBottomOf="@+id/detail_title">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:text="@string/add_date"
+                android:text="@string/detail_cons_date"
                 android:textColor="@color/AllScape_deep_blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/detail_gallery_date"
+                android:id="@+id/detail_cons_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
@@ -70,27 +85,76 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/linearLayout5"
+            android:id="@+id/upload_date_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
+            android:padding="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14">
+            app:layout_constraintTop_toBottomOf="@+id/cons_date_layout">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:text="@string/file_title"
+                android:text="@string/detail_upload_date"
                 android:textColor="@color/AllScape_deep_blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/detail_gallery_file_name"
+                android:id="@+id/detail_upload_date"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/pc_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upload_date_layout">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="@string/detail_pc_name"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/detail_pc_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/product_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pc_name_layout">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="@string/detail_product"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/detail_product"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textColor="@color/AllScape_deep_blue"
                 android:textSize="18sp"
@@ -109,7 +173,7 @@
             android:layout_margin="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/product_layout"
             tools:ignore="ButtonStyle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

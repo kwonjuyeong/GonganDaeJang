@@ -21,7 +21,6 @@ import com.example.gonggandaejang.Adapter.GalleryData
 import com.example.gonggandaejang.Adapter.GalleryListData
 import com.example.gonggandaejang.databinding.FragmentPhotoGalleryBinding
 import com.example.gonggandaejang.objects.CodeList
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,8 +98,10 @@ class PhotoGalleryFragment : Fragment() {
                     for (j in 0 until gallery?.value?.size!!) {
                         if (convertDateFormat(galleryData[m].upload_date) == convertDateFormat(gallery?.value?.get(j)?.upload_date)) {
                             if (gallery?.value?.get(j)?.cons_code != null) {
-                                galleryData[m].GalleryList.add(GalleryListData(gallery?.value?.get(j)?.cons_code.toString(), gallery?.value?.get(j)?.image_title.toString(), gallery?.value?.get(j)?.image_path.toString(),
-                                    gallery?.value?.get(j)?.image_orig_name.toString(), gallery?.value?.get(j)?.image_chan_name.toString(), gallery?.value?.get(j)?.upload_date.toString()))
+                                galleryData[m].GalleryList.add(GalleryListData(gallery?.value?.get(j)?.co_code.toString(),gallery?.value?.get(j)?.cons_code.toString(),gallery?.value?.get(j)?.cons_date.toString(),
+                                    gallery?.value?.get(j)?.file_index!!.toInt(),gallery?.value?.get(j)?.image_chan_name.toString(),gallery?.value?.get(j)?.image_orig_name.toString(),gallery?.value?.get(j)?.image_path.toString()
+                                    ,gallery?.value?.get(j)?.image_title.toString(), gallery?.value?.get(j)?.item_code.toString(),gallery?.value?.get(j)?.pc_code.toString(),gallery?.value?.get(j)?.pc_name.toString(),
+                                    gallery?.value?.get(j)?.product.toString(),gallery?.value?.get(j)?.standard.toString(), gallery?.value?.get(j)?.upload_date.toString()))
                             }
                         }
                     }
@@ -164,8 +165,10 @@ class PhotoGalleryFragment : Fragment() {
                                 for (j in 0 until gallery?.value?.size!!) {
                                     if (convertDateFormat(galleryData[m].upload_date) == convertDateFormat(gallery?.value?.get(j)?.upload_date)) {
                                         if (gallery?.value?.get(j)?.cons_code != null) {
-                                            galleryData[m].GalleryList.add(GalleryListData(gallery?.value?.get(j)?.cons_code.toString(), gallery?.value?.get(j)?.image_title.toString(), gallery?.value?.get(j)?.image_path.toString(), gallery?.value?.get(j)?.image_orig_name.toString(), gallery?.value?.get(j)?.image_chan_name.toString(), gallery?.value?.get(j)?.upload_date.toString()))
-                                        }
+                                            galleryData[m].GalleryList.add(GalleryListData(gallery?.value?.get(j)?.co_code.toString(),gallery?.value?.get(j)?.cons_code.toString(),gallery?.value?.get(j)?.cons_date.toString(),
+                                                gallery?.value?.get(j)?.file_index!!.toInt(),gallery?.value?.get(j)?.image_chan_name.toString(),gallery?.value?.get(j)?.image_orig_name.toString(),gallery?.value?.get(j)?.image_path.toString()
+                                                ,gallery?.value?.get(j)?.image_title.toString(), gallery?.value?.get(j)?.item_code.toString(),gallery?.value?.get(j)?.pc_code.toString(),gallery?.value?.get(j)?.pc_name.toString(),
+                                                gallery?.value?.get(j)?.product.toString(),gallery?.value?.get(j)?.standard.toString(), gallery?.value?.get(j)?.upload_date.toString()))          }
                                     }
                                 }
                             }

@@ -113,8 +113,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
         //답글쓰기 버튼==========================================================
         viewHolder.binding.writeBtn.setOnClickListener {
             if(writeState == 0)
-            {
-                writeState = 1
+            {   writeState = 1
                 viewHolder.binding.constraintLayout.visibility = VISIBLE
                 viewHolder.binding.writeBtn.text = "취소"
             }
@@ -177,9 +176,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
                                 viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                             }
                         })
-
                     }
-
                 }
             })
         }

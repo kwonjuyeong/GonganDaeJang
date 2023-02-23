@@ -4,6 +4,7 @@ package com.example.gonggandaejang.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
@@ -50,15 +51,16 @@ class GalleryAdapter(private val context: Context?, private val dataset: List<Ga
     override fun onBindViewHolder(viewHolder: GalleryViewHolder, position: Int) {
         val listPosition = dataset[position]
 
-     //갤러리 2차 아이템
-     val galleryData = arrayListOf<GalleryListData>()
-     var galleryInputData : GalleryListData
+        //갤러리 2차 아이템
+        val galleryData = arrayListOf<GalleryListData>()
+        var galleryInputData : GalleryListData
 
         viewHolder.binding.date.text = convertDateFormat(listPosition.upload_date)
-
         viewHolder.binding.listItemRecycler.layoutManager = LinearLayoutManager(context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
         viewHolder.binding.listItemRecycler.adapter = GalleryInsideAdapter(context as Context, galleryData, token)
 
+
+        //item 하나씩 보여주기
         val snapHelper: SnapHelper = PagerSnapHelper()
         if ( viewHolder.binding.listItemRecycler.onFlingListener == null) snapHelper.attachToRecyclerView(  viewHolder.binding.listItemRecycler)
 
@@ -66,7 +68,6 @@ class GalleryAdapter(private val context: Context?, private val dataset: List<Ga
             override fun onScrollStateChanged(@NonNull recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
             }
-
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
             }
@@ -78,6 +79,7 @@ class GalleryAdapter(private val context: Context?, private val dataset: List<Ga
                listPosition.GalleryList[i].product,listPosition.GalleryList[i].standard,listPosition.GalleryList[i].upload_date)
             galleryData.add(galleryInputData)
         }
+
     }
 
     override fun getItemCount() = dataset.size

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.allscapeservice.a22allscape_app.DTO.*
 import com.allscapeservice.a22allscape_app.objects.*
@@ -21,6 +22,7 @@ import com.example.gonggandaejang.Adapter.DashBoardProjectGoAdapter
 import com.example.gonggandaejang.databinding.ActivityDashEnterpriseBinding
 import com.example.gonggandaejang.objects.CodeList
 import com.example.gonggandaejang.objects.startCloseLogoutCustom
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -28,6 +30,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.collections.ArrayList
 
+private lateinit var drawer : DrawerLayout
+private lateinit var navView : NavigationView
 private lateinit var sharedPreference : SharedPreferences
 private lateinit var editor : SharedPreferences.Editor
 private lateinit var userToken : String
@@ -44,8 +48,6 @@ private var weather: GetWeatherInfoDTO? = null
 class DashboardEnterprise : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashEnterpriseBinding
-    //프로젝트 리스트 조회=============================================================================
-    private lateinit var projectListArray : ArrayList<ProjectListDTO>
     //프로젝트 이동 조회=============================================================================
     private val projectListData = arrayListOf<DashBoardProjectGo>()
     private lateinit var projectGoData: DashBoardProjectGo
@@ -112,8 +114,6 @@ class DashboardEnterprise : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 job!!.join()
             }
-
-
 
             //프로젝트 상태 통계 현황 조회==============================================================================================================================
             val retrofitProjectList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/")
@@ -271,12 +271,11 @@ class DashboardEnterprise : AppCompatActivity() {
             })
         }
 
-            binding.logoutBtn.setOnClickListener {
-                //로그아웃 버튼
-                startCloseLogoutCustom(this@DashboardEnterprise, userToken,sharedPreference)
-            }
+
         }
         private fun init(){
+            drawer = binding.drawerLayout
+            navView= binding.navView
             sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
             editor = sharedPreference.edit()
             userToken = sharedPreference.getString("token", "").toString()

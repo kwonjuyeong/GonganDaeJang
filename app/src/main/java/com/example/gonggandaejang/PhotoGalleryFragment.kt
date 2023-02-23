@@ -21,6 +21,7 @@ import com.example.gonggandaejang.Adapter.GalleryData
 import com.example.gonggandaejang.Adapter.GalleryListData
 import com.example.gonggandaejang.databinding.FragmentPhotoGalleryBinding
 import com.example.gonggandaejang.objects.CodeList
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -81,11 +82,12 @@ class PhotoGalleryFragment : Fragment() {
             override fun onResponse(call: Call<GetGallery>, response: Response<GetGallery>) {
                 gallery = response.body()
                 galleryData.clear()
-                Log.d("gallery", gallery?.value.toString())
+                Log.d("gallery", Gson().toJson( gallery?.value).toString())
                 val insideList = ArrayList<String>()
                 if(gallery?.value?.size != 0){
+                    galleryData.clear()
                 for (i in 0 until gallery?.value?.size!!) {
-                    Log.d("input_data_all", convertDateFormat(gallery?.value?.get(i)?.upload_date))
+                    Log.d("gallerysss", Gson().toJson(gallery?.value?.size))
                     if (!insideList.contains(convertDateFormat(gallery?.value?.get(i)?.upload_date))) {
                         insideList.add(convertDateFormat(gallery?.value?.get(i)?.upload_date))
                         val division = arrayListOf<GalleryListData>()
@@ -93,7 +95,6 @@ class PhotoGalleryFragment : Fragment() {
                         galleryData.add(galleryInputData)
                     }
                 }
-
                 for (m in 0 until galleryData.size) {
                     for (j in 0 until gallery?.value?.size!!) {
                         if (convertDateFormat(galleryData[m].upload_date) == convertDateFormat(gallery?.value?.get(j)?.upload_date)) {
@@ -149,33 +150,34 @@ class PhotoGalleryFragment : Fragment() {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(call: Call<GetGallery>, response: Response<GetGallery>) {
                     gallery = response.body()
-
+                    Log.d("gallery", Gson().toJson(gallery?.value))
                     val insideVersionList = ArrayList<String>()
-
                     galleryData.clear()
                     for (i in 0 until gallery?.value?.size!!) {
+                        Log.d("gallerysss", Gson().toJson(gallery?.value?.size))
                         if (!insideVersionList.contains(convertDateFormat(gallery?.value?.get(i)?.upload_date))) {
                             insideVersionList.add(convertDateFormat(gallery?.value?.get(i)?.upload_date.toString()))
                             val division = arrayListOf<GalleryListData>()
-
                             galleryInputData = GalleryData(gallery?.value?.get(i)?.upload_date.toString(), division)
                             galleryData.add(galleryInputData)
-
-                            for (m in 0 until galleryData.size) {
-                                for (j in 0 until gallery?.value?.size!!) {
-                                    if (convertDateFormat(galleryData[m].upload_date) == convertDateFormat(gallery?.value?.get(j)?.upload_date)) {
-                                        if (gallery?.value?.get(j)?.cons_code != null) {
-                                            galleryData[m].GalleryList.add(GalleryListData(gallery?.value?.get(j)?.co_code.toString(),gallery?.value?.get(j)?.cons_code.toString(),gallery?.value?.get(j)?.cons_date.toString(),
-                                                gallery?.value?.get(j)?.file_index!!.toInt(),gallery?.value?.get(j)?.image_chan_name.toString(),gallery?.value?.get(j)?.image_orig_name.toString(),gallery?.value?.get(j)?.image_path.toString()
-                                                ,gallery?.value?.get(j)?.image_title.toString(), gallery?.value?.get(j)?.item_code.toString(),gallery?.value?.get(j)?.pc_code.toString(),gallery?.value?.get(j)?.pc_name.toString(),
-                                                gallery?.value?.get(j)?.product.toString(),gallery?.value?.get(j)?.standard.toString(), gallery?.value?.get(j)?.upload_date.toString()))          }
-                                    }
-                                }
-                            }
-                            binding.galleryRecycler.adapter?.notifyDataSetChanged()
                         }
                     }
+
+                    for (m in 0 until galleryData.size) {
+                        for (j in 0 until gallery?.value?.size!!) {
+                            if (convertDateFormat(galleryData[m].upload_date) == convertDateFormat(gallery?.value?.get(j)?.upload_date)) {
+                                if (gallery?.value?.get(j)?.cons_code != null) {
+                                    galleryData[m].GalleryList.add(GalleryListData(gallery?.value?.get(j)?.co_code.toString(),gallery?.value?.get(j)?.cons_code.toString(),gallery?.value?.get(j)?.cons_date.toString(),
+                                        gallery?.value?.get(j)?.file_index!!.toInt(),gallery?.value?.get(j)?.image_chan_name.toString(),gallery?.value?.get(j)?.image_orig_name.toString(),gallery?.value?.get(j)?.image_path.toString()
+                                        ,gallery?.value?.get(j)?.image_title.toString(), gallery?.value?.get(j)?.item_code.toString(),gallery?.value?.get(j)?.pc_code.toString(),gallery?.value?.get(j)?.pc_name.toString(),
+                                        gallery?.value?.get(j)?.product.toString(),gallery?.value?.get(j)?.standard.toString(), gallery?.value?.get(j)?.upload_date.toString()))
+                                }
+                            }
+                        }
+                    }
+                    binding.galleryRecycler.adapter?.notifyDataSetChanged()
                 }
+
             })
             binding.startDate.text = ""
             binding.endDate.text = ""

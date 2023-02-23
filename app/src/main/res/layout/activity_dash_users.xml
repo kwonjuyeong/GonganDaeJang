@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/main_background"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".DashboardUsers">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@drawable/main_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_animation"
         android:layout_width="wrap_content"
@@ -23,32 +27,39 @@
         android:id="@+id/time_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10sp"
         android:layout_margin="10sp"
+        android:padding="10sp"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <ImageView
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:src="@drawable/ico_menu_b"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+    <ImageView
         android:id="@+id/weather_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/time_set"
-        android:contentDescription="@string/weather_format"/>
-
+        android:contentDescription="@string/weather_format"
+        app:layout_constraintBottom_toBottomOf="@+id/time_set"
+        app:layout_constraintEnd_toStartOf="@+id/menu"
+        app:layout_constraintStart_toStartOf="@+id/weather_set"
+        app:layout_constraintTop_toTopOf="@+id/time_set" />
     <TextView
         android:id="@+id/weather_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/weather_icon"
-        app:layout_constraintStart_toStartOf="@+id/weather_icon"
+        app:layout_constraintEnd_toStartOf="@+id/menu"
         app:layout_constraintTop_toBottomOf="@+id/weather_icon" />
-
     <ScrollView
         android:id="@+id/scrollView5"
         android:layout_width="match_parent"
@@ -56,7 +67,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_set">
+        app:layout_constraintTop_toBottomOf="@+id/menu">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -355,25 +366,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-
-                <ImageButton
-                    android:id="@+id/logout_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10sp"
-                    android:background="@drawable/blue_btn_background"
-                    android:contentDescription="@string/logout"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:padding="5sp"
-                    android:src="@drawable/ico_out"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/user_project_go_recycler"
-                    tools:ignore="ContentDescription" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/dash_board_items"
+        app:headerLayout="@layout/detail_appbar_header"/>
+</androidx.drawerlayout.widget.DrawerLayout>

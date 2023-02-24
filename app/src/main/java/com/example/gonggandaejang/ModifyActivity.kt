@@ -127,31 +127,12 @@ class ModifyActivity : AppCompatActivity() {
             Log.d("state", passwdState.toString())
             if(passwdState == 0){
                 passwdState = 1
+                binding.modifyUserBtn.isEnabled = false
                 binding.passwdBtn.text = "변경 안함"
                 binding.userPwLayout.visibility = VISIBLE
                 binding.passwdLayoutHint.visibility = VISIBLE
                 binding.userPwCheckLayout.visibility = VISIBLE
-                //비밀번호 확인
-                binding.checkPasswordBtn.setOnClickListener {
-                    if(binding.userPw.text.toString() == binding.userPwCheck.text.toString()){
-                        Toast.makeText(this@ModifyActivity, "비밀번호가 일치합니다.", Toast.LENGTH_SHORT).show()
-                        binding.modifyBtn.isEnabled = true
-                    }
-                    else{
-                        Toast.makeText(this@ModifyActivity, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-                        binding.modifyBtn.isEnabled = false
-                    }
-                }
-                //비밀번호 확인 받은 후 변경 시 다시 확인 받아야함
-                binding.userPwCheck.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {}
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        if(binding.userPw.text != binding.userPwCheck.text){
-                            binding.modifyBtn.isEnabled = false
-                        }
-                    }
-                })
+
                 //비밀번호 정규식 체크(영문 소문자, 대문자, 특수문자, 숫자 최소 8글자)
                 binding.userPw.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable?) {}
@@ -160,30 +141,48 @@ class ModifyActivity : AppCompatActivity() {
                         if(checkPW( binding.userPw.text.toString().trim())){
                             binding.userPw.setTextColor(R.color.black.toInt())
                             binding.userPwCheck.isEnabled = true
+                            binding.checkPasswordBtn.isEnabled = true
                         }else{
                             binding.userPw.setTextColor(-65536)
                             binding.userPwCheck.isEnabled = false
+                            binding.checkPasswordBtn.isEnabled = false
                         }
                     }
                 })
-            }else if(passwdState == 1){
-                //변경 안할 경우
-                passwdState = 0
+
+                //비밀번호 확인
+                binding.checkPasswordBtn.setOnClickListener {
+                    if(binding.userPw.text.toString() == binding.userPwCheck.text.toString()){
+                        Toast.makeText(this@ModifyActivity, "비밀번호가 일치합니다.", Toast.LENGTH_SHORT).show()
+                        binding.modifyUserBtn.isEnabled = true
+                    }
+                    else{
+                        Toast.makeText(this@ModifyActivity, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+                        binding.modifyUserBtn.isEnabled = false
+                    }
+                }
                 //비밀번호 확인 받은 후 변경 시 다시 확인 받아야함
                 binding.userPwCheck.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable?) {}
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        binding.modifyBtn.isEnabled = true
+                        if(binding.userPw.text != binding.userPwCheck.text){
+                            binding.modifyUserBtn.isEnabled = false
+                        }
                     }
                 })
+
+
+            }else if(passwdState == 1){
+                passwdState = 0
                 binding.passwdBtn.text = "패스워드 변경"
                 binding.userPwLayout.visibility = GONE
                 binding.passwdLayoutHint.visibility = GONE
                 binding.userPwCheckLayout.visibility = GONE
+
                 binding.userPwCheck.setText("")
                 binding.userPw.setText("")
-                binding.modifyBtn.isEnabled = true
+                binding.modifyUserBtn.isEnabled = true
             }
         }
 
@@ -223,8 +222,6 @@ class ModifyActivity : AppCompatActivity() {
                 }
             }
         })
-
-
 
 
         //Spinner Selected
@@ -383,7 +380,7 @@ class ModifyActivity : AppCompatActivity() {
         val modifyUserService: ModifyUserService = retrofitModify.create(ModifyUserService::class.java)
 
         //회원정보수정 버튼
-        binding.modifyBtn.setOnClickListener {
+        binding.modifyUserBtn.setOnClickListener {
 
             val userId = binding.userIdText.text.toString().trim()
             val authorityName = binding.authoritySpinnerText.text.toString()
@@ -407,7 +404,6 @@ class ModifyActivity : AppCompatActivity() {
                 val userName = getUserInfo?.value?.user_name.toString()
                 val useType = getUserInfo?.value?.use_type.toString()
                 val userState = getUserInfo?.value?.user_state.toString()
-                val userStateName = getUserInfo?.value?.user_state_name.toString()
                 val userPosition = binding.userPositionText.text.toString().trim()
                 val userContact = binding.userContactText.text.toString().trim()
                 val userEmail = binding.userEmailText.text.toString().trim()
@@ -450,6 +446,7 @@ class ModifyActivity : AppCompatActivity() {
                         else{
                             Log.d("modify_fail", modify?.code.toString())
                             Log.d("modify_fail", modify?.msg.toString())
+                            Toast.makeText(this@ModifyActivity, "회원정보수정 실패 : ${modify?.msg.toString()}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 })

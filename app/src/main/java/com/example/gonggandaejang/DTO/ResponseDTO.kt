@@ -145,7 +145,6 @@ data class UserInfo(
     val manager_type : String
 )
 
-
 data class ProjectListDTO(
     val code : Int,
     val msg : String,
@@ -268,3 +267,28 @@ data class ReplyData(
     val writer_id : String,
     val writer_name : String
 )
+
+
+//회사 리스트 제공(수정 GET -> POST, @PATH -> @BODY)
+data class GetCoListDTO(
+    val code : Int,
+    val msg : String,
+    val value : ArrayList<GetCoList>
+)
+data class GetCoList(
+    val co_address : String,
+    val co_ceo : String,
+    val co_code : String,
+    val co_contact : String,
+    val co_name : String,
+    val co_type : String
+)
+
+// 사용자 정보수정
+data class ModifyUserDTO(
+    val code : Int,
+    val msg : String,
+    val value : String
+)
+
+

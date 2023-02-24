@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/attach_btn">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/modify_animation"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/modifypassword" />
+
+
+    <TextView
+        android:id="@+id/modify_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/AllScape_deep_blue"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/modify_animation"
+        app:layout_constraintStart_toEndOf="@+id/modify_animation"
+        app:layout_constraintTop_toTopOf="@+id/modify_animation"
+        tools:text="회원정보수정" />
+
+    <TextView
+        android:id="@+id/modify_text"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:padding="10dp"
+        android:textColor="@color/AllScape_deep_blue"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/modify_animation"
+        app:layout_constraintTop_toBottomOf="@+id/modify_animation"
+        tools:text="비밀번호를 입력해주세요." />
+
+    <EditText
+        android:id="@+id/modify_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/square_table"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:minHeight="50dp"
+        android:padding="10dp"
+        android:textColor="@color/AllScape_deep_blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/modify_text"
+        tools:ignore="Autofill,LabelFor"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modify_password">
+
+        <Button
+            android:id="@+id/modify_btn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/AllScape_blue"
+            android:text="@string/OK"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/modify_cancel_btn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10sp"
+            android:layout_weight="1"
+            android:background="@color/AllScape_gray"
+            android:text="@string/Cancel"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

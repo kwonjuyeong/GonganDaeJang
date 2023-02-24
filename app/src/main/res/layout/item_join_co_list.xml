@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10sp"
+    android:background="@drawable/delete_btn">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        android:background="@color/AllScape_gray">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10sp"
+            android:src="@drawable/ico_company"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/co_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/selected_btn"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginStart="10sp"
+            android:textColor="@color/AllScape_blue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/select_co"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/attach_btn"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/select"
+            android:textColor="@color/AllScape_blue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:padding="10sp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/co_ceo"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.2"
+                    tools:ignore="NestedWeights" />
+                <TextView
+                    android:id="@+id/co_Ceo"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/AllScape_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.3"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="0.6"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/co_contact"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.3"
+                    tools:ignore="NestedWeights" />
+                <TextView
+                    android:id="@+id/co_Contact"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/AllScape_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.7"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10sp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:text="@string/co_location"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.16"/>
+            <TextView
+                android:id="@+id/co_address"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/AllScape_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.84"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:padding="10sp"
+            android:baselineAligned="false">
+
+
+            <LinearLayout
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="0.6"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/company_code"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.4"
+                    tools:ignore="NestedWeights" />
+
+                <TextView
+                    android:id="@+id/co_code"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/AllScape_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.6"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>

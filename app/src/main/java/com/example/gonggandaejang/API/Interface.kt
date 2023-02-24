@@ -219,3 +219,23 @@ interface PutReply{
         @Body ReplyPutRequestDTO : ReplyPutRequestDTO
     ): Call<ReplyDTO>
 }
+
+//회사 리스트 제공(수정 GET -> POST, @PATH -> @BODY)
+interface GetCoListService {
+    @Headers("Content-Type: application/json")
+    @POST("/commManage/getCoList")
+    fun requestGetCoList(
+        @Header("sysCd") sysCd: String,
+        @Body coName : GetCoListRequestDTO
+    ): Call<GetCoListDTO>
+}
+
+interface ModifyUserService {
+    @Multipart
+    @POST("/userManage/modifyUser")
+    fun requestModify(
+        @Header("sysCd") sysCd: String?,
+        @Header("token") token: String?,
+        @Part("data") data : RequestBody,
+    ): Call<ModifyUserDTO>
+}

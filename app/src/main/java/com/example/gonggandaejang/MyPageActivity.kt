@@ -18,6 +18,7 @@ import com.example.gonggandaejang.API.GetUserInfoService
 import com.example.gonggandaejang.databinding.ActivityDailyWorkDocumentBinding
 import com.example.gonggandaejang.databinding.ActivityMyPageBinding
 import com.example.gonggandaejang.objects.CodeList
+import com.example.gonggandaejang.objects.modifyInfo
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,14 +51,14 @@ class MyPageActivity : AppCompatActivity() {
         val userInfoService: GetUserInfoService = retrofitUserInfo.create(GetUserInfoService::class.java)
 
         userInfoService.requestUserInfo(userToken, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
-            val dialog = AlertDialog.Builder(this@MyPageActivity)
             override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
-
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                 getUserInfo = response.body()
                 backAuthState = getUserInfo?.value?.authority_code.toString()
+
                 Log.d("ddddd", Gson().toJson(getUserInfo?.value))
+
                 //Response code 200 : 통신성공
                 if (getUserInfo?.code == 200) {
                         binding.userIdText.text = getUserInfo?.value?.id
@@ -72,10 +73,14 @@ class MyPageActivity : AppCompatActivity() {
                         binding.sectorsText.text = getUserInfo?.value?.co_type
                         binding.coLicenseText.text = getUserInfo?.value?.co_regisnum
                         binding.authorityText.text = getUserInfo?.value?.authority_name
-
                 }
             }
         })
+
+        binding.modifyBtn.setOnClickListener {
+            Log.d("password", getUserInfo?.value?.password.toString())
+            modifyInfo(this@MyPageActivity, getUserInfo?.value?.password.toString())
+        }
 
         binding.myPageBtn.setOnClickListener {
             onBackPressed()

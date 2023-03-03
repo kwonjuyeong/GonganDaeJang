@@ -201,7 +201,7 @@ interface PostReply{
     @Headers("Content-Type: application/json")
     @POST("/projWorkReplyManage/WorkReply/{sys_doc_num}")
     fun requestPostReply(
-        @Path("sys_doc_num") sys_doc_num: String,
+        @Path("sys_doc_Fnum") sys_doc_num: String,
         @Query("parent_uuid") parent_uuid: String,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String,

@@ -248,6 +248,7 @@ class DashNormal : AppCompatActivity() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<ProjHistoryDTO>, response: Response<ProjHistoryDTO>) {
                 projHistory = response.body()
+                Log.d("project refresh", Gson().toJson(projHistory?.value))
                 projectListData.clear()
                 for (i in 0 until projHistory?.value?.size!!) {
                     if(projHistory?.value?.get(i)?.co_code.toString() == data.co_code){

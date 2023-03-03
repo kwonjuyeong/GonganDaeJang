@@ -219,7 +219,6 @@ class ModifyActivity : AppCompatActivity() {
             }
         })
 
-
         //Spinner Selected
         binding.authoritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -277,7 +276,6 @@ class ModifyActivity : AppCompatActivity() {
             //사업자 등록번호
             binding.coRegisnumText.setText("")
             binding.userPositionText.setText("")
-            binding.authoritySpinnerText.text = ""
             coListData.clear()
             binding.joinSearchCompanyInfo.visibility =GONE
             binding.coListRecycler.visibility = GONE
@@ -303,14 +301,13 @@ class ModifyActivity : AppCompatActivity() {
             binding.coCode.text = ""
             //업종
             binding.coTypeText.setText("")
+
             //회사 소재지
             binding.coLocationText.setText("")
             //회사 전화번호
             binding.coContactText.setText("")
-            //사업자 등록번호
-            binding.coRegisnumText.setText("")
             binding.userPositionText.setText("")
-            binding.authoritySpinnerText.text = ""
+
             coListData.clear()
             binding.joinSearchCompanyInfo.visibility = GONE
             binding.coListRecycler.visibility = GONE
@@ -403,6 +400,7 @@ class ModifyActivity : AppCompatActivity() {
                 val userPosition = binding.userPositionText.text.toString().trim()
                 val userContact = binding.userContactText.text.toString().trim()
                 val userEmail = binding.userEmailText.text.toString().trim()
+
                 val coName = binding.coName.text.toString().trim()
                 val coCeo = binding.coCEOText.text.toString().trim()
                 val coCode = binding.coCode.text.toString().trim()
@@ -410,30 +408,19 @@ class ModifyActivity : AppCompatActivity() {
                 val coAddress = binding.coLocationText.text.toString().trim()
                 val coContact = binding.coContactText.text.toString().trim()
                 val coResNum = binding.coRegisnumText.text.toString().trim()
+
             val listFieldRating = ArrayList<HashMap<String, String>>()
 
             val jsonObject = JSONObject("{\"user_regisnum\":\"\", \"id\":\"${userId}\",\"authority_code\":\"${authorityCode}\",\"password\":\"${userPw}\",\"user_state\":\"${userState}\",\"use_type\":\"${useType}\",\"user_name\":\"${userName}\",\"user_position\":\"${userPosition}\",\"user_contact\":\"${userContact}\",\"user_email\":\"${userEmail}\",\"co_name\":\"${coName}\",\"co_ceo\":\"${coCeo}\",\"co_type\":\"${coType}\",\"co_code\":\"${coCode}\",\"co_address\":\"${coAddress}\",\"co_contact\":\"${coContact}\",\"co_regisnum\":\"${coResNum}\",\"regisnum\":\"\",\"user_type\":\"\",\"employ_status\":\"\",\"field_rating\": $listFieldRating}").toString()
             val jsonBody = RequestBody.create(MediaType.parse("application/json"), jsonObject)
             Log.d("json", jsonObject)
 
-            //val inputData = ModifyRequestDTo(userId, authorityCode, authorityName, userPw,userState,userStateName, useType, userName, userPosition, userContact, userEmail,coAddress, coCeo,coContact, coName,coResNum,coType)
-
                 //modifyUser(회원수정) API 호출
                 modifyUserService.requestModify(sysCd, userToken, jsonBody).enqueue(object : Callback<ModifyUserDTO> {
                     override fun onFailure(call: Call<ModifyUserDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
                     override fun onResponse(call: Call<ModifyUserDTO>, response: Response<ModifyUserDTO>) {
                         modify = response.body()
-                        Log.d("modify", modify?.code.toString())
-                        Log.d("modify", modify?.msg.toString())
                         if(modify?.code == 200){
-                            Log.d("modify_success", modify?.code.toString())
-                            Log.d("modify_success", modify?.msg.toString())
-                            editor.clear()
-                            //shared 삭제된 사용자 토큰값 다시 저장
-                            editor.putString("token", userToken)
-                            editor.putString("userId", userId)
-                            editor.putString("userPw", userPw)
-                            editor.apply()
                             Toast.makeText(this@ModifyActivity, "회원정보 수정 성공", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@ModifyActivity, MyPageActivity::class.java)
                             startActivity(intent)
@@ -447,7 +434,6 @@ class ModifyActivity : AppCompatActivity() {
                     }
                 })
         }
-
 
     }
 

@@ -22,7 +22,10 @@
     <string name="resident">상주</string>
     <string name="more">자세히</string>
     <string name="project">프로젝트</string>
+    <string name="project_list">프로젝트 리스트</string>
     <string name="in_house_project">전체 프로젝트</string>
+    <string name="dash_company_list">회사 재직정보 리스트</string>
+    <string name="Num_zero">0</string>
 
     <!--버튼-->
     <string name="add">추가</string>

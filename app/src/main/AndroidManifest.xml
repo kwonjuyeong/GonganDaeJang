@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.gonggandaejang">
+    package="com.example.gonggan">
     <!-- 통신을 위한 인터넷 연결 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -23,33 +23,36 @@
         tools:replace="android:label"
         tools:targetApi="31">
         <activity
-            android:name=".ModifyActivity"
+            android:name="com.gonggan.source.dashboard.DashNormal"
             android:exported="false" />
         <activity
-            android:name=".MyPageActivity"
+            android:name="com.gonggan.source.mypage.ModifyActivity"
             android:exported="false" />
         <activity
-            android:name=".CommentActivity"
+            android:name="com.gonggan.source.mypage.MyPageActivity"
             android:exported="false" />
         <activity
-            android:name=".WorkEditPhoto"
+            android:name="com.gonggan.source.dailywork.CommentActivity"
             android:exported="false" />
         <activity
-            android:name=".DailyWorkDocument"
+            android:name="com.gonggan.source.dailywork.WorkEditPhoto"
             android:exported="false" />
         <activity
-            android:name=".RootActivity"
+            android:name="com.gonggan.source.dailywork.DailyWorkDocument"
             android:exported="false" />
         <activity
-            android:name=".DashboardEnterprise"
+            android:name="com.gonggan.source.detailhome.RootActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardUsers"
+            android:name="com.gonggan.source.dashboard.DashboardEnterprise"
+            android:exported="false" />
+        <activity
+            android:name="com.gonggan.source.dashboard.DashboardUsers"
             android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.gonggandaejang.fileprovider"
+            android:authorities="com.example.gonggan.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -58,7 +61,7 @@
         </provider>
 
         <activity
-            android:name=".LoginActivity"
+            android:name="com.gonggan.source.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

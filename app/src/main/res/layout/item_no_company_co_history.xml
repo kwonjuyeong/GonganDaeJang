@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--회사 재직 정보 리스트-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        android:layout_margin="5sp"
+        android:background="@drawable/delete_btn">
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/co_history_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/company_name"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/AllScape_deep_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.4"/>
+            <TextView
+                android:id="@+id/company_date"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/AllScape_gray"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_weight="0.6"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/co_history_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_btn_background"
+            android:src="@drawable/ico_arr_next_b"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>

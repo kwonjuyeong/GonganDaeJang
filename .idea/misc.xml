@@ -66,6 +66,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_daily_work_document.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_daily_work_root.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_enterprise.xml" value="0.2796757382744644" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_normal.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_users.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_gallery.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -98,6 +99,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_daily_work_doc_photo_post.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_dashboard_project_list.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_join_co_list.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_no_company_co_history.xml" value="0.28072916666666664" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_no_company_proj_list.xml" value="0.28072916666666664" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_photo_post.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_watch_gallery.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_watch_gallery_outside.xml" value="0.28177083333333336" />

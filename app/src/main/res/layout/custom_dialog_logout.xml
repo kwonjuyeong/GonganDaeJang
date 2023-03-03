@@ -35,17 +35,6 @@
         app:lottie_autoPlay="false"
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/logout" />
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/wave_animation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/logout_text"
-        app:layout_constraintStart_toStartOf="@+id/logout_text"
-        app:layout_constraintTop_toBottomOf="@+id/logout_animation"
-        android:visibility="gone"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/waving_hands" />
     <LinearLayout
         android:id="@+id/logout_button_layout"
         android:layout_width="match_parent"

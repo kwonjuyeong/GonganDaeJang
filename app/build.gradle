@@ -2,15 +2,16 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.gonggan.gonggandaejang"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 5
         versionName "1.0.1"
         //multiDexEnabled
@@ -32,7 +33,6 @@ android {
         jvmTarget = '1.8'
     }
     viewBinding {
-        //viewBinding = ture
         enabled = true
     }
 
@@ -43,17 +43,16 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     kapt 'androidx.databinding:compiler:3.2.0-alpha11'
-
     
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
@@ -75,4 +74,8 @@ dependencies {
 
     //lottie animation
     implementation 'com.airbnb.android:lottie:6.0.0'
+
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
 }

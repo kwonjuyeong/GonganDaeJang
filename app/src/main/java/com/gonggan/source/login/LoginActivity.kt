@@ -100,7 +100,9 @@ class LoginActivity : AppCompatActivity() {
                                 override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
                                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                                     getUserInfo = response.body()
+
                                     Log.d("ddddd", Gson().toJson(getUserInfo?.value))
+
                                     if (getUserInfo?.code == 200) {
                                         moveToDash(this@LoginActivity, getUserInfo?.value?.co_code.toString(), getUserInfo?.value?.authority_code.toString(), getUserInfo?.msg.toString())
                                     }

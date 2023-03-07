@@ -19,6 +19,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.gonggan.DTO.LogoutDTO
 import com.example.gonggan.*
 import com.gonggan.API.LogoutService
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.source.login.LoginActivity
 import com.gonggan.source.mypage.ModifyActivity
 import kotlinx.coroutines.CoroutineScope
@@ -137,56 +138,6 @@ fun endCloseLogoutCustom(context: Context, userToken: String, drawer: DrawerLayo
 }
 
 
-//회원정보 수정 페이지 접속 비밀번호 확인
-fun modifyInfo(context: Context, userPassword : String){
-    val dialog = Dialog(context)
-    dialog.setContentView(R.layout.custom_dialog_modify_user)
-
-    val text =dialog.findViewById<TextView>(R.id.modify_text)
-    val modifyTitle = dialog.findViewById<TextView>(R.id.modify_title)
-    val modifyBtn = dialog.findViewById<Button>(R.id.modify_btn)
-    val modifyNoBtn = dialog.findViewById<Button>(R.id.modify_cancel_btn)
-    val modifyPw = dialog.findViewById<EditText>(R.id.modify_password)
-    val modifyAnimation = dialog.findViewById<LottieAnimationView>(R.id.modify_animation)
-    text.text = "회원정보를 수정하시려면 비밀번호를 인증해주세요."
-    modifyTitle.text = "비밀번호 확인"
-
-        modifyAnimation.playAnimation()
-    //비밀번호 정규식 체크(영문 소문자, 대문자, 특수문자, 숫자 최소 8글자)
-    modifyPw.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            if(checkPW( modifyPw.text.toString().trim())){
-                modifyPw.setTextColor(R.color.black.toInt())
-            }else{
-                modifyPw.setTextColor(-65536)
-            }
-        }
-    })
-
-
-    modifyBtn.setOnClickListener {
-        val passwd = modifyPw.text.toString().trim()
-        val passWd = getSHA512(passwd)
-        if(passWd== userPassword){
-            Toast.makeText(context, "비밀번호가 확인되었습니다.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(context , ModifyActivity::class.java)
-            context.startActivity(intent)
-            (context as Activity).finish()
-            dialog.dismiss()
-        }else{
-            Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-        }
-    }
-    modifyNoBtn.setOnClickListener {
-        dialog.dismiss()
-    }
-    dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-    dialog.setCanceledOnTouchOutside(true)
-    dialog.setCancelable(true)
-    dialog.show()
-}
 
 //PW 정규식
 fun checkPW(userPw: String): Boolean {

@@ -27,6 +27,7 @@ import com.gonggan.Adapter.CoListAdapter
 import com.gonggan.Adapter.JoinCoListData
 import com.gonggan.DTO.*
 import com.gonggan.objects.*
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList.sysCd
 import com.google.gson.Gson
 import okhttp3.MediaType

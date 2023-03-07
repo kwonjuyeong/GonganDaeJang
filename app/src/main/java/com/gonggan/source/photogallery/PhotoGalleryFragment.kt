@@ -21,6 +21,7 @@ import com.gonggan.API.GetGalleryPic
 import com.gonggan.Adapter.GalleryAdapter
 import com.gonggan.Adapter.GalleryData
 import com.gonggan.Adapter.GalleryListData
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback

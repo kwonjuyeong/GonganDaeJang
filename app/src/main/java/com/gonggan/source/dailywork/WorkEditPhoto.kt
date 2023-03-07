@@ -24,10 +24,9 @@ import com.gonggan.Adapter.ConsWorkInfoInsideFileAdapter
 import com.gonggan.Adapter.ConsWorkInputList
 import com.gonggan.Adapter.ImageInputList
 import com.gonggan.DTO.PostGalleryDTO
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
 import com.gonggan.objects.UriPathUtils
-import com.gonggan.objects.callRetrofit
-import com.gonggan.objects.loadFile
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

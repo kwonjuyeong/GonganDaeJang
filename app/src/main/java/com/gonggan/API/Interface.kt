@@ -6,6 +6,7 @@ import com.gonggan.DTO.LoginRequestDTO
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 //사용자 로그인
@@ -70,14 +71,14 @@ interface GetCodeListService {
     ): Call<GetCodeListDTO>
 }
 
-//3.2.3 내 정보 요청
+//내 정보 요청
 interface GetUserInfoService {
     @Headers("Content-Type: application/json")
     @GET("/userManage/getMyInfo")
     fun requestUserInfo(
         @Header("token") token: String?,
-        @Header("sysCd") sysCd: String?
-    ): Call<UserInfoDTO>
+        @Header("sysCd") sysCd: String?)
+    : Call<UserInfoDTO>
 }
 
 //3.2.9 사용자 상세 정보 조회 요청
@@ -114,7 +115,7 @@ interface ProjectListService {
 }
 
 
-//작업일지 조회
+//작업일지 리스트 조회
 interface WorkDiary {
     @Headers("Content-Type: application/json")
     @GET("/projWorkLogManage/WorkDiary/{cons_code}")
@@ -252,7 +253,7 @@ interface GetCoHistory{
     ): Call<CoHistoryDTO>
 }
 
-//3.14.2 프로젝트 이력 정보조회
+//프로젝트 이력 정보조회
 interface GetProjHistory{
     @Headers("Content-Type: application/json")
     @GET("/historyManage/getProjHisList")
@@ -260,4 +261,25 @@ interface GetProjHistory{
         @Header("sysCd") sysCd: String,
         @Header("token") token : String
     ): Call<ProjHistoryDTO>
+}
+
+
+//프로젝트 이력 정보조회
+interface SearchQaList{
+    @Headers("Content-Type: application/json")
+    @GET("/projMessageBoardManage/MessageBoardList/{cons_code}")
+    fun requestQaList(
+        @Path("cons_code") cons_code : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("start_num") start_num :String,
+        @Query("end_num")  end_num : String,
+        @Query("co_name")  co_name : String,
+        @Query("writer_name") writer_name :String,
+        @Query("post_type")  post_type : String,
+        @Query("title_keyword")  title_keyword : String,
+        @Query("content_keyword") content_keyword : String,
+        @Query("reg_date_start")  reg_date_start : String,
+        @Query("reg_date_end")  reg_date_end : String,
+    ): Call<SearchQAListDTO>
 }

@@ -106,8 +106,7 @@ data class ProjectGo(
     val project_progress : String
 )
 
-
-//3.2.3 내 정보 요청
+//내 정보 요청
 data class UserInfoDTO(
     val code : Int,
     val msg : String,
@@ -115,7 +114,6 @@ data class UserInfoDTO(
 )
 data class UserInfo(
     val app_token : String,
-    //승인날짜
     val appro_date : String,
     val authority_code : String,
     val authority_name : String,
@@ -324,3 +322,23 @@ data class ProjHistoryD(
     val req_date : String
 )
 
+data class SearchQAListDTO(
+    val code : Int,
+    val msg : String,
+    val value : ArrayList<QAListData>
+)
+data class QAListData(
+    val count: Int,
+    val data : ArrayList<QALists>
+)
+data class QALists(
+    val start_num : Int,
+    val end_num : Int,
+    val co_name : String,
+    val writer_name: String,
+    val post_type : String,
+    val title : String,
+    val content : String,
+    val reg_date_start : String,
+    val reg_date_end : String
+)

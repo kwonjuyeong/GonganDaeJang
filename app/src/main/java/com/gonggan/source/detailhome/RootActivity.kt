@@ -1,25 +1,21 @@
 package com.gonggan.source.detailhome
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityRootBinding
 import com.gonggan.API.GetUserInfoService
 import com.gonggan.DTO.UserInfoDTO
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
-import com.gonggan.objects.callRetrofit
 import com.gonggan.objects.moveToDash
 import com.gonggan.objects.startCloseLogoutCustom
 import com.gonggan.source.dailywork.DailyWatchFragment
-import com.gonggan.source.dashboard.DashboardEnterprise
-import com.gonggan.source.dashboard.DashboardUsers
 import com.gonggan.source.photogallery.PhotoGalleryFragment
 import com.google.gson.Gson
 import retrofit2.Call
@@ -48,9 +44,12 @@ class RootActivity : AppCompatActivity() {
         initNavigationBar()
 
         setSupportActionBar(binding.include.mainToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
-        supportActionBar?.title = "프로젝트 대시보드"
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+            title = "프로젝트 대시보드"
+        }
+
         setDataAtFragment(DailyWatchFragment())
 
 
@@ -92,7 +91,10 @@ class RootActivity : AppCompatActivity() {
                         setDataAtFragment(DailyWatchFragment())
                     }
                     R.id.photo_gallery_menu -> {
-                        setDataAtFragment(PhotoGalleryFragment() )
+                        setDataAtFragment(PhotoGalleryFragment())
+                    }
+                    R.id.q_and_a_menu -> {
+                        setDataAtFragment(PhotoGalleryFragment())
                     }
                 }
                 true

@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +18,7 @@ import com.gonggan.Adapter.DashBoardNoCompanyProjectList
 import com.gonggan.Adapter.DashBoardNoCompanyProjectListAdapter
 import com.gonggan.DTO.*
 import com.gonggan.objects.*
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.source.mypage.MyPageActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson

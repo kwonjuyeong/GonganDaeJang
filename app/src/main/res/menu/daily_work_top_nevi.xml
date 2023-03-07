@@ -6,4 +6,7 @@
     <item android:id="@+id/photo_gallery_menu"
         android:enabled="true"
         android:title="@string/photo_gallery"/>
+    <item android:id="@+id/q_and_a_menu"
+        android:enabled="true"
+        android:title="@string/QA"/>
 </menu>

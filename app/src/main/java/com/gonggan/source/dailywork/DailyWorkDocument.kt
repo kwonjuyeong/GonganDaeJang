@@ -13,8 +13,8 @@ import com.example.gonggan.databinding.ActivityDailyWorkDocumentBinding
 import com.gonggan.API.WorkDetailDiary
 import com.gonggan.Adapter.*
 import com.gonggan.DTO.DailyWorkDTO
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
-import com.gonggan.objects.callRetrofit
 import com.gonggan.objects.convertDateFormat
 import com.google.gson.Gson
 import retrofit2.Call

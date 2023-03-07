@@ -20,6 +20,7 @@ import com.gonggan.API.GetUserInfoService
 import com.gonggan.API.WorkDiary
 import com.gonggan.Adapter.WorkAdapter
 import com.gonggan.Adapter.WorkData
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
 import com.google.gson.Gson
 import retrofit2.Call
@@ -206,5 +207,4 @@ class DailyWatchFragment : Fragment() {
                 }
             }
     }
-
 }

@@ -11,12 +11,12 @@ import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityCommentBinding
 import com.gonggan.DTO.PostGalleryDTO
 import com.gonggan.DTO.ReplyDTO
-import com.gonggan.objects.callRetrofit
 import com.gonggan.API.GetReply
 import com.gonggan.API.PostReply
 import com.gonggan.Adapter.CommentAdapter
 import com.gonggan.Adapter.CommentData
 import com.gonggan.DTO.ReplyPostRequestDTO
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
 import retrofit2.Call
 import retrofit2.Callback

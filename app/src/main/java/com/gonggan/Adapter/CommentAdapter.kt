@@ -15,8 +15,8 @@ import com.example.gonggan.R
 import com.example.gonggan.databinding.ItemCommentParentsBinding
 import com.gonggan.API.*
 import com.gonggan.DTO.*
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
-import com.gonggan.objects.callRetrofit
 import com.gonggan.objects.convertDateFormat4
 import retrofit2.Call
 import retrofit2.Callback

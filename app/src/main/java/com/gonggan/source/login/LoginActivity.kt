@@ -8,20 +8,15 @@ import android.view.View.GONE
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.gonggan.databinding.ActivityLoginBinding
-import com.gonggan.API.GetCodeListService
 import com.gonggan.API.GetUserInfoService
 import com.gonggan.API.LoginService
-import com.gonggan.DTO.GetCodeListDTO
 import com.gonggan.DTO.LoginDTO
 import com.gonggan.DTO.LoginRequestDTO
 import com.gonggan.DTO.UserInfoDTO
+import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList
-import com.gonggan.objects.callRetrofit
 import com.gonggan.objects.getSHA512
 import com.gonggan.objects.moveToDash
-import com.gonggan.source.dashboard.DashNormal
-import com.gonggan.source.dashboard.DashboardEnterprise
-import com.gonggan.source.dashboard.DashboardUsers
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //로그인 화면
-
 private var login: LoginDTO? = null
 private var getUserInfo: UserInfoDTO? = null
 
@@ -51,12 +45,11 @@ class LoginActivity : AppCompatActivity() {
 
 
         //자동 로그인 =======================================================================================================================
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
-        val getUserInfoService: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
+        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
         if (sharedPreference.getString("userId", "").toString().isNotEmpty() && sharedPreference.getString("userPw", "").toString().isNotEmpty() && sharedPreference.getString("token", "").toString().isNotEmpty()) {
             val token = sharedPreference.getString("token", "").toString()
-            getUserInfoService.requestUserInfo(token, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
+            retrofitInfo.requestUserInfo(token, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
                 override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                     getUserInfo = response.body()
@@ -96,13 +89,13 @@ class LoginActivity : AppCompatActivity() {
                             binding.loginLayout.visibility = GONE
                             binding.checkedLottie.playAnimation()
                             delay(1500)
-                            getUserInfoService.requestUserInfo(login?.value?.token, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
+                            retrofitInfo.requestUserInfo(login?.value?.token, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
                                 override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
                                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                                     getUserInfo = response.body()
 
                                     Log.d("ddddd", Gson().toJson(getUserInfo?.value))
-
+                                    Log.d("ddddd", Gson().toJson(login?.value))
                                     if (getUserInfo?.code == 200) {
                                         moveToDash(this@LoginActivity, getUserInfo?.value?.co_code.toString(), getUserInfo?.value?.authority_code.toString(), getUserInfo?.msg.toString())
                                     }

@@ -10,7 +10,6 @@ import com.gonggan.source.dashboard.DashboardEnterprise
 import com.gonggan.source.dashboard.DashboardUsers
 
 fun moveToDash(context: Context, coCode : String, authCode : String, errorMsg : String){
-
         if(coCode.isNotEmpty()){
         when (authCode) {
             CodeList.Buyer -> {
@@ -37,6 +36,4 @@ fun moveToDash(context: Context, coCode : String, authCode : String, errorMsg : 
             context.startActivity(intent)
             (context as Activity).finish()
         }
-
-
  }

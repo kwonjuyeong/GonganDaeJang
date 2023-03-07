@@ -2,6 +2,7 @@ package com.gonggan.objects
 
 //Retrofit 호출 모듈
 
+import android.content.Context
 import android.util.Log
 import android.widget.ImageView
 import com.example.gonggan.R
@@ -16,6 +17,19 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.IOException
 import java.util.HashMap
 
+
+object ApiUtilities{
+    fun callRetrofit(url: String) : Retrofit{
+        val gson: Gson = GsonBuilder()
+            .setLenient()
+            .create()
+        return Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+/*
 fun callRetrofit(url: String): Retrofit {
     val gson: Gson = GsonBuilder()
         .setLenient()
@@ -25,15 +39,19 @@ fun callRetrofit(url: String): Retrofit {
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
+}*/
+
 }
 
-//Log 길이 
-fun logLineBreak(str: String) {
-    if (str.length > 3000) {    // 텍스트가 3000자 이상이 넘어가면 줄
-        Log.i("e", str.substring(0, 3000))
-        logLineBreak(str.substring(3000))
-    } else {
-        Log.i("e", str)
+class SharedPreferencesManager(context: Context) {
+    private val sharedPreferences = context.getSharedPreferences("user_auto", Context.MODE_PRIVATE)
+
+    fun getString(key: String, defaultValue: String): String {
+        return sharedPreferences.getString(key, defaultValue) ?: defaultValue
+    }
+
+    fun setString(key: String, value: String) {
+        sharedPreferences.edit().putString(key, value).apply()
     }
 }
 

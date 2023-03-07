@@ -71,6 +71,7 @@
 
     <!--사진대지-->
     <string name="photo_gallery">사진대지</string>
+    <string name="QA">QA</string>
     <string name="post_picture">사진 등록</string>
     <string name="file_title">사진 제목</string>
     <string name="title">제목</string>

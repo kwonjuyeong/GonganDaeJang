@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/ico_calendar"
+                        android:background="@drawable/ic_ico_calendar"
                         tools:ignore="ContentDescription" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/ico_calendar"
+                        android:background="@drawable/ic_ico_calendar"
                         tools:ignore="ContentDescription" />
                 </LinearLayout>
 
@@ -120,7 +120,7 @@
                     android:background="@drawable/search_btn"
                     android:maxHeight="42dp"
                     android:padding="10sp"
-                    android:src="@drawable/btn_ico_search"
+                    android:src="@drawable/ic_btn_ico_search"
                     tools:ignore="ContentDescription" />
             </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView

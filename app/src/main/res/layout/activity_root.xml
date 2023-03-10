@@ -21,7 +21,7 @@
         android:background="@drawable/blue_btn_background"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:src="@drawable/ico_out"
+        android:src="@drawable/ic_ico_out"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

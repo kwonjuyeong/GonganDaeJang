@@ -62,9 +62,8 @@ class ModifyActivity : AppCompatActivity() {
         init()
 
         setSupportActionBar(binding.include.mainToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
         supportActionBar?.title = getString(R.string.modify_info)
+
 
         //사용자 정보 표시==================================================================================================================================
         val retrofitUserInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")

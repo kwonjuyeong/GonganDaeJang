@@ -34,7 +34,7 @@ fun startDate(date :String?) : String {
     }
 }
 
-//종료 날짜 ex)20221026 + 595959 = 20221026595959
+//종료 날짜 ex)20221026 + 235959 = 20221026235959
 fun endDate(date :String?) : String {
     return if(date == ""){
         ""
@@ -43,10 +43,11 @@ fun endDate(date :String?) : String {
         val year : String = date!!.substring(0, 4)
         val month : String = date.substring(5, 7)
         val day : String = date.substring(8, 10)
-        result = year+month+day+"595959"
+        result = year+month+day+"235959"
         result
     }
 }
+
 
 //시작 날짜 ex)20221026 + 000000 = 20221026000000
 fun postSearchStartDate(date :String?) : String {

@@ -37,6 +37,7 @@ class DashBoardProjectGoAdapter(private val dataset: List<DashBoardProjectGo>) :
 
         viewHolder.binding.projectClick.setOnClickListener {
             val intent = Intent(context, RootActivity::class.java)
+            intent.putExtra("TAG", "")
             intent.putExtra("code", listPosition.project_cons_code)
             intent.run{
                 context.startActivity(this)
@@ -44,7 +45,6 @@ class DashBoardProjectGoAdapter(private val dataset: List<DashBoardProjectGo>) :
              }
         }
     }
-
     override fun getItemCount() = dataset.size
 
 }

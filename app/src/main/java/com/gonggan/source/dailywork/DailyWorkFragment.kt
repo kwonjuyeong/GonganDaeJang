@@ -33,8 +33,6 @@ import kotlin.collections.ArrayList
 
 private var token : String? = null
 private var consCode : String? = null
-
-private var getUserInfo: UserInfoDTO? = null
 private var searchWork: WorkListResponseDTO? = null
 
 class DailyWatchFragment : Fragment() {
@@ -55,17 +53,6 @@ class DailyWatchFragment : Fragment() {
             consCode = it.getString("code").toString()
         }
 
-        //사용자 정보 조회==========================================================================================================================================
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
-        val getUserInfoService: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
-
-        getUserInfoService.requestUserInfo(token, CodeList.sysCd).enqueue(object :
-            Callback<UserInfoDTO> {
-            override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
-            override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
-                getUserInfo = response.body()
-            }
-        })
         //초기 접속 시 전체 문서 조회 ======================================================================================================================
         binding.watchDailyRecycler.layoutManager = LinearLayoutManager(context)
         binding.watchDailyRecycler.adapter = WorkAdapter(requireContext(), workLogData, consCode.toString())

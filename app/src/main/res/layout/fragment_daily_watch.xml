@@ -39,7 +39,6 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@+id/imageView7" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
         <!-- 검색 목록-->
         <LinearLayout
             android:id="@+id/filter_layout"
@@ -49,7 +48,6 @@
             android:background="@drawable/square_table"
             android:layout_margin="5sp"
             android:padding="10sp">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +68,6 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.35"
                     android:textColor="@color/AllScape_deep_blue"
-                    android:ems="6"
                     android:gravity="center"
                     android:minHeight="36dp"
                     android:textSize="16sp" />
@@ -79,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/ico_calendar"
+                    android:background="@drawable/ic_ico_calendar"
                     tools:ignore="ContentDescription" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,7 +93,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.35"
-                    android:ems="6"
                     android:gravity="center"
                     android:textColor="@color/AllScape_deep_blue"
                     android:minHeight="36dp"
@@ -106,10 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/ico_calendar"
+                    android:background="@drawable/ic_ico_calendar"
                     tools:ignore="ContentDescription" />
             </LinearLayout>
-
             <ImageButton
                 android:id="@+id/search_btn"
                 android:layout_width="wrap_content"
@@ -119,7 +114,7 @@
                 android:background="@drawable/search_btn"
                 android:maxHeight="42dp"
                 android:padding="10sp"
-                android:src="@drawable/btn_ico_search"
+                android:src="@drawable/ic_btn_ico_search"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView

@@ -165,7 +165,7 @@
             android:id="@+id/ok_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bottom_btn_blue"
+            android:background="@drawable/bottom_modify_btn"
             android:text="@string/OK"
             android:textColor="@color/white"
             android:textSize="18sp"

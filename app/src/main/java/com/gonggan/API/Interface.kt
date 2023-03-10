@@ -3,10 +3,10 @@ package com.gonggan.API
 import com.gonggan.DTO.*
 import com.gonggan.DTO.LoginDTO
 import com.gonggan.DTO.LoginRequestDTO
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 //사용자 로그인
@@ -202,7 +202,7 @@ interface PostReply{
     @Headers("Content-Type: application/json")
     @POST("/projWorkReplyManage/WorkReply/{sys_doc_num}")
     fun requestPostReply(
-        @Path("sys_doc_Fnum") sys_doc_num: String,
+        @Path("sys_doc_num") sys_doc_num: String,
         @Query("parent_uuid") parent_uuid: String,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String,
@@ -239,7 +239,7 @@ interface ModifyUserService {
     fun requestModify(
         @Header("sysCd") sysCd: String?,
         @Header("token") token: String?,
-        @Part("data") data : RequestBody,
+        @Part("data") data : RequestBody
     ): Call<ModifyUserDTO>
 }
 
@@ -263,7 +263,6 @@ interface GetProjHistory{
     ): Call<ProjHistoryDTO>
 }
 
-
 //프로젝트 이력 정보조회
 interface SearchQaList{
     @Headers("Content-Type: application/json")
@@ -273,13 +272,65 @@ interface SearchQaList{
         @Header("sysCd") sysCd: String,
         @Header("token") token : String,
         @Query("start_num") start_num :String,
-        @Query("end_num")  end_num : String,
-        @Query("co_name")  co_name : String,
+        @Query("end_num") end_num : String,
+        @Query("co_name") co_name : String,
         @Query("writer_name") writer_name :String,
-        @Query("post_type")  post_type : String,
-        @Query("title_keyword")  title_keyword : String,
+        @Query("post_type") post_type : String,
+        @Query("title_keyword") title_keyword : String,
         @Query("content_keyword") content_keyword : String,
-        @Query("reg_date_start")  reg_date_start : String,
-        @Query("reg_date_end")  reg_date_end : String,
+        @Query("reg_date_start") reg_date_start : String,
+        @Query("reg_date_end") reg_date_end : String
     ): Call<SearchQAListDTO>
 }
+
+
+//QA 게시글 조회
+interface WatchQADoc{
+    @Headers("Content-Type: application/json")
+    @GET("/projMessageBoardManage/MessageBoard/{cons_code}")
+    fun requestWatchQa(
+        @Path("cons_code") cons_code : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("uuid") uuid: String
+    ): Call<WatchQADocDTO>
+}
+
+//QA 게시글 작성
+interface PostQADoc{
+    @Multipart
+    @POST("/projMessageBoardManage/MessageBoard/{cons_code}")
+    fun requestWatchQa(
+        @Path("cons_code") cons_code : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Part("data") data : RequestBody,
+        @Part files : ArrayList<MultipartBody.Part>
+    ): Call<PostQADTO>
+}
+
+//QA 게시글 삭제
+interface DeleteQADoc{
+    @Headers("Content-Type: application/json")
+    @DELETE("/projMessageBoardManage/MessageBoard/{cons_code}")
+    fun requestDeleteQa(
+        @Path("cons_code") cons_code : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("uuid") uuid: String
+    ): Call<PostQADTO>
+}
+
+//QA 게시글 수정
+interface ModifyQADoc{
+    @Multipart
+    @PUT("/projMessageBoardManage/MessageBoard/{cons_code}")
+    fun requestModifyQa(
+        @Path("cons_code") cons_code : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Part("data") data : RequestBody,
+        @Part files : ArrayList<MultipartBody.Part>
+    ): Call<PostQADTO>
+}
+

@@ -18,7 +18,11 @@ import com.gonggan.objects.moveToDash
 
 private lateinit var backAuthState : String
 
-class MyPageActivity : AppCompatActivity() {
+interface BackPressListener {
+    fun onBackPressed()
+}
+
+class MyPageActivity : AppCompatActivity(), BackPressListener{
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var userToken: String
@@ -34,8 +38,6 @@ class MyPageActivity : AppCompatActivity() {
         setSupportActionBar(binding.include.mainToolbar)
 
         supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             title = getString(R.string.my_page_eng)
         }
 
@@ -78,11 +80,5 @@ class MyPageActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        //back pressed
-        myPageViewModel.getUsers().observe(this) {
-            myPageViewModel.moveToDashBoard(this, myPageViewModel.getUsers())
-        }
-    }
+
 }

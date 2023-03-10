@@ -70,7 +70,7 @@ class WorkEditPhoto : AppCompatActivity() {
         init()
 
         //이미지 조회================================================================================================
-        binding.imageRecycler.layoutManager = LinearLayoutManager(this)
+        binding.imageRecycler.layoutManager = LinearLayoutManager(this).also { it.orientation = LinearLayoutManager.HORIZONTAL }
         binding.imageRecycler.adapter = ConsWorkInfoInsideFileAdapter(ImageInfoData, {deleteBtn(it)}, userToken, consCode, sysDocNum)
 
         ImageInfoData.clear()
@@ -87,7 +87,6 @@ class WorkEditPhoto : AppCompatActivity() {
                 pickCamera()
             }
         }
-
 
         binding.bottomBtn.setOnClickListener {
             val intent = Intent(this, DailyWorkDocument::class.java)
@@ -121,10 +120,15 @@ class WorkEditPhoto : AppCompatActivity() {
         when (requestCode) {
             //사진대지 - 파일 탐색기에서 가져오기
             CodeList.Album -> {
-                data?:return
-                val uri = data.data as Uri
+                data ?: return
+                val clipData = data.clipData
+
+        if (clipData != null) {
+
+            for (i in 0 until clipData.itemCount) {
+                val uri = clipData.getItemAt(i).uri
                 val filename = getName(uri)
-                val imgPath =  usiPathUtil.getRealPathFromURI(this, uri)
+                val imgPath = usiPathUtil.getRealPathFromURI(this, uri)
 
                 if (filename != "" && imgPath != null) {
                     val `in` = contentResolver.openInputStream(uri) //src
@@ -151,7 +155,7 @@ class WorkEditPhoto : AppCompatActivity() {
                                 val jsonBody = RequestBody.create(MediaType.parse("application/json"), jsonObject)
                                 Log.d("json", jsonObject.toString())
 
-                                photoPost.requestPostGallery(consCode, sysDocNum, ImageInfoData.size + 1 ,
+                                photoPost.requestPostGallery(consCode, sysDocNum, ImageInfoData.size + i+ 1 ,
                                     CodeList.sysCd, userToken, jsonBody, fileBody).enqueue(object :
                                     Callback<PostGalleryDTO> {
                                     override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {Log.d("retro", t.toString())}
@@ -161,7 +165,7 @@ class WorkEditPhoto : AppCompatActivity() {
 
                                         if(delete?.code == 200){
                                             Toast.makeText(this@WorkEditPhoto, "사진 등록", Toast.LENGTH_SHORT).show()
-                                            ImageInfoInputData = ImageInputList("","1","","", "", ImageInfoData.size , filename ,file.path , title,"")
+                                            ImageInfoInputData = ImageInputList("","1","","", "", ImageInfoData.size + i , filename ,file.path , title,"")
                                             ImageInfoData.add(ImageInfoInputData)
                                             binding.imageRecycler.adapter?.notifyDataSetChanged()
                                             binding.title.setText("")
@@ -180,6 +184,8 @@ class WorkEditPhoto : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
             //사진대지 - 카메라에서 가져오기
             CodeList.Camera -> {
                 if( photoURI != null)
@@ -289,9 +295,11 @@ class WorkEditPhoto : AppCompatActivity() {
             dispatchTakePictureIntentEx()
             dialog.dismiss()
         }
+
         album.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             startActivityForResult(intent, CodeList.Album)
             dialog.dismiss()
         }

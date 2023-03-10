@@ -69,7 +69,6 @@ class DashboardUsers : AppCompatActivity() {
         init()
         requestMultiplePermissions(this)
 
-
         //네비게이션
         openDrawer()
         navigationItemClick()
@@ -77,10 +76,8 @@ class DashboardUsers : AppCompatActivity() {
         binding.lottieAnimation.playAnimation()
 
         //날씨정보 표시 =============================================================================================================================================
-        val retrofitWeather =
-            callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
-        val getWeatherService: GetWeatherService =
-            retrofitWeather.create(GetWeatherService::class.java)
+        val retrofitWeather = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
+        val getWeatherService: GetWeatherService = retrofitWeather.create(GetWeatherService::class.java)
 
         getWeatherService.requestWeather(sysCd, userToken).enqueue(object :
             Callback<GetWeatherInfoDTO> {
@@ -144,12 +141,9 @@ class DashboardUsers : AppCompatActivity() {
         }
 
         //프로젝트 상태 통계 현황 조회==============================================================================================================================
-        val retrofitProjectList =
-            callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/")
-        val getProjectListService: ProjectListService =
-            retrofitProjectList.create(ProjectListService::class.java)
+        val retrofitProjectList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
 
-        getProjectListService.requestProjectsList(sysCd, userToken).enqueue(object :
+        retrofitProjectList.requestProjectsList(sysCd, userToken).enqueue(object :
             Callback<ProjectListDTO> {
             override fun onFailure(call: Call<ProjectListDTO>, t: Throwable) {
                 Log.d("retrofit", t.toString())
@@ -192,203 +186,36 @@ class DashboardUsers : AppCompatActivity() {
         })
 
         //프로젝트 이동 리스트 불러오기====================================================================================================================
-        binding.userProjectGoRecycler.layoutManager =
-            LinearLayoutManager(this).also { it.orientation = LinearLayoutManager.HORIZONTAL }
-        binding.userProjectGoRecycler.adapter = DashBoardProjectGoAdapter(projectListData)
+        binding.userProjectGoRecycler.apply {
+            layoutManager =
+                LinearLayoutManager(this@DashboardUsers).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+            adapter = DashBoardProjectGoAdapter(projectListData)
+        }
 
-        val retrofitProjStatus =
-            callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/{projectStatus}/")
-        val projectGoService: ProjectGoService =
-            retrofitProjStatus.create(ProjectGoService::class.java)
-
-        //첫 접속 시 전체 프로젝트 불러오기
-        projectGoService.requestProjectsGo(project_all, sysCd, userToken).enqueue(object :
-            Callback<ProjectGoDTO> {
-            override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                projectGo = response.body()
-                projectListData.clear()
-                Log.d("projectGo", Gson().toJson(projectGo?.value))
-                for (i in 0 until projectGo?.value?.size!!) {
-                    val projectStatus = projectGo?.value?.get(i)?.project_status_name.toString()
-                    val consCode = projectGo?.value?.get(i)?.cons_code.toString()
-
-                    projectGoData = DashBoardProjectGo(
-                        projectGo?.value?.get(i)?.cons_name.toString(),
-                        projectGo?.value?.get(i)?.location.toString(),
-                        projectStatus,
-                        consCode,
-                        userInfo?.value?.authority_code.toString()
-                    )
-                    projectListData.add(projectGoData)
-                }
-                binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
-
-            }
-        })
+        updateProjList(project_all)
 
         //전체 프로젝트 클릭시
         binding.projectAll.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(project_all, sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<ProjectGoDTO>,
-                    response: Response<ProjectGoDTO>
-                ) {
-                    projectGo = response.body()
-                    Log.d("projectGo", Gson().toJson(projectGo?.value))
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        val projectStatus = projectGo?.value?.get(i)?.project_status_name.toString()
-                        val consCode = projectGo?.value?.get(i)?.cons_code.toString()
-                        projectGoData = DashBoardProjectGo(
-                            projectGo?.value?.get(i)?.cons_name.toString(),
-                            projectGo?.value?.get(i)?.location.toString(),
-                            projectStatus,
-                            consCode,
-                            userInfo?.value?.authority_code.toString()
-                        )
-                        projectListData.add(projectGoData)
-                    }
-                    binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
-
-                }
-            })
+            updateProjList(project_all)
         }
 
         //준비중 프로젝트 클릭시
         binding.projectReady.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(project_ready, sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<ProjectGoDTO>,
-                    response: Response<ProjectGoDTO>
-                ) {
-                    projectGo = response.body()
-                    Log.d("projectGo", Gson().toJson(projectGo?.value))
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(
-                            projectGo?.value?.get(i)?.cons_name.toString(),
-                            projectGo?.value?.get(i)?.location.toString(),
-                            "준비",
-                            projectGo?.value?.get(i)?.cons_code.toString(),
-                            userInfo?.value?.authority_code.toString()
-                        )
-                        projectListData.add(projectGoData)
-                    }
-                    binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
+            updateProjList(project_ready)
         }
         //진행중인 프로젝트 클릭 시
         binding.projectProgress.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(project_progress, sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<ProjectGoDTO>,
-                    response: Response<ProjectGoDTO>
-                ) {
-                    projectGo = response.body()
-                    Log.d("projectGo", Gson().toJson(projectGo?.value))
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(
-                            projectGo?.value?.get(i)?.cons_name.toString(),
-                            projectGo?.value?.get(i)?.location.toString(),
-                            "진행",
-                            projectGo?.value?.get(i)?.cons_code.toString(),
-                            userInfo?.value?.authority_code.toString()
-                        )
-                        projectListData.add(projectGoData)
-                    }
-                    binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
+            updateProjList(project_progress)
         }
 
         //중지된 프로젝트 클릭 시
         binding.projectStop.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(project_stop, sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<ProjectGoDTO>,
-                    response: Response<ProjectGoDTO>
-                ) {
-                    projectGo = response.body()
-                    Log.d("projectGo", Gson().toJson(projectGo?.value))
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        val consCode = projectGo?.value?.get(i)?.cons_code.toString()
-                        projectGoData = DashBoardProjectGo(
-                            projectGo?.value?.get(i)?.cons_name.toString(),
-                            projectGo?.value?.get(i)?.location.toString(),
-                            "중지",
-                            consCode,
-                            userInfo?.value?.authority_code.toString()
-                        )
-                        projectListData.add(projectGoData)
-                    }
-                    binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
+            updateProjList(project_stop)
         }
 
         //완료된 프로젝트 클릭 시
         binding.projectComplete.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(project_complete, sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<ProjectGoDTO>,
-                    response: Response<ProjectGoDTO>
-                ) {
-                    projectGo = response.body()
-
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        val consCode = projectGo?.value?.get(i)?.cons_code.toString()
-                        projectGoData = DashBoardProjectGo(
-                            projectGo?.value?.get(i)?.cons_name.toString(),
-                            projectGo?.value?.get(i)?.location.toString(),
-                            "완료",
-                            consCode,
-                            userInfo?.value?.authority_code.toString()
-                        )
-                        projectListData.add(projectGoData)
-                    }
-                    binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
-
-                }
-            })
+            updateProjList(project_complete)
         }
     }
 
@@ -405,6 +232,7 @@ class DashboardUsers : AppCompatActivity() {
         super.onDestroy()
         job?.cancel()
     }
+
     private fun openDrawer(){
         binding.menu.setOnClickListener {
             drawer.openDrawer(GravityCompat.END)
@@ -427,6 +255,27 @@ class DashboardUsers : AppCompatActivity() {
             }
             return@setNavigationItemSelectedListener false
         }
+    }
+
+    private fun updateProjList(code : String){
+        val retrofitProjectGo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/{projectStatus}/").create(ProjectGoService::class.java)
+        projectListData.clear()
+        retrofitProjectGo.requestProjectsGo(code , CodeList.sysCd, userToken).enqueue(object :
+            Callback<ProjectGoDTO> {
+            override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
+                Log.d("retrofit", t.toString())
+            }
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
+                projectGo = response.body()
+
+                for (i in 0 until projectGo?.value?.size!!) {
+                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString())
+                    projectListData.add(projectGoData)
+                }
+                binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
+            }
+        })
     }
 }
 

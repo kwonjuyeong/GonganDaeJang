@@ -8,5 +8,5 @@
         android:title="@string/photo_gallery"/>
     <item android:id="@+id/q_and_a_menu"
         android:enabled="true"
-        android:title="@string/QA"/>
+        android:title="@string/communication"/>
 </menu>

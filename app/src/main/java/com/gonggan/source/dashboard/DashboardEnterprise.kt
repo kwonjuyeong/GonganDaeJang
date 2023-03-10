@@ -155,123 +155,27 @@ class DashboardEnterprise : AppCompatActivity() {
                 }
             })
         //프로젝트로 이동하기=========================================================================================================================================================
-        binding.enterPProjectGoRecycler.layoutManager = LinearLayoutManager(this).also { it.orientation = LinearLayoutManager.HORIZONTAL }
-        binding.enterPProjectGoRecycler.adapter = DashBoardProjectGoAdapter(projectListData)
-
-        val retrofitProjectGo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/{projectStatus}/")
-        val projectGoService: ProjectGoService = retrofitProjectGo.create(ProjectGoService::class.java)
-
-        projectGoService.requestProjectsGo(CodeList.project_all , CodeList.sysCd, userToken).enqueue(object :
-            Callback<ProjectGoDTO> {
-            override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
+            binding.enterPProjectGoRecycler.apply {
+                layoutManager = LinearLayoutManager(this@DashboardEnterprise).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+                adapter = DashBoardProjectGoAdapter(projectListData)
             }
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                projectGo = response.body()
-                Log.d("projectGo", Gson().toJson(projectGo?.value))
-                projectListData.clear()
-                for (i in 0 until projectGo?.value?.size!!) {
-                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString(),userInfo?.value?.authority_code.toString())
-                    projectListData.add(projectGoData)
-                }
-                binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
-            }
-        })
 
-            binding.allProject.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(CodeList.project_all , CodeList.sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                    projectGo = response.body()
+        updateProjList(CodeList.project_all)
 
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString(),userInfo?.value?.authority_code.toString())
-                        projectListData.add(projectGoData)
-                    }
-                    binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
+        binding.allProject.setOnClickListener {
+                updateProjList(CodeList.project_all)
         }
         binding.readyProject.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(CodeList.project_ready , CodeList.sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                    projectGo = response.body()
-
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString(), projectGo?.value?.get(i)?.cons_code.toString(), userInfo?.value?.authority_code.toString())
-                        projectListData.add(projectGoData)
-                    }
-                    binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
-
+            updateProjList(CodeList.project_ready)
         }
         binding.progressProject.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(CodeList.project_progress , CodeList.sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                    projectGo = response.body()
-
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString(),projectGo?.value?.get(i)?.cons_code.toString(), userInfo?.value?.authority_code.toString())
-                        projectListData.add(projectGoData)
-                    }
-                    binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
+            updateProjList(CodeList.project_progress)
         }
         binding.stopProject.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(CodeList.project_stop , CodeList.sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                    projectGo = response.body()
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString(),projectGo?.value?.get(i)?.cons_code.toString(),  userInfo?.value?.authority_code.toString())
-                        projectListData.add(projectGoData)
-                    }
-                    binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
-
-                }
-            })
+            updateProjList(CodeList.project_stop)
         }
         binding.completeProject.setOnClickListener {
-            projectListData.clear()
-            projectGoService.requestProjectsGo(CodeList.project_complete , CodeList.sysCd, userToken).enqueue(object :
-                Callback<ProjectGoDTO> {
-                override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
-                    projectGo = response.body()
-
-                    for (i in 0 until projectGo?.value?.size!!) {
-                        projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString())
-                        projectListData.add(projectGoData)
-                    }
-                    binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
-                }
-            })
+            updateProjList(CodeList.project_complete)
         }
 
 
@@ -283,4 +187,27 @@ class DashboardEnterprise : AppCompatActivity() {
             editor = sharedPreference.edit()
             userToken = sharedPreference.getString("token", "").toString()
         }
+
+    private fun updateProjList(code : String){
+        val retrofitProjectGo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/{projectStatus}/").create(ProjectGoService::class.java)
+
+        projectListData.clear()
+
+        retrofitProjectGo.requestProjectsGo(code , CodeList.sysCd, userToken).enqueue(object :
+            Callback<ProjectGoDTO> {
+            override fun onFailure(call: Call<ProjectGoDTO>, t: Throwable) {
+                Log.d("retrofit", t.toString())
+            }
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
+                projectGo = response.body()
+
+                for (i in 0 until projectGo?.value?.size!!) {
+                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString())
+                    projectListData.add(projectGoData)
+                }
+                binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()
+            }
+        })
+    }
 }

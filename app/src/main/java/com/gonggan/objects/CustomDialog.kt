@@ -9,14 +9,20 @@ import android.graphics.Matrix
 import android.graphics.PointF
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import com.airbnb.lottie.LottieAnimationView
 import com.example.gonggan.R
+import com.gonggan.API.DeleteQADoc
 import com.gonggan.Adapter.GalleryListData
+import com.gonggan.DTO.PostQADTO
 import com.gonggan.source.mypage.ModifyActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.math.sqrt
 
 internal enum class TOUCHMODE {
@@ -195,6 +201,58 @@ fun modifyInfo(context: Context, userPassword : String){
         }
     }
     modifyNoBtn.setOnClickListener {
+        dialog.dismiss()
+    }
+    dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+    dialog.setCanceledOnTouchOutside(true)
+    dialog.setCancelable(true)
+    dialog.show()
+}
+
+
+private var deleteDoc : PostQADTO?= null
+
+data class deleteDocData(
+      val consCode: String,
+      val token : String,
+      val uuid: String
+)
+//문서삭제
+fun deleteDocCustom(context: Context, data : deleteDocData){
+    val dialog = Dialog(context)
+    dialog.setContentView(R.layout.custom_dialog_delete_doc)
+
+    val deleteText = dialog.findViewById<TextView>(R.id.delete_doc_text)
+    val deleteBtn = dialog.findViewById<Button>(R.id.doc_delete_btn)
+    val deleteNoBtn = dialog.findViewById<Button>(R.id.doc_delete_no_btn)
+
+    val lottyAnimation = dialog.findViewById<LottieAnimationView>(R.id.delete_doc_lottie)
+
+    deleteText.text = "게시글을 삭제하시겠습니까?"
+
+    lottyAnimation.playAnimation()
+
+    deleteBtn.setOnClickListener {
+        val retroDeleteQaList = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(DeleteQADoc::class.java)
+        retroDeleteQaList.requestDeleteQa(data.consCode,CodeList.sysCd, data.token , data.uuid).enqueue(object :
+            Callback<PostQADTO> {
+            override fun onFailure(call: Call<PostQADTO>, t: Throwable) { Log.d("QAWatchDoc_error", t.toString()) }
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<PostQADTO>, response: Response<PostQADTO>) {
+                deleteDoc = response.body()
+
+                if(deleteDoc?.code == 200){
+                    Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show()
+                    (context as Activity).finish()
+                }else{
+                    Toast.makeText(context, "삭제 실패 ${deleteDoc?.msg}", Toast.LENGTH_SHORT).show()
+                    (context as Activity).finish()
+                }
+            }
+        })
+
+    }
+    deleteNoBtn.setOnClickListener {
         dialog.dismiss()
     }
     dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)

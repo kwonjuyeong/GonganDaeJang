@@ -17,6 +17,7 @@ import com.gonggan.objects.moveToDash
 import com.gonggan.objects.startCloseLogoutCustom
 import com.gonggan.source.dailywork.DailyWatchFragment
 import com.gonggan.source.photogallery.PhotoGalleryFragment
+import com.gonggan.source.qa.QAFragment
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +32,7 @@ class RootActivity : AppCompatActivity() {
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var userToken: String
     private lateinit var consCode : String
+    private lateinit var activityTag : String
 
     private var getUserInfo: UserInfoDTO? = null
 
@@ -50,7 +52,12 @@ class RootActivity : AppCompatActivity() {
             title = "프로젝트 대시보드"
         }
 
-        setDataAtFragment(DailyWatchFragment())
+        if(activityTag == ""){
+            setDataAtFragment(DailyWatchFragment())
+        }else if(activityTag == "QA"){
+            setDataAtFragment(QAFragment())
+        }
+
 
 
         val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
@@ -94,7 +101,7 @@ class RootActivity : AppCompatActivity() {
                         setDataAtFragment(PhotoGalleryFragment())
                     }
                     R.id.q_and_a_menu -> {
-                        setDataAtFragment(PhotoGalleryFragment())
+                        setDataAtFragment(QAFragment())
                     }
                 }
                 true
@@ -123,5 +130,6 @@ class RootActivity : AppCompatActivity() {
         editor = sharedPreference.edit()
         userToken = sharedPreference.getString("token", "").toString()
         consCode = intent.getStringExtra("code")!!
+        activityTag = intent.getStringExtra("TAG")!!
     }
 }

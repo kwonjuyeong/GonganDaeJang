@@ -33,7 +33,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ico_company"
+        android:src="@drawable/ic_ico_company_gray"
         tools:ignore="ContentDescription" />
     <TextView
         android:id="@+id/project_name"

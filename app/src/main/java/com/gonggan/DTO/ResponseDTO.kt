@@ -299,6 +299,7 @@ data class CoHistoryD(
     val co_address : String,
     val co_ceo :String,
     val co_code : String,
+    val co_name : String,
     val co_contact : String,
     val co_tenure_end_date : String,
     val co_tenure_start_date : String,
@@ -322,23 +323,57 @@ data class ProjHistoryD(
     val req_date : String
 )
 
+//리스트 조회 데이터
 data class SearchQAListDTO(
     val code : Int,
     val msg : String,
-    val value : ArrayList<QAListData>
+    val value : QAListData
 )
 data class QAListData(
     val count: Int,
     val data : ArrayList<QALists>
 )
 data class QALists(
-    val start_num : Int,
-    val end_num : Int,
     val co_name : String,
-    val writer_name: String,
     val post_type : String,
+    val reg_date : String,
     val title : String,
+    val uuid :String,
+    val writer_id : String,
+    val writer_name : String
+)
+
+
+//QA 조회 데이터
+data class WatchQADocDTO(
+    val code : Int,
+    val msg : String,
+    val value : QADocData
+)
+data class QADocData(
+    val co_code: String,
+    val uuid : String,
+    val post_type: String,
+    val title : String,
+    val writer_name: String,
+    val writer_id: String,
+    val reg_date: String,
     val content : String,
-    val reg_date_start : String,
-    val reg_date_end : String
+    val files : ArrayList<QADocFileData>
+)
+data class QADocFileData(
+    val chan_name: String,
+    val file_index: Int,
+    val file_path : String,
+    val orig_name : String,
+    val post_uuid : String,
+    val reg_date: String
+)
+
+
+//QA 등록 데이터
+data class PostQADTO(
+    val code : Int,
+    val msg : String,
+    val value : String
 )

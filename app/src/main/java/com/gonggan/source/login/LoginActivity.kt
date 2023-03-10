@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                         CoroutineScope(Dispatchers.Main).launch {
                             binding.loginLayout.visibility = GONE
                             binding.checkedLottie.playAnimation()
-                            delay(1000)
+                            delay(1500)
                             moveToDash(this@LoginActivity, getUserInfo?.value?.co_code.toString(), getUserInfo?.value?.authority_code.toString(), getUserInfo?.msg.toString())
                         }
                     }

@@ -51,10 +51,9 @@ class DailyWorkDocument : AppCompatActivity() {
 
         setSupportActionBar(binding.include.mainToolbar)
         supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             title = "공사일보 조회"
         }
+
         //작업일보 상세보기====================================================================================================================
         //작업량
         binding.consWorkInfoRecycler.layoutManager = LinearLayoutManager(this)

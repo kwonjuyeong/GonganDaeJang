@@ -1,7 +1,6 @@
 package com.gonggan.source.qa
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityQawatchDocBinding
@@ -20,7 +18,6 @@ import com.gonggan.DTO.QADocFileData
 import com.gonggan.DTO.UserInfoDTO
 import com.gonggan.DTO.WatchQADocDTO
 import com.gonggan.objects.*
-import com.gonggan.source.detailhome.RootActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +29,6 @@ import retrofit2.Response
 private const val TAG = "QAWatchDocument"
 
 private var watchDoc : WatchQADocDTO?= null
-
 private var userInfo: UserInfoDTO? = null
 
 private lateinit var sharedPreference : SharedPreferences
@@ -58,7 +54,6 @@ class QAWatchDoc : AppCompatActivity() {
         supportActionBar?.apply {
             title = getString(R.string.communication)
         }
-
 
         val retroWatchQaList = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(WatchQADoc::class.java)
         val retrofitInfo = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
@@ -105,6 +100,12 @@ class QAWatchDoc : AppCompatActivity() {
             }
         })
 
+        //댓글 작성
+        binding.commentBtn.setOnClickListener {
+            val intent = Intent(this@QAWatchDoc, QACommentActivity ::class.java)
+            intent.putExtra("uuid", uuid)
+            startActivity(intent)
+        }
 
         binding.modifyBtn.setOnClickListener {
             val intent = Intent(this@QAWatchDoc, QAModify::class.java)

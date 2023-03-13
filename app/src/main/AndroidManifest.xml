@@ -23,6 +23,9 @@
         tools:replace="android:label"
         tools:targetApi="31">
         <activity
+            android:name="com.gonggan.source.qa.QACommentActivity"
+            android:exported="false" />
+        <activity
             android:name="com.gonggan.source.qa.QAModify"
             android:exported="false" />
         <activity

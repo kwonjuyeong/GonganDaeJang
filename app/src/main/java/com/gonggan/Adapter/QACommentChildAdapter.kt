@@ -1,6 +1,7 @@
 package com.gonggan.Adapter
 
 //공사일보 인력 1차 구분 아이템
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
@@ -12,7 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggan.R
-import com.example.gonggan.databinding.ItemCommentParentsBinding
+import com.example.gonggan.databinding.ItemCommentChildBinding
 import com.gonggan.API.*
 import com.gonggan.DTO.*
 import com.gonggan.objects.ApiUtilities.callRetrofit
@@ -22,44 +23,35 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
+private var getReply : ReplyQADTO?= null
+private var postReplyD : PostQADTO?= null
+private var deleteReply : PostQADTO ?= null
+private var putReply : ReplyQADTO ?= null
 private var userInfo: UserInfoDTO? = null
 
-data class CommentData(
-    var child_count : Int,
-    val content : String,
-    val parent_uuid : String,
-    val reg_date : String,
-    val sys_doc_num :String,
-    val uuid : String,
-    val write_id : String,
-    val writer_name :String
-)
+class QACommentChildAdapter(private val context: Context, private val dataset: List<ReplyQAData>, private val token : String):
+    RecyclerView.Adapter<QACommentChildAdapter.QACommentChildViewHolder>() {
 
-private var getReply : ReplyDTO?= null
-private var postReplyD : PostGalleryDTO?= null
-private var deleteReply : PostGalleryDTO ?= null
-private var putReply : ReplyDTO ?= null
-
-
-class CommentAdapter(private val context: Context, private val dataset: List<CommentData>, private val sysDocNum : String, private val token : String):
-    RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
-
-    class CommentViewHolder(val binding: ItemCommentParentsBinding) : RecyclerView.ViewHolder(binding.root)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CommentViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_comment_parents, viewGroup, false)
-        return CommentViewHolder(ItemCommentParentsBinding.bind(view))
+    class QACommentChildViewHolder(val binding: ItemCommentChildBinding) : RecyclerView.ViewHolder(binding.root)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): QACommentChildViewHolder {
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_comment_child, viewGroup, false)
+        return QACommentChildViewHolder(ItemCommentChildBinding.bind(view))
     }
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
-    override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: QACommentChildViewHolder, position: Int) {
         val listPosition = dataset[position]
+
+        val commentData = arrayListOf<ReplyQAData>()
+        var commentInputData : ReplyQAData
+        //메뉴 열고 닫기 상태
         var replyState = 0
         var writeState = 0
         var modifyState = 0
 
-        val commentData = arrayListOf<CommentData>()
-        var commentInputData : CommentData
 
+        //댓글 정보 표시==============================================================================================================================
         viewHolder.binding.writer.text = listPosition.writer_name
 
         if(listPosition.content != "null"){
@@ -71,41 +63,39 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
             viewHolder.binding.deleteLayout.visibility = GONE
             viewHolder.binding.writer.visibility = GONE
         }
-        viewHolder.binding.writeDate.text = convertDateFormat4(listPosition.reg_date)
 
-        //대댓글 확인==========================================================
-        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▲"
-
-        val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-        val workReply: GetReply = retrofit.create(GetReply::class.java)
+        //대댓글 조회 =================================================================================================================================
+        val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/")
+        val workReply: GetQAReply = retrofit.create(GetQAReply::class.java)
 
         val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
         val getMyInfo: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
 
+        viewHolder.binding.writeDate.text = convertDateFormat4(listPosition.reg_date)
+        //대댓글 확인==========================================================
+        viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▲"
         viewHolder.binding.replyCount.setOnClickListener {
             //대댓글 열기
             if(replyState == 0)
             {
                 replyState = 1
                 viewHolder.binding.childRecycler.visibility = VISIBLE
+                viewHolder.binding.childRecycler.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = QACommentChildAdapter(context, commentData, token)
+                }
 
-                viewHolder.binding.childRecycler.layoutManager = LinearLayoutManager(context)
-                viewHolder.binding.childRecycler.adapter = CommentChildAdapter(context, commentData, sysDocNum, token)
-
-                workReply.requestGetReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
-                    Callback<ReplyDTO> {
-                    override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
+                workReply.requestGetQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
+                    Callback<ReplyQADTO> {
+                    override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) {
                         Log.d("retrofit", t.toString())
                     }
                     @SuppressLint("NotifyDataSetChanged")
-                    override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
+                    override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
                         getReply = response.body()
                         commentData.clear()
                         for(i in 0 until getReply?.value!!.size){
-                            commentInputData = CommentData(
-                                getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(),
-                                getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(),
-                                getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
+                            commentInputData = ReplyQAData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.co_code.toString(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(),  getReply?.value?.get(i)?.post_uuid.toString(),getReply?.value?.get(i)?.reg_date.toString(),  getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                             commentData.add(commentInputData)
                         }
                         viewHolder.binding.replyCount.text = "답글 ${listPosition.child_count} ▼"
@@ -122,14 +112,12 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
             }
         }
 
-        //댓글 작성==========================================================
+        //답글쓰기 버튼==========================================================
         viewHolder.binding.writeBtn.setOnClickListener {
             if(writeState == 0)
-            {
-                writeState = 1
+            {   writeState = 1
                 viewHolder.binding.constraintLayout.visibility = VISIBLE
                 viewHolder.binding.writeBtn.text = "취소"
-
             }
             else if(writeState == 1){
                 writeState = 0
@@ -137,23 +125,22 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                 viewHolder.binding.postEditText.setText("")
                 viewHolder.binding.constraintLayout.visibility = GONE
             }
-            }
+        }
 
         //답글 등록 버튼 =================================================
         viewHolder.binding.postBtn.setOnClickListener {
 
-            val retrofitPost = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-            val postReply: PostReply = retrofitPost.create(PostReply::class.java)
+            val postReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PostQAReply::class.java)
 
             val content = viewHolder.binding.postEditText.text.toString()
 
-            postReply.requestPostReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token, ReplyPostRequestDTO(content)).enqueue(object :
-                Callback<PostGalleryDTO> {
-                override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {
+            postReply.requestPostQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid, ReplyPostRequestDTO(content)).enqueue(object :
+                Callback<PostQADTO> {
+                override fun onFailure(call: Call<PostQADTO>, t: Throwable) {
                     Log.d("retrofit", t.toString())
                 }
                 @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<PostGalleryDTO>, response: Response<PostGalleryDTO>) {
+                override fun onResponse(call: Call<PostQADTO>, response: Response<PostQADTO>) {
                     postReplyD = response.body()
 
                     Log.d("reply_",postReplyD?.code.toString())
@@ -163,20 +150,17 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                     if(postReplyD?.code == 200){
                         Toast.makeText(context, "등록", Toast.LENGTH_SHORT).show()
 
-                        workReply.requestGetReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
-                            Callback<ReplyDTO> {
-                            override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
+                        workReply.requestGetQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
+                            Callback<ReplyQADTO> {
+                            override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) {
                                 Log.d("retrofit", t.toString())
                             }
                             @SuppressLint("NotifyDataSetChanged")
-                            override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
+                            override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
                                 getReply = response.body()
                                 commentData.clear()
                                 for(i in 0 until getReply?.value!!.size){
-                                    commentInputData = CommentData(
-                                        getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(),
-                                        getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(),
-                                        getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
+                                    commentInputData = ReplyQAData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.co_code.toString(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(),  getReply?.value?.get(i)?.post_uuid.toString(),getReply?.value?.get(i)?.reg_date.toString(),  getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                                     commentData.add(commentInputData)
                                 }
                                 writeState = 0
@@ -195,7 +179,6 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
         }
 
 
-        //댓글 삭제========================================================================================================================
         viewHolder.binding.deleteBtn.setOnClickListener {
 
             getMyInfo.requestUserInfo(token, CodeList.sysCd).enqueue(object :
@@ -206,40 +189,38 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                     userInfo = response.body()
 
-                    if(listPosition.write_id == userInfo?.value?.id){
-                        val retrofitDelete = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-                        val deleteReplys: DeleteReply = retrofitDelete.create(DeleteReply::class.java)
+                    if(listPosition.writer_id == userInfo?.value?.id){
 
-                        deleteReplys.requestDeleteReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
-                            Callback<PostGalleryDTO> {
-                            override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {
+                        val deleteReplys = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(DeleteQAReply::class.java)
+
+                        deleteReplys.requestDeleteQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
+                            Callback<PostQADTO> {
+                            override fun onFailure(call: Call<PostQADTO>, t: Throwable) {
                                 Log.d("retrofit", t.toString())
                             }
                             @SuppressLint("NotifyDataSetChanged")
-                            override fun onResponse(call: Call<PostGalleryDTO>, response: Response<PostGalleryDTO>) {
+                            override fun onResponse(call: Call<PostQADTO>, response: Response<PostQADTO>) {
                                 deleteReply = response.body()
+
                                 Log.d("delete_reply", deleteReply?.code.toString())
                                 Log.d("delete_reply", deleteReply?.msg.toString())
                                 Log.d("delete_reply", deleteReply?.value.toString())
 
                                 if(deleteReply?.code == 200){
 
-                                    workReply.requestGetReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
-                                        Callback<ReplyDTO> {
-                                        override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
+                                    workReply.requestGetQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
+                                        Callback<ReplyQADTO> {
+                                        override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) {
                                             Log.d("retrofit", t.toString())
                                         }
                                         @SuppressLint("NotifyDataSetChanged")
-                                        override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
+                                        override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
                                             getReply = response.body()
                                             viewHolder.binding.deleteLayout.visibility = GONE
                                             viewHolder.binding.writer.visibility = GONE
                                             commentData.clear()
                                             for(i in 0 until getReply?.value!!.size){
-                                                commentInputData = CommentData(
-                                                    getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(),
-                                                    getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(),
-                                                    getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
+                                                commentInputData = ReplyQAData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.co_code.toString(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(),  getReply?.value?.get(i)?.post_uuid.toString(),getReply?.value?.get(i)?.reg_date.toString(),  getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                                                 commentData.add(commentInputData)
                                             }
                                             viewHolder.binding.content.text = "작성자에 의해 삭제된 댓글입니다."
@@ -253,11 +234,9 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                     }else{
                         Toast.makeText(context, "작성자만 댓글을 삭제할 수 있습니다.", Toast.LENGTH_SHORT).show()
                     }
-
                 }
             })
         }
-
         //댓글 수정 ===============================================================================================================================
         viewHolder.binding.modifyBtn.setOnClickListener {
 
@@ -269,7 +248,7 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                     userInfo = response.body()
 
-                    if(listPosition.write_id == userInfo?.value?.id){
+                    if(listPosition.writer_id == userInfo?.value?.id){
                         if(modifyState == 0)
                         {
                             modifyState = 1
@@ -292,29 +271,28 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
             })
         }
 
-        viewHolder.binding.modifyGoBtn.setOnClickListener {
 
-            val retrofitPut = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-            val putReplys: PutReply = retrofitPut.create(PutReply::class.java)
+        viewHolder.binding.modifyGoBtn.setOnClickListener {
+            val retrofitPut = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PutQAReply::class.java)
 
             val content = viewHolder.binding.modifyEditText.text.toString()
 
-            putReplys.requestPutReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token, ReplyPutRequestDTO(content)).enqueue(object :
-                Callback<ReplyDTO> {
-                override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
+            retrofitPut.requestPutQAReply(listPosition.post_uuid,CodeList.sysCd, token, listPosition.uuid, ReplyPutRequestDTO(content)).enqueue(object :
+                Callback<ReplyQADTO> {
+                override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) {
                     Log.d("retrofit", t.toString())
                 }
                 @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
+                override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
                     putReply = response.body()
 
                     if(putReply?.code == 200){
 
-                        workReply.requestGetReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
-                            Callback<ReplyDTO> {
-                            override fun onFailure(call: Call<ReplyDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
+                        workReply.requestGetQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
+                            Callback<ReplyQADTO> {
+                            override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
                             @SuppressLint("NotifyDataSetChanged")
-                            override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
+                            override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
                                 getReply = response.body()
                                 viewHolder.binding.modifyBtn.text = "수정"
                                 viewHolder.binding.modifyEditText.setText("")
@@ -322,21 +300,16 @@ class CommentAdapter(private val context: Context, private val dataset: List<Com
                                 Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show()
                                 commentData.clear()
                                 for(i in 0 until getReply?.value!!.size){
-                                    commentInputData = CommentData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(), getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
+                                    commentInputData = ReplyQAData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.co_code.toString(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(),  getReply?.value?.get(i)?.post_uuid.toString(),getReply?.value?.get(i)?.reg_date.toString(),  getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
                                     commentData.add(commentInputData)
                                 }
                                 viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                             }
                         })
-
                     }
                 }
             })
-
         }
-
-
-
 
     }
     override fun getItemCount() = dataset.size

@@ -6,15 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityMyPageBinding
-import com.gonggan.DTO.UserInfoDTO
 import com.gonggan.objects.SharedPreferencesManager
-import com.gonggan.objects.modifyInfo
-import com.gonggan.objects.moveToDash
+import com.google.gson.Gson
 
 private lateinit var backAuthState : String
 
@@ -58,11 +54,11 @@ class MyPageActivity : AppCompatActivity(), BackPressListener{
             binding.coTypeText.text = it?.value?.co_type
             binding.coRegisnumText.text = it?.value?.co_regisnum
             binding.authorityText.text = it?.value?.authority_name
+            Log.d("data_up", Gson().toJson(it))
             myPageViewModel.moveToDashBoard(this, myPageViewModel.getUsers())
             myPageViewModel.moveToModifyUserButton(this, myPageViewModel.getUsers())
             backAuthState = it?.value?.authority_code.toString()
         }
-
     }
     private fun init() {
         sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
@@ -80,5 +76,7 @@ class MyPageActivity : AppCompatActivity(), BackPressListener{
         return super.onOptionsItemSelected(item)
     }
 
-
+    override fun onBackPressed() {
+        Log.d("clicked", "clicked")
+    }
 }

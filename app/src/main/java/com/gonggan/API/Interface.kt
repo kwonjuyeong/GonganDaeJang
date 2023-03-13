@@ -334,3 +334,54 @@ interface ModifyQADoc{
     ): Call<PostQADTO>
 }
 
+
+//QA 댓글 조회
+interface GetQAReply{
+    @Headers("Content-Type: application/json")
+    @GET("/projMessageBoardManage/MessageBoardReply/{post_uuid}")
+    fun requestGetQaReply(
+        @Path("post_uuid") post_uuid : String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("parent_uuid") parent_uuid: String
+    ): Call<ReplyQADTO>
+}
+
+//QA 댓글 작성
+interface PostQAReply{
+    @Headers("Content-Type: application/json")
+    @POST("/projMessageBoardManage/MessageBoardReply/{post_uuid}")
+    fun requestPostQaReply(
+        @Path("post_uuid") post_uuid: String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("parent_uuid") parent_uuid: String,
+        @Body ReplyPostRequestDTO : ReplyPostRequestDTO
+    ): Call<PostQADTO>
+}
+
+
+//QA 댓글 수정
+interface PutQAReply{
+    @Headers("Content-Type: application/json")
+    @PUT("/projMessageBoardManage/MessageBoardReply/{post_uuid}")
+    fun requestPutQAReply(
+        @Path("post_uuid") post_uuid: String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("uuid") uuid: String,
+        @Body ReplyPutRequestDTO : ReplyPutRequestDTO
+    ): Call<ReplyQADTO>
+}
+
+//QA 댓글 삭제
+interface DeleteQAReply{
+    @Headers("Content-Type: application/json")
+    @DELETE("/projMessageBoardManage/MessageBoardReply/{post_uuid}")
+    fun requestDeleteQaReply(
+        @Path("post_uuid") post_uuid: String,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Query("uuid") uuid: String
+    ): Call<PostQADTO>
+}

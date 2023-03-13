@@ -41,6 +41,7 @@ class QAFragment : Fragment() {
     private var endNum = 10
     private var qaData = ArrayList<QALists>()
     private lateinit var qaInputData : QALists
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentQABinding.inflate(layoutInflater)

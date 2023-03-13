@@ -216,12 +216,12 @@ fun getResizedBitmap(bm: Bitmap, newHeight: Int, newWidth: Int): Bitmap {
 
 //변수명 받아오는 테스트 함수
 @SuppressLint("SimpleDateFormat")
-fun test(userToken: String ,uuid : String, consCode: String) {
+fun test(userToken: String , post_uuid : String, parent_uuid : String) {
     Thread {
         var `is`: InputStream? = null
         try {
             //Query, Path
-            val url = URL("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/${consCode}?uuid=$uuid")
+            val url = URL("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{$post_uuid}?parent_uuid=$parent_uuid")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "GET"
             conn.setRequestProperty("Content-Type", "application/json;utf-8")

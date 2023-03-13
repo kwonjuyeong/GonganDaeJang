@@ -265,7 +265,6 @@ data class ReplyData(
     val writer_name : String
 )
 
-
 //회사 리스트 제공(수정 GET -> POST, @PATH -> @BODY)
 data class GetCoListDTO(
     val code : Int,
@@ -376,4 +375,22 @@ data class PostQADTO(
     val code : Int,
     val msg : String,
     val value : String
+)
+
+//공사일보 댓글 관리
+data class ReplyQADTO(
+    val code : Int,
+    val msg : String,
+    val value : ArrayList<ReplyQAData>
+)
+data class ReplyQAData(
+    var child_count : Int,
+    val co_code : String,
+    val content : String,
+    val parent_uuid : String,
+    val post_uuid: String,
+    val reg_date : String,
+    val uuid : String,
+    val writer_id : String,
+    val writer_name : String
 )

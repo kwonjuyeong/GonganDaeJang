@@ -28,10 +28,11 @@ class MyPageViewModel(application: Application) : AndroidViewModel(application){
     private val _userInfo = MutableLiveData<UserInfoDTO?>()
     val userInfo: LiveData<UserInfoDTO?> = _userInfo
 
-    fun moveToDashBoard(context: Context, data : LiveData<UserInfoDTO?>?){
+    fun moveToDashBoard(context: Context, data: LiveData<UserInfoDTO?>?){
         if (data?.value != null) { // Add null-check here
             moveToDash(context, data.value!!.value.co_code,  data.value!!.value.authority_code, data.value!!.msg)
         }
+
     }
 
     fun moveToModifyUserButton(context: Context, data : LiveData<UserInfoDTO?>?){

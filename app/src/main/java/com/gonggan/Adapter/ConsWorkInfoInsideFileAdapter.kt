@@ -2,7 +2,6 @@ package com.gonggan.Adapter
 
 //사진 첨부/삭제 아이템
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,9 +23,6 @@ class ConsWorkInfoInsideFileAdapter(private val dataset: List<ImageInputList>,  
         val listPosition = dataset[position]
         viewHolder.binding.title.text = listPosition.title
 
-        viewHolder.binding.root.setOnClickListener {
-            Log.d("ddddddd", listPosition.toString())
-        }
 
         loadFile(token ,viewHolder.binding.images , DocFileDownLoadDTO(consCode,sysDocNum,listPosition.file_path,listPosition.origin_name,listPosition.change_name))
 

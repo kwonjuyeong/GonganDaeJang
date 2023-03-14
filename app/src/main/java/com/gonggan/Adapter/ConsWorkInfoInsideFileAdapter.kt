@@ -24,7 +24,7 @@ class ConsWorkInfoInsideFileAdapter(private val dataset: List<ImageInputList>,  
         viewHolder.binding.title.text = listPosition.title
 
 
-        loadFile(token ,viewHolder.binding.images , DocFileDownLoadDTO(consCode,sysDocNum,listPosition.file_path,listPosition.origin_name,listPosition.change_name))
+       // loadFile(token ,viewHolder.binding.images , DocFileDownLoadDTO(consCode,sysDocNum,listPosition.file_path,listPosition.origin_name,listPosition.change_name))
 
         viewHolder.binding.deleteBtn.setOnClickListener {
            deleteButton.invoke(listPosition)

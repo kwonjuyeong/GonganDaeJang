@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/project_click"
     android:layout_width="250dp"
@@ -7,63 +8,104 @@
     android:orientation="vertical"
     android:layout_margin="10sp"
     android:background="@drawable/square_table">
-    <LinearLayout
-        android:layout_width="wrap_content"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10sp"
         android:orientation="horizontal"
-        android:layout_margin="10sp">
+        tools:ignore="UseCompoundDrawables">
+
         <TextView
             android:id="@+id/project_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/blue_table"
-            android:layout_gravity="center"
             android:gravity="center"
             android:padding="10sp"
+            android:text="dddddd"
             android:textColor="@color/AllScape_blue"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:textSize="16sp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/percent_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rate60"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text = "ddddd"
+            android:textColor="@color/AllScape_blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/percent_image"
+            app:layout_constraintStart_toStartOf="@+id/percent_image"
+            app:layout_constraintTop_toBottomOf="@+id/percent_image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="10sp"
         tools:ignore="UseCompoundDrawables">
-    <ImageView
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_ico_company_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/project_name"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView13"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_ico_company_gray"
-        tools:ignore="ContentDescription" />
-    <TextView
-        android:id="@+id/project_name"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text=""
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginStart="10sp"
-        android:layout_marginBottom="10sp"
+        android:layout_margin="10sp"
         tools:ignore="UseCompoundDrawables">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_location_on_24"
-        tools:ignore="ContentDescription" />
-    <TextView
-        android:id="@+id/project_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_gravity="center"
-        android:textSize="16sp"
-        android:textColor="@color/AllScape_gray"
-        android:textStyle="bold" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/project_location"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text=""
+            android:textColor="@color/AllScape_gray"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView12"
+            app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

@@ -10,8 +10,8 @@
     android:orientation="vertical"
     android:background="@drawable/square_table">
 
-    <ImageView
-        android:id="@+id/images"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/images_recycler"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:adjustViewBounds="true"
@@ -30,8 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/delete_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/images">
-
+        app:layout_constraintTop_toBottomOf="@+id/images_recycler">
         <TextView
             android:layout_width="0sp"
             android:layout_height="wrap_content"
@@ -42,7 +41,6 @@
             android:textColor="@color/AllScape_deep_blue"
             android:textSize="16sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/title"
             android:layout_width="0sp"

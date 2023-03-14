@@ -53,8 +53,8 @@ class ConsWorkInfoInsideAdapter(private val context: Context, private val datase
         if(listPosition.product != ""){
             listPosition.product = " | ${listPosition.product}"
         }
-        val levelNameResult = "(${listPosition.level1_name}${listPosition.level2_name}${listPosition.level3_name}${listPosition.product})"
-        viewHolder.binding.levelName.text = levelNameResult
+        val levelNameResult = "${listPosition.level1_name}${listPosition.level2_name}${listPosition.level3_name}${listPosition.product}"
+        viewHolder.binding.levelName.text = "($levelNameResult)"
 
         //================================================================================================================================================
        viewHolder.binding.pictureBtn.setOnClickListener {
@@ -66,8 +66,8 @@ class ConsWorkInfoInsideAdapter(private val context: Context, private val datase
             intent.putExtra("cons_type_cd", listPosition.cons_type_cd)
             intent.putExtra("cons_date", consDate)
             intent.putExtra("data", listPosition)
+            intent.putExtra("title", levelNameResult)
             context.startActivity(intent)
-            (context as Activity).finish()
        }
 
 

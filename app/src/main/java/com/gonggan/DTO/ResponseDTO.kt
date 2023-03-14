@@ -103,7 +103,7 @@ data class ProjectGo(
     val sub_building : String,
     val total_area : String,
     val underground : String,
-    val project_progress : String
+    val project_progress : Float
 )
 
 //내 정보 요청

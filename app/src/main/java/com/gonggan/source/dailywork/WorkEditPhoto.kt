@@ -69,6 +69,7 @@ class WorkEditPhoto : AppCompatActivity() {
 
         init()
 
+        binding.title.setText(title)
         //이미지 조회================================================================================================
         binding.imageRecycler.layoutManager = LinearLayoutManager(this).also { it.orientation = LinearLayoutManager.HORIZONTAL }
         binding.imageRecycler.adapter = ConsWorkInfoInsideFileAdapter(ImageInfoData, {deleteBtn(it)}, userToken, consCode, sysDocNum)
@@ -89,10 +90,6 @@ class WorkEditPhoto : AppCompatActivity() {
         }
 
         binding.bottomBtn.setOnClickListener {
-            val intent = Intent(this, DailyWorkDocument::class.java)
-            intent.putExtra("sysDocNum", sysDocNum)
-            intent.putExtra("code", consCode)
-            startActivity(intent)
             finish()
         }
     }
@@ -106,6 +103,7 @@ class WorkEditPhoto : AppCompatActivity() {
         workLogConsCode = intent.getStringExtra("work_log_cons_code")!!
         consDate = intent.getStringExtra("cons_date")!!
         consTypeCd = intent.getStringExtra("cons_type_cd")!!
+        title = intent.getStringExtra("title")!!
         imageGetData = intent.getSerializableExtra("data") as ConsWorkInputList
     }
 
@@ -316,12 +314,6 @@ class WorkEditPhoto : AppCompatActivity() {
         val retroDeletePhoto = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}/")
         val photoDelete: DeleteGallery = retroDeletePhoto.create(DeleteGallery::class.java)
 
-        Log.d("input_consCode", consCode)
-        Log.d("input_sysDocCode", sysDocNum)
-        Log.d("input_fileIndex", data.file_index.toString())
-        Log.d("input_sysCd", CodeList.sysCd)
-        Log.d("input_token", userToken)
-
         photoDelete.requestDeleteGallery(consCode, sysDocNum, workLogConsCode, data.file_index, CodeList.sysCd, userToken).enqueue(object :
             Callback<PostGalleryDTO> {
             override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {Log.d("retro", t.toString())}
@@ -336,11 +328,13 @@ class WorkEditPhoto : AppCompatActivity() {
                     ImageInfoData.remove(data)
                     binding.imageRecycler.adapter?.notifyDataSetChanged()
                 }
-
             }
         })
     }
 
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

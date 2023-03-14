@@ -58,6 +58,17 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_launcher_background.xml" value="0.238" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2555" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_little_cloud.xml" value="0.285" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate0.xml" value="0.211" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate10.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate100.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate20.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate30.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate40.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate50.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate60.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate70.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate80.xml" value="0.221" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate90.xml" value="0.221" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_user_people_24.xml" value="0.224" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ico_company.xml" value="0.221" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/item_round_background_deep_blue.xml" value="0.224" />
@@ -115,11 +126,12 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_comment_parents.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_manp_info.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_info.xml" value="0.33" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_info_inside.xml" value="0.2" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_info_inside.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_cons_work_manp_inside.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_daily_work_doc.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_daily_work_doc_photo_post.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_dashboard_project_list.xml" value="0.5" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_image.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_join_co_list.xml" value="0.5" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_no_company_co_history.xml" value="0.28072916666666664" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/item_no_company_proj_list.xml" value="0.28072916666666664" />
@@ -145,5 +157,18 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="trunkUrl" value="svn://211.107.220.103:50301/CAProject/SPACEMANAGER/Source/SpaceAppService/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

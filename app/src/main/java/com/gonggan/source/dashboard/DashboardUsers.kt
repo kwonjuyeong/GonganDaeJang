@@ -163,19 +163,16 @@ class DashboardUsers : AppCompatActivity() {
                     for (i in 0 until projectList?.value!!.size) {
                         when (projectList?.value?.get(i)?.status) {
                             "ST000001" -> {
-                                binding.readyProj.text =
-                                    projectList?.value?.get(i)?.count.toString()
+                                binding.readyProj.text = projectList?.value?.get(i)?.count.toString()
                             }
                             "ST000002" -> {
-                                binding.progressProj.text =
-                                    projectList?.value?.get(i)?.count.toString()
+                                binding.progressProj.text = projectList?.value?.get(i)?.count.toString()
                             }
                             "ST000003" -> {
                                 binding.stopProj.text = projectList?.value?.get(i)?.count.toString()
                             }
                             "ST000004" -> {
-                                binding.completeProj.text =
-                                    projectList?.value?.get(i)?.count.toString()
+                                binding.completeProj.text = projectList?.value?.get(i)?.count.toString()
                             }
                         }
                         allProj += projectList!!.value[i].count
@@ -268,9 +265,9 @@ class DashboardUsers : AppCompatActivity() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
                 projectGo = response.body()
-
+                Log.d("DashBoard", Gson().toJson(projectGo?.value))
                 for (i in 0 until projectGo?.value?.size!!) {
-                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString())
+                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString(), projectGo?.value?.get(i)?.project_progress!!.toFloat())
                     projectListData.add(projectGoData)
                 }
                 binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()

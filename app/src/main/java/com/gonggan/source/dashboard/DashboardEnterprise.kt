@@ -163,7 +163,7 @@ class DashboardEnterprise : AppCompatActivity() {
         updateProjList(CodeList.project_all)
 
         binding.allProject.setOnClickListener {
-                updateProjList(CodeList.project_all)
+             updateProjList(CodeList.project_all)
         }
         binding.readyProject.setOnClickListener {
             updateProjList(CodeList.project_ready)
@@ -202,8 +202,9 @@ class DashboardEnterprise : AppCompatActivity() {
             override fun onResponse(call: Call<ProjectGoDTO>, response: Response<ProjectGoDTO>) {
                 projectGo = response.body()
 
+                Log.d("DashBoard", Gson().toJson(projectGo?.value))
                 for (i in 0 until projectGo?.value?.size!!) {
-                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString())
+                    projectGoData = DashBoardProjectGo(projectGo?.value?.get(i)?.cons_name.toString(), projectGo?.value?.get(i)?.location.toString(), projectGo?.value?.get(i)?.project_status_name.toString() ,projectGo?.value?.get(i)?.cons_code.toString() ,userInfo?.value?.authority_code.toString(), projectGo?.value?.get(i)?.project_progress!!.toFloat())
                     projectListData.add(projectGoData)
                 }
                 binding.enterPProjectGoRecycler.adapter?.notifyDataSetChanged()

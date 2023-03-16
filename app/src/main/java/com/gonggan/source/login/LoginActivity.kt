@@ -71,12 +71,10 @@ class LoginActivity : AppCompatActivity() {
         val loginService: LoginService = retrofit.create(LoginService::class.java)
 
         binding.loginBtn.setOnClickListener {
-
             val userId = binding.loginIdEt.text.toString().trim()
             val passWd = binding.loginPwEt.text.toString()
             val passwd = getSHA512(passWd)
             val loginDTO = LoginRequestDTO(userId, passwd)
-
             loginService.requestLogIn(CodeList.sysCd, loginDTO).enqueue(object : Callback<LoginDTO> {
                 val dialog = AlertDialog.Builder(this@LoginActivity)
                 override fun onFailure(call: Call<LoginDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }

@@ -3,7 +3,6 @@ package com.gonggan.API
 import com.gonggan.DTO.*
 import com.gonggan.DTO.LoginDTO
 import com.gonggan.DTO.LoginRequestDTO
-import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

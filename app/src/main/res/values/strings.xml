@@ -8,6 +8,7 @@
     <string name="Password">Password</string>
     <string name="login">로그인</string>
     <string name="logout">로그아웃</string>
+    <string name="file">파일</string>
 
     <!--대시보드-->
     <string name="my_project">내 프로젝트</string>

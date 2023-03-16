@@ -1,6 +1,5 @@
 package com.gonggan.source.login
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -42,7 +41,6 @@ class LoginActivity : AppCompatActivity() {
 
         val sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
         val editor = sharedPreference.edit()
-
 
         //자동 로그인 =======================================================================================================================
         val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)

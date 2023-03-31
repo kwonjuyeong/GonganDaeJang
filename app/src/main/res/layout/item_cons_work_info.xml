@@ -22,5 +22,6 @@
         android:id="@+id/inside_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="150dp"
         app:layout_constraintTop_toBottomOf="@+id/cons_type_nm" />
 </androidx.constraintlayout.widget.ConstraintLayout>

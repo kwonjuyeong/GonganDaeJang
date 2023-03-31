@@ -26,9 +26,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private var curTime: GetCurTimeInfoDTO? = null
-private var weather: GetWeatherInfoDTO? = null
-private var userInfo: UserInfoDTO? = null
+private const val TAG = "DashNormal"
+
 private var history : CoHistoryDTO? = null
 private var projHistory : ProjHistoryDTO? = null
 private var getCo: GetCoListDTO? = null
@@ -58,81 +57,21 @@ class DashNormal : AppCompatActivity() {
         openDrawer()
         navigationItemClick()
         requestMultiplePermissions(this)
-
-        //날씨정보 표시 =============================================================================================================================================
-        val retrofitWeather = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
-        val getWeatherService: GetWeatherService = retrofitWeather.create(GetWeatherService::class.java)
-
-        getWeatherService.requestWeather(CodeList.sysCd, userToken).enqueue(object :
-            Callback<GetWeatherInfoDTO> { override fun onFailure(call: Call<GetWeatherInfoDTO>, t: Throwable) { Log.d("retrofit_weather", t.toString()) }
-            override fun onResponse(call: Call<GetWeatherInfoDTO>, response: Response<GetWeatherInfoDTO>) {
-                weather = response.body()
-
-                val ptyResult = weather?.value?.ptyResult
-                val skyResult = weather?.value?.skyResult
-                val t1kResult = weather?.value?.t1hResult
-
-                if (weather?.code == 200) {
-                    val weather = weatherCode(ptyResult, skyResult, binding.weatherIcon)
-                    val ptyReturn = weather["pty"]
-                    val skyReturn = weather["sky"]
-                    if(ptyReturn == "")
-                    {binding.weatherSet.text = "$skyReturn"}else{
-                        binding.weatherSet.text = getString(R.string.weather_format, t1kResult, ptyReturn, skyReturn)
-                    }
-                }
-            }
-        })
-        //시간정보 표시 =============================================================================================================================================
-        val retrofitCurTime = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCurTimeInfo/")
-        val getCurTimeInfoService: GetCurTimeInfoService = retrofitCurTime.create(GetCurTimeInfoService::class.java)
-
-        job = CoroutineScope(Dispatchers.IO).launch {
-            while (true) {
-                getCurTimeInfoService.requestCurTime(CodeList.sysCd, userToken).enqueue(object :
-                    Callback<GetCurTimeInfoDTO> {
-                    override fun onFailure(call: Call<GetCurTimeInfoDTO>, t: Throwable) {
-                        Log.d("retrofit", t.toString())
-                    }
-                    override fun onResponse(call: Call<GetCurTimeInfoDTO>, response: Response<GetCurTimeInfoDTO>) {
-                        curTime = response.body()
-                        if (curTime?.code == 200) {
-                            binding.timeSet.text = curTime?.value
-                        }
-                    }
-                })
-                delay(1000)
-            }
-        }
+        //날씨정보 표시
+        callWeatherInfo(userToken, this@DashNormal, binding.weatherIcon, binding.weatherSet)
+        //시간정보 표시
         CoroutineScope(Dispatchers.IO).launch {
+            job = callTimeSet(userToken, binding.timeSet)
             job!!.join()
         }
-        //유저 헤더정보===============================================================================================================================================
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
-        val getMyInfo: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
 
-        getMyInfo.requestUserInfo(userToken, CodeList.sysCd).enqueue(object :
-            Callback<UserInfoDTO> {
-            override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
-            override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
-                userInfo = response.body()
-
-
-
-            }
-        })
-
-
-        //재직 이력 정보 조회 추가(수정)===================================================================================================================================
-        val retrofitCoHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetCoHistory::class.java)
-
+        //재직 이력 정보 조회 추가(수정)
         binding.noCompanyRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = CoHistoryAdapter(historyData) { changeProjList(it) }
         }
 
+        val retrofitCoHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetCoHistory::class.java)
         retrofitCoHisList.requestGetCoHistory(CodeList.sysCd, userToken).enqueue(object : Callback<CoHistoryDTO> {
             override fun onFailure(call: Call<CoHistoryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
@@ -142,8 +81,7 @@ class DashNormal : AppCompatActivity() {
             ) {
                 history = response.body()
                 //회사정보 Retrofit 불러오기
-                val retrofitCo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCoList/ALL/")
-                val getCoListService: GetCoListService = retrofitCo.create(GetCoListService::class.java)
+                val getCoListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
 
                 getCoListService.requestGetCoList(CodeList.sysCd, GetCoListRequestDTO("ALL")).enqueue(object : Callback<GetCoListDTO> {
                     override fun onFailure(call: Call<GetCoListDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
@@ -176,13 +114,13 @@ class DashNormal : AppCompatActivity() {
             }
         })
 
-        //프로젝트 이력 정보 조회 추가(수정)===================================================================================================================================
+        //프로젝트 이력 정보 조회 추가(수정)
         binding.noCompanyProjectGoRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = DashBoardNoCompanyProjectListAdapter(projectListData)
         }
-         val retrofitProjHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
 
+         val retrofitProjHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
         retrofitProjHisList.requestGetProjHistory(CodeList.sysCd, userToken).enqueue(object : Callback<ProjHistoryDTO> {
             override fun onFailure(call: Call<ProjHistoryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
@@ -238,14 +176,13 @@ class DashNormal : AppCompatActivity() {
 
     //회사 클릭 시 프로젝트 리스트 교환해주는 함수
     private fun changeProjList(data : CoHistoryD) {
-        val retrofitProjHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/")
-        val getProjHistory : GetProjHistory = retrofitProjHisList.create(GetProjHistory::class.java)
+        val getProjHistory = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
         getProjHistory.requestGetProjHistory(CodeList.sysCd, userToken).enqueue(object : Callback<ProjHistoryDTO> {
             override fun onFailure(call: Call<ProjHistoryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<ProjHistoryDTO>, response: Response<ProjHistoryDTO>) {
                 projHistory = response.body()
-                Log.d("project refresh", Gson().toJson(projHistory?.value))
+                Log.d("project refreshed", Gson().toJson(projHistory?.value))
                 projectListData.clear()
                 for (i in 0 until projHistory?.value?.size!!) {
                     if(projHistory?.value?.get(i)?.co_code.toString() == data.co_code){

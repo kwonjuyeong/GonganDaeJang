@@ -72,7 +72,6 @@ class DashBoardProjectGoAdapter(private val dataset: List<DashBoardProjectGo>) :
             }
         }
 
-
         viewHolder.binding.projectClick.setOnClickListener {
             val intent = Intent(context, RootActivity::class.java)
             intent.putExtra("TAG", "")

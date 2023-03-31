@@ -4,12 +4,14 @@ package com.gonggan.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggan.R
 import com.example.gonggan.databinding.ItemConsWorkInfoBinding
+import com.google.gson.Gson
 import java.io.Serializable
 
 data class ConsWorkInfoData(
@@ -53,7 +55,7 @@ data class ImageInputList(
     val upload_date: String
 ) : Serializable
 
-class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private val sysDocCode : String, private val consCode : String):
+class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private val sysDocCode : String, private val consCode : String, private val userId : String):
     RecyclerView.Adapter<ConsWorkInfoAdapter.ConsWorkInfoViewHolder>() {
 
     class ConsWorkInfoViewHolder(val binding: ItemConsWorkInfoBinding) : RecyclerView.ViewHolder(binding.root)
@@ -66,6 +68,9 @@ class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private v
     override fun onBindViewHolder(viewHolder: ConsWorkInfoViewHolder, position: Int) {
         val listPosition = dataset[position]
 
+        viewHolder.binding.root.setOnClickListener {
+            Log.d("listposition_all", Gson().toJson(listPosition))
+        }
         val workData = arrayListOf<ConsWorkInputList>()
         var workInputData : ConsWorkInputList
 
@@ -73,13 +78,13 @@ class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private v
 
         viewHolder.binding.insideRecycler.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ConsWorkInfoInsideAdapter(context, workData, sysDocCode, consCode, listPosition.cons_date)
+            adapter = ConsWorkInfoInsideAdapter(context, workData, sysDocCode, consCode, listPosition.cons_date, userId)
         }
-        val imageData = arrayListOf<ImageInputList>()
-        var imageInputData : ImageInputList
+
 
         for(i in 0 until listPosition.ConsWorkInfoInputListData.size){
-            imageData.clear()
+            val imageData = arrayListOf<ImageInputList>()
+            var imageInputData : ImageInputList
             for(k in 0 until listPosition.ConsWorkInfoInputListData[i].imageList.size){
                 imageInputData = ImageInputList(listPosition.ConsWorkInfoInputListData[i].imageList[k].change_name, listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_date, listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_type_cd,listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_type_nm,
                 listPosition.ConsWorkInfoInputListData[i].imageList[k].cons_type_explain,listPosition.ConsWorkInfoInputListData[i].imageList[k].file_index,listPosition.ConsWorkInfoInputListData[i].imageList[k].origin_name,listPosition.ConsWorkInfoInputListData[i].imageList[k].file_path,listPosition.ConsWorkInfoInputListData[i].imageList[k].title,
@@ -90,6 +95,7 @@ class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private v
             workData.add(workInputData)
         }
         viewHolder.binding.insideRecycler.adapter?.notifyDataSetChanged()
+
     }
     override fun getItemCount() = dataset.size
 }

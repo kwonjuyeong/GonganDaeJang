@@ -139,8 +139,9 @@
             android:id="@+id/post_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bottom_modify_btn"
             android:text="@string/post"
-            android:textColor="@color/AllScape_gray"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -174,9 +175,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/modify"
-            android:textColor="@color/AllScape_gray"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:background="@drawable/bottom_cancle_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/modify_edit_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>

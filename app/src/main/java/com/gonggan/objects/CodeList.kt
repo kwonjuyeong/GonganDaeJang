@@ -1,8 +1,21 @@
 package com.gonggan.objects
 
+import android.content.Context
+import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
+import com.example.gonggan.R
+import com.gonggan.API.GetWeatherService
+import com.gonggan.DTO.GetWeatherInfoDTO
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.HashMap
+
 object CodeList {
         //Test Port Number(Port Num : 50406, 50407)
         const val portNum = 50406
+
         //APP System Code(SY00)
         const val sysCd : String = "SY000001"
 
@@ -28,3 +41,5 @@ object CodeList {
         const val Album = 98
         const val Camera = 99
     }
+
+

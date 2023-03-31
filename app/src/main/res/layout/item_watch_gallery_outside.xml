@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,7 +11,8 @@
         android:layout_margin="10sp"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:textColor="@color/AllScape_deep_blue"/>
+        android:textColor="@color/AllScape_deep_blue"
+        tools:text="날짜 입력"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

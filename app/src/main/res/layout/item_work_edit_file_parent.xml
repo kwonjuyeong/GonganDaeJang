@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,12 +13,12 @@
         android:textColor="@color/AllScape_deep_blue"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/outside_item_title"
+        app:layout_constraintBottom_toBottomOf="@+id/outside_item_edit_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/outside_item_title"
+        android:id="@+id/outside_item_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:singleLine="true"
@@ -26,7 +27,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/attach_btn"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text ="사진제목을 입력해주세요"/>
 
     <ImageButton
         android:id="@+id/attach_btn"
@@ -35,26 +37,25 @@
         android:layout_margin="10sp"
         android:background="@drawable/blue_btn_background"
         android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="@+id/outside_item_title"
+        app:layout_constraintBottom_toBottomOf="@+id/outside_item_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/delete_btn"
-        app:layout_constraintTop_toTopOf="@+id/outside_item_title"
-        app:layout_constraintVertical_bias="0.461" />
+        app:layout_constraintTop_toTopOf="@+id/outside_item_edit_text"/>
 
     <ImageButton
         android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:background="@drawable/cancelbtn"
+        android:background="@drawable/cancel_btn"
         android:src="@drawable/ic_ico_minus"
-        app:layout_constraintBottom_toBottomOf="@+id/outside_item_title"
+        app:layout_constraintBottom_toBottomOf="@+id/outside_item_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/outside_item_title" />
+        app:layout_constraintTop_toTopOf="@+id/outside_item_edit_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id ="@+id/inside_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outside_item_title" />
+        app:layout_constraintTop_toBottomOf="@+id/outside_item_edit_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

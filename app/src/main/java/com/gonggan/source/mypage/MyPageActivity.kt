@@ -11,7 +11,7 @@ import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityMyPageBinding
 import com.gonggan.objects.SharedPreferencesManager
 import com.google.gson.Gson
-
+private const val TAG = "MyPageActivity"
 private lateinit var backAuthState : String
 
 interface BackPressListener {

@@ -41,6 +41,7 @@ class WorkAdapter(private val context: Context, private val dataset: List<WorkDa
             val intent = Intent(context, DailyWorkDocument::class.java)
             intent.putExtra("code", cons_code)
             intent.putExtra("sysDocNum", listPosition.sys_doc_num)
+            intent.putExtra("userId", listPosition.id)
             context.startActivity(intent)
         }
 

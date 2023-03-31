@@ -27,12 +27,9 @@ class GalleryInsideAdapter(private val context: Context, private val dataset: Li
         val listPosition = dataset[position]
         viewHolder.binding.title.text = listPosition.title
 
-        viewHolder.binding.root.setOnClickListener {
-            Log.d("ddddddd", listPosition.toString())
-        }
         loadFile(token, viewHolder.binding.imageview, DocFileDownLoadDTO(listPosition.cons_code, "", listPosition.path, listPosition.origin_name, listPosition.change_name))
 
-        viewHolder.binding.detailBtn.setOnClickListener {
+        viewHolder.binding.root.setOnClickListener {
         customDetailGallery(context, token, GalleryListData(listPosition.co_code, listPosition.cons_code,listPosition.cons_date, listPosition.file_index, listPosition.change_name, listPosition.origin_name, listPosition.path, listPosition.title, listPosition.item_code, listPosition.pc_code, listPosition.pc_name, listPosition.product, listPosition.standard, listPosition.upload_date))
         }
     }

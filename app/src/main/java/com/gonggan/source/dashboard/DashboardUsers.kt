@@ -38,6 +38,7 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+private const val TAG = "DashUser"
 
 private lateinit var drawer : DrawerLayout
 private lateinit var navView : NavigationView
@@ -49,13 +50,10 @@ private var projectGo : ProjectGoDTO? = null
 private var projectList : ProjectListDTO? = null
 private var userInfo: UserInfoDTO? = null
 private var job : Job?= null
-private var curTime: GetCurTimeInfoDTO? = null
-private var weather: GetWeatherInfoDTO? = null
 
 class DashboardUsers : AppCompatActivity() {
     private lateinit var binding: ActivityDashUsersBinding
     private lateinit var context : Context
-    private var allProj = 0
 
     private lateinit var projectGoData: DashBoardProjectGo
     private var projectListData = arrayListOf<DashBoardProjectGo>()
@@ -75,117 +73,20 @@ class DashboardUsers : AppCompatActivity() {
 
         binding.lottieAnimation.playAnimation()
 
-        //날씨정보 표시 =============================================================================================================================================
-        val retrofitWeather = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getWeatherInfo/")
-        val getWeatherService: GetWeatherService = retrofitWeather.create(GetWeatherService::class.java)
-
-        getWeatherService.requestWeather(sysCd, userToken).enqueue(object :
-            Callback<GetWeatherInfoDTO> {
-            override fun onFailure(call: Call<GetWeatherInfoDTO>, t: Throwable) {
-                Log.d("retrofit_weather", t.toString())
-            }
-
-            override fun onResponse(
-                call: Call<GetWeatherInfoDTO>,
-                response: Response<GetWeatherInfoDTO>
-            ) {
-                weather = response.body()
-
-                val ptyResult = weather?.value?.ptyResult
-                val skyResult = weather?.value?.skyResult
-                val t1kResult = weather?.value?.t1hResult
-
-                if (weather?.code == 200) {
-                    val weather = weatherCode(ptyResult, skyResult, binding.weatherIcon)
-                    val ptyReturn = weather["pty"]
-                    val skyReturn = weather["sky"]
-                    if (ptyReturn == "") {
-                        binding.weatherSet.text = "$skyReturn"
-                    } else {
-                        binding.weatherSet.text =
-                            getString(R.string.weather_format, t1kResult, ptyReturn, skyReturn)
-                    }
-                }
-            }
-        })
-        //시간정보 표시=============================================================================================================================================
-        val retrofitCurTime =
-            callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCurTimeInfo/")
-        val getCurTimeInfoService: GetCurTimeInfoService =
-            retrofitCurTime.create(GetCurTimeInfoService::class.java)
-
-        job = CoroutineScope(Dispatchers.IO).launch {
-            while (true) {
-                getCurTimeInfoService.requestCurTime(sysCd, userToken).enqueue(object :
-                    Callback<GetCurTimeInfoDTO> {
-                    override fun onFailure(call: Call<GetCurTimeInfoDTO>, t: Throwable) {
-                        Log.d("retrofit", t.toString())
-                    }
-
-                    override fun onResponse(
-                        call: Call<GetCurTimeInfoDTO>,
-                        response: Response<GetCurTimeInfoDTO>
-                    ) {
-                        curTime = response.body()
-                        if (curTime?.code == 200) {
-                            binding.timeSet.text = curTime?.value
-                        }
-                    }
-                })
-                delay(1000)
-            }
-        }
-        //시간 코루틴 사용
+        //날씨정보 표시
+        callWeatherInfo(userToken, this@DashboardUsers, binding.weatherIcon, binding.weatherSet)
+        //시간정보 표시
         CoroutineScope(Dispatchers.IO).launch {
+            job = callTimeSet(userToken, binding.timeSet)
             job!!.join()
         }
 
-        //프로젝트 상태 통계 현황 조회==============================================================================================================================
-        val retrofitProjectList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
+        //프로젝트 상태 통계 현황 조회
+        projectCount()
 
-        retrofitProjectList.requestProjectsList(sysCd, userToken).enqueue(object :
-            Callback<ProjectListDTO> {
-            override fun onFailure(call: Call<ProjectListDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
-
-            override fun onResponse(
-                call: Call<ProjectListDTO>,
-                response: Response<ProjectListDTO>
-            ) {
-                projectList = response.body()
-
-                Log.d("projectList", projectList?.value.toString())
-                Log.d("projectList", projectList.toString())
-
-                if (projectList?.code == 200) {
-
-                    for (i in 0 until projectList?.value!!.size) {
-                        when (projectList?.value?.get(i)?.status) {
-                            "ST000001" -> {
-                                binding.readyProj.text = projectList?.value?.get(i)?.count.toString()
-                            }
-                            "ST000002" -> {
-                                binding.progressProj.text = projectList?.value?.get(i)?.count.toString()
-                            }
-                            "ST000003" -> {
-                                binding.stopProj.text = projectList?.value?.get(i)?.count.toString()
-                            }
-                            "ST000004" -> {
-                                binding.completeProj.text = projectList?.value?.get(i)?.count.toString()
-                            }
-                        }
-                        allProj += projectList!!.value[i].count
-                    }
-                    binding.allProj.text = allProj.toString()
-                }
-            }
-        })
-
-        //프로젝트 이동 리스트 불러오기====================================================================================================================
+        //프로젝트 이동 리스트 불러오기
         binding.userProjectGoRecycler.apply {
-            layoutManager =
-                LinearLayoutManager(this@DashboardUsers).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+            layoutManager = LinearLayoutManager(this@DashboardUsers).also { it.orientation = LinearLayoutManager.HORIZONTAL }
             adapter = DashBoardProjectGoAdapter(projectListData)
         }
 
@@ -271,6 +172,42 @@ class DashboardUsers : AppCompatActivity() {
                     projectListData.add(projectGoData)
                 }
                 binding.userProjectGoRecycler.adapter?.notifyDataSetChanged()
+            }
+        })
+    }
+
+    private fun projectCount(){
+        val getProjectListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
+
+        getProjectListService.requestProjectsList(CodeList.sysCd, userToken).enqueue(object :
+            Callback<ProjectListDTO> {
+            override fun onFailure(call: Call<ProjectListDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
+            override fun onResponse(
+                call: Call<ProjectListDTO>,
+                response: Response<ProjectListDTO>
+            ) {
+                projectList = response.body()
+                if (projectList?.code == 200) {
+                    var allProj = 0
+                    for(i in 0 until projectList?.value!!.size){
+                        when(projectList?.value?.get(i)?.status){
+                            "ST000001" -> {
+                                binding.readyProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                            "ST000002" -> {
+                                binding.progressProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                            "ST000003" -> {
+                                binding.stopProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                            "ST000004" -> {
+                                binding.completeProj.text = projectList?.value?.get(i)?.count.toString()
+                            }
+                        }
+                        allProj += projectList!!.value[i].count
+                    }
+                    binding.allProj.text = allProj.toString()
+                }
             }
         })
     }

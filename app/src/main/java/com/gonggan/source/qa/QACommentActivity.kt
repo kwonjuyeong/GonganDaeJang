@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private const val TAG = "QAComment"
 
 private var getReply : ReplyQADTO ?= null
 private var postReplyD : PostQADTO ?= null
@@ -40,17 +41,18 @@ class QACommentActivity : AppCompatActivity() {
 
         init()
 
+        /*
         setSupportActionBar(binding.include.mainToolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             supportActionBar?.title = "댓글"
-        }
+        }*/
 
         //RecyclerView
         binding.commentParentRecycler.apply {
             layoutManager = LinearLayoutManager(this@QACommentActivity)
-            adapter = QACommentAdapter(this@QACommentActivity, commentData, userToken)
+            adapter = QACommentAdapter(this@QACommentActivity, commentData, {updateParentReply()}, userToken)
         }
 
         updateParentReply()
@@ -133,6 +135,5 @@ class QACommentActivity : AppCompatActivity() {
             })
         }
     }
-
 
 }

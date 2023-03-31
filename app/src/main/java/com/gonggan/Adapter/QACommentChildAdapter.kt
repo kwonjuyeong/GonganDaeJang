@@ -50,7 +50,6 @@ class QACommentChildAdapter(private val context: Context, private val dataset: L
         var writeState = 0
         var modifyState = 0
 
-
         //댓글 정보 표시==============================================================================================================================
         viewHolder.binding.writer.text = listPosition.writer_name
 
@@ -224,7 +223,6 @@ class QACommentChildAdapter(private val context: Context, private val dataset: L
                                                 commentData.add(commentInputData)
                                             }
                                             viewHolder.binding.content.text = "작성자에 의해 삭제된 댓글입니다."
-                                            viewHolder.binding.replyCount.text = "답글 0"
                                             viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                                         }
                                     })

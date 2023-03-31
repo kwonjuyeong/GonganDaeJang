@@ -42,11 +42,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 private var postQA : PostQADTO ?= null
 private var photoURI : Uri? = null
 
-private const val TAG = "QA_POST_DATA"
+private const val TAG = "QAPOST"
 
 class QAPost : AppCompatActivity() {
     private lateinit var binding: ActivityQapostBinding
@@ -105,7 +104,6 @@ class QAPost : AppCompatActivity() {
             }
 
             //서버에 보낼 Json Object 생성
-            val gson = Gson()
             val jsonObject = JSONObject("{\"post_type\":\"0\", \"title\":\"${title}\", \"content\":\"${content}\"}").toString()
             val jsonBody = RequestBody.create(MediaType.parse("application/json"), jsonObject)
 

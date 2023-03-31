@@ -15,13 +15,14 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginTop="10sp"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/AllScape_deep_blue"/>
+    <!--
     <Button
         android:id="@+id/detail_btn"
         android:layout_width="match_parent"
@@ -35,4 +36,5 @@
         android:layout_margin="10sp"
         android:minHeight="42sp"
         android:background="@drawable/search_btn"/>
+        -->
 </LinearLayout>

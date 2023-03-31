@@ -30,9 +30,12 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+private const val TAG = "PhotoGalleryFragment"
+
 private var token : String? = null
 private var consCode : String? = null
 private var gallery : GetGallery?= null
+
 class PhotoGalleryFragment : Fragment() {
     private lateinit var binding: FragmentPhotoGalleryBinding
     private lateinit var startDate : String
@@ -79,8 +82,7 @@ class PhotoGalleryFragment : Fragment() {
         allStartDate = startDate(df.format(calculator.time))
         binding.startDate.text = convertDateFormat(allStartDate)
 
-        val retrofitGallery = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/searchWorkImgList/{consCode}/{searchStartDate}/{searchEndDate}/")
-        val galleryService: GetGalleryPic = retrofitGallery.create(GetGalleryPic::class.java)
+        val galleryService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/searchWorkImgList/{consCode}/{searchStartDate}/{searchEndDate}/").create(GetGalleryPic::class.java)
 
         galleryService.requestGetGalleryPicture(consCode.toString(), allStartDate, allEndDate, token.toString() ,CodeList.sysCd).enqueue(object :
             Callback<GetGallery> {
@@ -88,7 +90,7 @@ class PhotoGalleryFragment : Fragment() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<GetGallery>, response: Response<GetGallery>) {
                 gallery = response.body()
-                galleryData.clear()
+
                 Log.d("gallery", Gson().toJson( gallery?.value).toString())
                 val insideList = ArrayList<String>()
                 if(gallery?.value?.size != 0){

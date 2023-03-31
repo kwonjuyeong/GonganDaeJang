@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggan.R
 import com.example.gonggan.databinding.ItemQaPostAddFileBinding
-import com.gonggan.DTO.QADocFileData
 import java.io.File
 
 data class QAModifyData(
@@ -15,8 +14,6 @@ data class QAModifyData(
     val file_index : Int,
     val file: File?
 )
-
-
 
 class QAModifyAdapter(private val dataset: List<QAModifyData>, private val deleteClicked : (data: QAModifyData) -> Unit):
     RecyclerView.Adapter<QAModifyAdapter.QAModifyViewHolder>() {

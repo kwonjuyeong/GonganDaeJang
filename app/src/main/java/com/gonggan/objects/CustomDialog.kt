@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.text.Editable
@@ -12,18 +13,22 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.GONE
 import android.view.WindowManager
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.gonggan.R
 import com.gonggan.API.DeleteQADoc
 import com.gonggan.Adapter.GalleryListData
+import com.gonggan.Adapter.InsideImageInfoList
 import com.gonggan.DTO.PostQADTO
 import com.gonggan.source.mypage.ModifyActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.sqrt
+
 
 internal enum class TOUCHMODE {
     NONE,
@@ -83,6 +88,50 @@ fun customDetailGallery(context: Context, token: String, data : GalleryListData)
     dialog.setCancelable(true)
     dialog.show()
 }
+
+
+
+@SuppressLint("ClickableViewAccessibility")
+fun customDetailFile(context: Context, token: String, consCode: String, data : InsideImageInfoList){
+    val dialog = Dialog(context)
+    dialog.setContentView(R.layout.custom_dialog_galley_detail_watch)
+
+    images = dialog.findViewById(R.id.detail_gallery_imageview)
+    val titleName =dialog.findViewById<TextView>(R.id.detail_gallery_title)
+    val titles =dialog.findViewById<TextView>(R.id.detail_title)
+    val ok = dialog.findViewById<Button>(R.id.ok_btn)
+    val consDate = dialog.findViewById<LinearLayout>(R.id.cons_date_layout)
+    val uploadDate = dialog.findViewById<LinearLayout>(R.id.upload_date_layout)
+    val pcName = dialog.findViewById<LinearLayout>(R.id.pc_name_layout)
+    val product = dialog.findViewById<LinearLayout>(R.id.product_layout)
+
+    //상단 내용
+    titleName.text = "상세정보"
+    //사진 제목
+    titles.text = data.title
+
+    consDate.visibility = GONE
+    uploadDate.visibility = GONE
+    pcName.visibility  = GONE
+    product.visibility = GONE
+
+    if(data.file != null){
+    val myBitmap = BitmapFactory.decodeFile(data.file.absolutePath)
+    images.setImageBitmap(myBitmap)
+    }else{
+        loadFile(token, images, DocFileDownLoadDTO(consCode,"",data.file_path,data.origin_name,data.change_name))
+    }
+
+    //확인 버튼
+    ok.setOnClickListener {
+        dialog.dismiss()
+    }
+    dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+    dialog.setCanceledOnTouchOutside(true)
+    dialog.setCancelable(true)
+    dialog.show()
+}
+
 
 @SuppressLint("ClickableViewAccessibility")
 private val onTouch = View.OnTouchListener { v, event ->

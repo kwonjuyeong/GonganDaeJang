@@ -2,20 +2,18 @@ package com.gonggan.objects
 
 //Retrofit 호출 모듈
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import com.example.gonggan.R
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.io.IOException
-import java.util.HashMap
+import java.util.*
 
 
 object ApiUtilities{
@@ -55,40 +53,15 @@ class SharedPreferencesManager(context: Context) {
     }
 }
 
-//날씨 API 코드
-fun weatherCode(ptyResult : String?, skyResult : String?, imageView: ImageView) : HashMap<String, String> {
 
-    val weather = HashMap<String, String>()
-    var ptyReturn = ""
-    var skyReturn = ""
 
-    when (ptyResult) {
-        "0" -> ptyReturn = ""
-        "1" -> ptyReturn = "비"
-        "2" -> ptyReturn = "비/눈"
-        "3" -> ptyReturn = "눈"
-        "5" -> ptyReturn = "빗방울"
-        "6" -> ptyReturn = "빗방울/눈날림"
-        "7" -> ptyReturn = "눈날림"
+fun callSelectCalendar(text : TextView, context: Context){
+    text.text = ""
+    val cal = Calendar.getInstance()
+    val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+        text.text = context.getString(R.string.calender_day_format, year.toString(), getMonth(month), getDay(dayOfMonth))
     }
-    when (skyResult) {
-        "1" -> {
-            skyReturn = "맑음"
-            imageView.setImageResource(R.drawable.ic_sunny)
-        }
-        "3" -> {
-            skyReturn = "구름 많음"
-            imageView.setImageResource(R.drawable.ic_cloud)
-        }
-        "4" -> {
-            skyReturn = "흐림"
-            imageView.setImageResource(R.drawable.ic_little_cloud)
-        }
-    }
-    weather["pty"] = ptyReturn
-    weather["sky"] = skyReturn
-
-    Log.d("weather", weather.toString())
-    return weather
+    Log.d("clicked", "clicked")
+    DatePickerDialog(context, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(
+        Calendar.DAY_OF_MONTH)).apply { datePicker.maxDate = Date().time }.show()
 }
-

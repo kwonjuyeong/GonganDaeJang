@@ -9,7 +9,8 @@
     <string name="login">로그인</string>
     <string name="logout">로그아웃</string>
     <string name="file">파일</string>
-
+    <string name="cancel">취소</string>
+    <string name="swipe">좌우로 움직이세요</string>
     <!--대시보드-->
     <string name="my_project">내 프로젝트</string>
     <string name="project_num">건</string>
@@ -46,6 +47,9 @@
     <string name="apply">적용</string>
     <string name="modify_info">회원정보수정</string>
     <string name="out_company">퇴사</string>
+
+    <string name="posted_photo_watch">사진조회</string>
+    <string name="posted_photo_info">사진을 옆으로 넘겨서 조회하세요</string>
     <!--공사일보-->
     <string name="daily_work">작업일지</string>
     <string name="watch_daily_work">작업일보 조회</string>

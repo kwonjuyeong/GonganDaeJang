@@ -31,7 +31,7 @@ private var putReply : ReplyQADTO ?= null
 private var userInfo: UserInfoDTO? = null
 
 
-class QACommentAdapter(private val context: Context, private val dataset: List<ReplyQAData>, private val token : String):
+class QACommentAdapter(private val context: Context, private val dataset: List<ReplyQAData>, private val update : () -> Unit, private val token : String):
     RecyclerView.Adapter<QACommentAdapter.QACommentViewHolder>() {
 
     class QACommentViewHolder(val binding: ItemCommentParentsBinding) : RecyclerView.ViewHolder(binding.root)
@@ -71,7 +71,6 @@ class QACommentAdapter(private val context: Context, private val dataset: List<R
 
         //대댓글 조회 =================================================================================================================================
         val getReplys = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(GetQAReply::class.java)
-
         val getMyInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
         viewHolder.binding.replyCount.setOnClickListener {
@@ -223,7 +222,6 @@ class QACommentAdapter(private val context: Context, private val dataset: List<R
                                                 commentData.add(commentInputData)
                                             }
                                             viewHolder.binding.content.text = "작성자에 의해 삭제된 댓글입니다."
-                                            viewHolder.binding.replyCount.text = "답글 0"
                                             viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                                         }
                                     })
@@ -287,24 +285,15 @@ class QACommentAdapter(private val context: Context, private val dataset: List<R
                     putReply = response.body()
 
                     if(putReply?.code == 200){
-                        getReplys.requestGetQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
-                            Callback<ReplyQADTO> {
-                            override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
-                            @SuppressLint("NotifyDataSetChanged")
-                            override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
-                                getReply = response.body()
-                                viewHolder.binding.modifyBtn.text = "수정"
-                                viewHolder.binding.modifyEditText.setText("")
-                                viewHolder.binding.modifyLayout.visibility = GONE
-                                Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show()
-                                commentData.clear()
-                                for(i in 0 until getReply?.value!!.size){
-                                    commentInputData = ReplyQAData(getReply?.value?.get(i)?.child_count!!.toInt(),getReply?.value?.get(i)?.co_code.toString(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.post_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.uuid.toString(),getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
-                                    commentData.add(commentInputData)
-                                }
-                                viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
-                            }
-                        })
+
+                    getReply = response.body()
+                    viewHolder.binding.modifyBtn.text = "수정"
+                    viewHolder.binding.modifyEditText.setText("")
+                    viewHolder.binding.modifyLayout.visibility = GONE
+                    Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show()
+
+                    update.invoke()
+                    viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
 
                     }
                 }

@@ -27,8 +27,8 @@ import retrofit2.Response
 import java.util.*
 import kotlin.math.max
 
-
 private const val TAG = "QAFRAGMENT"
+
 private var token : String? = null
 private var consCode : String? = null
 private var searchQA: SearchQAListDTO? = null

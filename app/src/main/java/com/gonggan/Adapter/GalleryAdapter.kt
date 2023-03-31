@@ -63,12 +63,7 @@ class GalleryAdapter(private val dataset: List<GalleryData>, private val token :
             adapter = GalleryInsideAdapter(context as Context, galleryData, token)
             if ( onFlingListener == null) snapHelper.attachToRecyclerView(viewHolder.binding.listItemRecycler)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(@NonNull recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
-                override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                }
+
             })
         }
 

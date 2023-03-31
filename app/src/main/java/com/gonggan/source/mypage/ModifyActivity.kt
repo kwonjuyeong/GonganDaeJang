@@ -36,6 +36,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+private const val TAG = "ModifyActivity"
 
 private var getUserInfo: UserInfoDTO? = null
 private var getCo: GetCoListDTO? = null

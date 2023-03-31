@@ -26,6 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //로그인 화면
+private const val TAG = "Login"
 private var login: LoginDTO? = null
 private var getUserInfo: UserInfoDTO? = null
 

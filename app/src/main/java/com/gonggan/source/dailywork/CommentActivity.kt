@@ -22,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private const val TAG = "CommentActivity"
 
 private var getReply : ReplyDTO ?= null
 private var postReplyD : PostGalleryDTO ?= null
@@ -43,87 +44,27 @@ class CommentActivity : AppCompatActivity() {
 
         init()
 
+        /*
         setSupportActionBar(binding.include.mainToolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             supportActionBar?.title = "댓글"
-        }
+        }*/
 
         //부모댓글 조회 =========================================================================================================
-        val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-        val workReply: GetReply = retrofit.create(GetReply::class.java)
-
         //작업량
         binding.commentParentRecycler.apply {
             layoutManager = LinearLayoutManager(this@CommentActivity)
-            adapter = CommentAdapter(this@CommentActivity, commentData, sysDocNum, userToken)
+            adapter = CommentAdapter(this@CommentActivity, commentData,{updateParentReply()}, sysDocNum, userToken)
         }
-        workReply.requestGetReply(sysDocNum, "", CodeList.sysCd, userToken).enqueue(object :
-            Callback<ReplyDTO> {
-            override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
-                getReply = response.body()
 
-                commentData.clear()
-                for(i in 0 until getReply?.value!!.size){
-                    commentInputData = CommentData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(), getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
-                    commentData.add(commentInputData)
-                }
-                binding.commentParentRecycler.adapter?.notifyDataSetChanged()
-            }
-        })
-        //=========================================================================================================
+        updateParentReply()
+
+        //댓글 작성
         binding.postBtn.setOnClickListener {
-
-            val content = binding.postEditText.text.toString()
-
-            if(content != ""){
-
-            val retrofitPost = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-            val postReply: PostReply = retrofitPost.create(PostReply::class.java)
-
-            postReply.requestPostReply(sysDocNum, "", CodeList.sysCd, userToken, ReplyPostRequestDTO(content)).enqueue(object :
-                Callback<PostGalleryDTO> {
-                override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {
-                    Log.d("retrofit", t.toString())
-                }
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(call: Call<PostGalleryDTO>, response: Response<PostGalleryDTO>) {
-                    postReplyD = response.body()
-
-                    if(postReplyD?.code == 200){
-                        binding.postEditText.setText("")
-
-                        workReply.requestGetReply(sysDocNum, "", CodeList.sysCd, userToken).enqueue(object :
-                            Callback<ReplyDTO> {
-                            override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
-                                Log.d("retrofit", t.toString())
-                            }
-                            @SuppressLint("NotifyDataSetChanged")
-                            override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
-                                getReply = response.body()
-
-                                commentData.clear()
-
-                                for(i in 0 until getReply?.value!!.size){
-                                    commentInputData = CommentData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(),
-                                    getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(),
-                                    getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
-                                    commentData.add(commentInputData)
-                                }
-                                binding.commentParentRecycler.adapter?.notifyDataSetChanged()
-                            }
-                        })
-                    }
-                }
-            })
-          }
+            postParentReply()
         }
-
 
         binding.bottomBtn.setOnClickListener {
             finish()
@@ -151,4 +92,49 @@ class CommentActivity : AppCompatActivity() {
         super.onBackPressed()
         finish()
     }
+
+
+
+    private fun updateParentReply(){
+        val workReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(GetReply::class.java)
+        workReply.requestGetReply(sysDocNum, "", CodeList.sysCd, userToken).enqueue(object :
+            Callback<ReplyDTO> {
+            override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
+                Log.d("retrofit", t.toString())
+            }
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<ReplyDTO>, response: Response<ReplyDTO>) {
+                getReply = response.body()
+
+                commentData.clear()
+                for(i in 0 until getReply?.value!!.size){
+                    commentInputData = CommentData(getReply?.value?.get(i)?.child_count!!.toInt(), getReply?.value?.get(i)?.content.toString(), getReply?.value?.get(i)?.parent_uuid.toString(), getReply?.value?.get(i)?.reg_date.toString(), getReply?.value?.get(i)?.sys_doc_num.toString(), getReply?.value?.get(i)?.uuid.toString(), getReply?.value?.get(i)?.writer_id.toString(), getReply?.value?.get(i)?.writer_name.toString())
+                    commentData.add(commentInputData)
+                }
+                binding.commentParentRecycler.adapter?.notifyDataSetChanged()
+            }
+        })
+    }
+
+
+    private fun postParentReply(){
+        val content = binding.postEditText.text.toString()
+        if(content != ""){
+            val postReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(PostReply::class.java)
+            postReply.requestPostReply(sysDocNum, "", CodeList.sysCd, userToken, ReplyPostRequestDTO(content)).enqueue(object :
+                Callback<PostGalleryDTO> {
+                override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(call: Call<PostGalleryDTO>, response: Response<PostGalleryDTO>) {
+                    postReplyD = response.body()
+                    if(postReplyD?.code == 200){
+                        binding.postEditText.setText("")
+                        updateParentReply()
+                    }
+                }
+            })
+        }
+    }
+
+
 }

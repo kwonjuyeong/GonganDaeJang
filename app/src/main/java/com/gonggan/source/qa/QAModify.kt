@@ -160,6 +160,7 @@ class QAModify : AppCompatActivity() {
             Log.d(TAG, CodeList.sysCd)
             Log.d(TAG, userToken)
             Log.d(TAG, hashFile.size.toString())
+
             retroModifyQA.requestModifyQa(consCode, CodeList.sysCd, userToken, jsonBody, hashFile).enqueue(object :
                 Callback<PostQADTO> {
                 override fun onFailure(call: Call<PostQADTO>, t: Throwable) { Log.d("Post_error", t.toString()) }

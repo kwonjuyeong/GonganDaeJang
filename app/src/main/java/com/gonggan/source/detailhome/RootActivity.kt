@@ -24,7 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //대시보드
-
+private const val TAG = "DetailDash"
 class RootActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRootBinding
     private lateinit var context: Context
@@ -48,7 +48,7 @@ class RootActivity : AppCompatActivity() {
         setSupportActionBar(binding.include.mainToolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+            setHomeAsUpIndicator(R.drawable.ic_left_arrow)
             title = "프로젝트 대시보드"
         }
 
@@ -59,9 +59,7 @@ class RootActivity : AppCompatActivity() {
         }
 
 
-
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
-        val getUserInfoService: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
+        val getUserInfoService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
         getUserInfoService.requestUserInfo(userToken, CodeList.sysCd).enqueue(object :
             Callback<UserInfoDTO> {
             override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
@@ -69,7 +67,6 @@ class RootActivity : AppCompatActivity() {
                 getUserInfo = response.body()
                 val gson = Gson()
                 Log.d("login_info", gson.toJson(getUserInfo?.value))
-
             }
         })
 

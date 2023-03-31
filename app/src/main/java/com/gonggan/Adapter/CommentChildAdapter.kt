@@ -230,7 +230,6 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
                                                 commentData.add(commentInputData)
                                             }
                                             viewHolder.binding.content.text = "작성자에 의해 삭제된 댓글입니다."
-                                            viewHolder.binding.replyCount.text = "답글 0"
                                             viewHolder.binding.childRecycler.adapter?.notifyDataSetChanged()
                                         }
                                     })

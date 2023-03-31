@@ -36,13 +36,17 @@
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0sp"
         app:layout_constraintBottom_toTopOf="@+id/bottom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="0.0">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -52,107 +56,116 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin = "10dp"
-                android:paddingTop = "10sp"
+                android:layout_margin="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_weight = "0.2"
-                    android:gravity = "start|center"
+                    android:layout_weight="0.2"
+                    android:gravity="start|center"
                     android:text="@string/title"
                     android:textColor="@color/AllScape_deep_blue"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/title_text"
                     android:layout_width="0sp"
                     android:layout_height="match_parent"
-                    android:layout_weight = "0.8"
+                    android:layout_weight="0.8"
                     android:textColor="@color/AllScape_gray"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity = "end"
-                android:layout_marginStart = "10dp"
-                android:layout_marginEnd = "10dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/write_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/AllScape_gray"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart = "5dp"
-                        android:layout_marginEnd = "5dp"
-                        android:background="@color/AllScape_gray"/>
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/AllScape_gray" />
+
                 <TextView
                     android:id="@+id/writer_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/AllScape_gray"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
-                </LinearLayout>
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin = "10dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/content"
-                android:textColor="@color/AllScape_deep_blue"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/content_text"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/little_gray"
-                android:minHeight="150dp"
-                android:padding="10sp"
-                android:layout_marginTop="10sp"
-                android:textColor="@color/AllScape_gray"
-                android:textSize="16sp"
-                android:textStyle = "bold"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin = "10dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/attach_file"
-                android:textColor="@color/AllScape_deep_blue"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id = "@+id/files_recycler"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/content"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/content_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/little_gray"
+                    android:minHeight="150dp"
+                    android:padding="10sp"
+                    android:textColor="@color/AllScape_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/little_gray"
-                android:minHeight="150dp"
-                android:layout_marginTop="10sp"
-                android:textColor="@color/AllScape_deep_blue"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attach_file"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/files_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/little_gray"
+                    android:minHeight="150dp"
+                    android:textColor="@color/AllScape_deep_blue"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id = "@+id/bottom"
         android:layout_width="match_parent"

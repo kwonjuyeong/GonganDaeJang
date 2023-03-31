@@ -16,12 +16,12 @@
         tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:background="@drawable/delete_btn"
         android:orientation="vertical"
         android:padding="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent">
@@ -274,15 +274,27 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/linearLayout4"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        <Button
+            android:id="@+id/picture_post_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/attach_btn"
+            android:minHeight="40sp"
+            android:text="@string/attach"
+            android:textColor="@color/AllScape_blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/picture_btn"
+            app:layout_constraintTop_toTopOf="@+id/picture_btn" />
 
         <Button
             android:id="@+id/picture_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/attach_btn"
+            android:background="@drawable/bottom_modify_btn"
             android:minHeight="40sp"
             android:text="@string/watch"
-            android:textColor="@color/AllScape_blue"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

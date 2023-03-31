@@ -102,7 +102,6 @@ interface ProjectGoService {
     ): Call<ProjectGoDTO>
 }
 
-
 //프로젝트 상태 통계현황 조회
 interface ProjectListService {
     @Headers("Content-Type: application/json")
@@ -168,6 +167,21 @@ interface DeleteGallery{
         @Path("file_index") file_index : Int,
         @Header("sysCd") sysCd: String,
         @Header("token") token : String
+    ): Call<PostGalleryDTO>
+}
+
+//이미지 수정
+interface ModifyGallery{
+    @Headers("Content-Type: application/json")
+    @PUT("/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}")
+    fun requestModifyGallery(
+        @Path("cons_code") cons_code : String,
+        @Path("sys_doc_num") sys_doc_num: String,
+        @Path("work_log_cons_code") work_log_cons_code : String,
+        @Path("file_index") file_index : Int,
+        @Header("sysCd") sysCd: String,
+        @Header("token") token : String,
+        @Body ModifyGalleryDTO : ModifyGalleryDTO
     ): Call<PostGalleryDTO>
 }
 

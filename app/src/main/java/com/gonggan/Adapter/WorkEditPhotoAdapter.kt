@@ -30,9 +30,7 @@ data class InsideImageInfoList(
 )
 
 class OutsideAdapter(private val context: Context, private val token : String, private val sysDocNum : String, private val consCode : String, private val outSideData: ArrayList<OutSideImageInfo> , private val deleteBtn : (data: OutSideImageInfo) -> Unit, private val attachBtn : (data: Int) -> Unit) : RecyclerView.Adapter<OutsideAdapter.OutsideViewHolder>() {
-
     inner class OutsideViewHolder(val binding: ItemWorkEditFileParentBinding) : RecyclerView.ViewHolder(binding.root) {
-
         val innerAdapter = InsideAdapter(context, token, consCode, sysDocNum, ArrayList())
         var watcher: TextWatcher? = null
         init {
@@ -40,9 +38,7 @@ class OutsideAdapter(private val context: Context, private val token : String, p
                 adapter = innerAdapter
                 layoutManager = LinearLayoutManager(context)
             }
-
         }
-
         fun bind(outsideItem: OutSideImageInfo) {
             val insideAdapter = InsideAdapter(context, token, consCode, sysDocNum, outsideItem.fileList)
             binding.outsideItemEditText.setText(outsideItem.parentTitle)
@@ -64,10 +60,6 @@ class OutsideAdapter(private val context: Context, private val token : String, p
             for(i in 0 until listPosition.fileList.size){
                 listPosition.fileList[i].title = listPosition.parentTitle
             }
-        }
-
-        viewHolder.binding.root.setOnClickListener {
-            Log.d("data", Gson().toJson(listPosition))
         }
 
         viewHolder.binding.attachBtn.setOnClickListener {

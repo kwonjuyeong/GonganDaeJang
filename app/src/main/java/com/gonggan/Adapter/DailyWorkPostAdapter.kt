@@ -64,12 +64,10 @@ class DailyWorkPostAdapter(private val dataset: List<ImageOutData>, private val 
             })
         }
 
-
         for(i in 0 until listPosition.GalleryList.size){
             dailyPostInputData = DailyImageData(listPosition.GalleryList[i].change_name,listPosition.GalleryList[i].cons_date, listPosition.GalleryList[i].cons_type_cd, listPosition.GalleryList[i].cons_type_nm, listPosition.GalleryList[i].cons_type_explain, listPosition.GalleryList[i].file_index , listPosition.GalleryList[i].origin_name, listPosition.GalleryList[i].file_path, listPosition.GalleryList[i].title,  listPosition.GalleryList[i].upload_date, i)
             dailyPostData.add(dailyPostInputData)
         }
-
 
     }
     override fun getItemCount() = dataset.size

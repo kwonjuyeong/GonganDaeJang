@@ -2,13 +2,11 @@ package com.gonggan.Adapter
 
 //공사일보 인력 2차 구분 아이템
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggan.R
 import com.example.gonggan.databinding.ItemConsWorkManpInsideBinding
-import com.google.gson.Gson
 
 class ConsManPInfoInsideAdapter(private val dataset: List<ConsManPInputList>):
     RecyclerView.Adapter<ConsManPInfoInsideAdapter.ConsWorkInfoInsideViewHolder>() {
@@ -21,7 +19,6 @@ class ConsManPInfoInsideAdapter(private val dataset: List<ConsManPInputList>):
 
     override fun onBindViewHolder(viewHolder: ConsWorkInfoInsideViewHolder, position: Int) {
         val listPosition = dataset[position]
-
 
         viewHolder.binding.prevManpower.text = listPosition.prev_manpower.toString()
         viewHolder.binding.todayManpower.text = listPosition.today_manpower.toString()
@@ -42,6 +39,5 @@ class ConsManPInfoInsideAdapter(private val dataset: List<ConsManPInputList>):
         val levelNameResult = "(${listPosition.level1_name}${listPosition.level2_name}${listPosition.level3_name}${listPosition.product})"
         viewHolder.binding.levelName.text = levelNameResult
     }
-
     override fun getItemCount() = dataset.size
 }

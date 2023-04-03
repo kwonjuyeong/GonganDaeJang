@@ -29,7 +29,6 @@ import com.gonggan.DTO.*
 import com.gonggan.objects.*
 import com.gonggan.objects.ApiUtilities.callRetrofit
 import com.gonggan.objects.CodeList.sysCd
-import com.google.gson.Gson
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -83,6 +82,7 @@ class ModifyActivity : AppCompatActivity() {
                     authList.add(code?.value?.get(i)?.subcode_name.toString())
                 }
                 authSpinner.notifyDataSetChanged()
+
                 userInfoService.requestUserInfo(userToken, sysCd).enqueue(object :
                     Callback<UserInfoDTO> {
                     override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
@@ -319,15 +319,16 @@ class ModifyActivity : AppCompatActivity() {
 
         //회사리스트 조회===========================================================================================================================
         val getCoListService = callRetrofit("${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
-        //co_list
-        binding.coListRecycler.layoutManager = LinearLayoutManager(this)
-        binding.coListRecycler.adapter = CoListAdapter(coListData, onClickSelect = { selectedTask(it) })
+
+        binding.coListRecycler.apply {
+            layoutManager = LinearLayoutManager(this@ModifyActivity)
+            adapter = CoListAdapter(coListData, onClickSelect = { selectedTask(it) })
+        }
 
         binding.joinSearchCompanyInfo.setOnClickListener {
             binding.coListRecycler.visibility = VISIBLE
             coListData.clear()
             val coInputName = binding.coName.text.toString()
-
             getCoListService.requestGetCoList(sysCd, GetCoListRequestDTO(coInputName))
                 .enqueue(object : Callback<GetCoListDTO> {
                     override fun onFailure(call: Call<GetCoListDTO>, t: Throwable) {
@@ -360,14 +361,13 @@ class ModifyActivity : AppCompatActivity() {
 
                     }
                 })
-        }
+            }
 
-
-        val modifyUserService = callRetrofit("${CodeList.portNum}/userManage/modifyUser/").create(ModifyUserService::class.java)
 
         //회원정보수정 버튼
         binding.modifyUserBtn.setOnClickListener {
 
+            val modifyUserService = callRetrofit("${CodeList.portNum}/userManage/modifyUser/").create(ModifyUserService::class.java)
             val userId = binding.userIdText.text.toString().trim()
             val authorityName = binding.authoritySpinnerText.text.toString()
             var authorityCode  = ""

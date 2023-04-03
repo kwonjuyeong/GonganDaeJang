@@ -27,9 +27,7 @@ private var getReply : ReplyQADTO?= null
 private var postReplyD : PostQADTO?= null
 private var deleteReply : PostQADTO ?= null
 private var putReply : ReplyQADTO ?= null
-
 private var userInfo: UserInfoDTO? = null
-
 
 class QACommentAdapter(private val context: Context, private val dataset: List<ReplyQAData>, private val update : () -> Unit, private val token : String):
     RecyclerView.Adapter<QACommentAdapter.QACommentViewHolder>() {

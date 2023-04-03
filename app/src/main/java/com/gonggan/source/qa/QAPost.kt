@@ -132,10 +132,10 @@ class QAPost : AppCompatActivity() {
                 }else{
                     Toast.makeText(this@QAPost, "등록 실패 ${postQA?.msg}", Toast.LENGTH_SHORT).show()
                 }
+                  }
+              })
+              }
             }
-        })
-    }
-    }
     }
 
     private fun init(){

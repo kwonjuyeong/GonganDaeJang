@@ -3,7 +3,6 @@ package com.gonggan.Adapter
 //작업량 공종 별 1차 구분 아이템
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -71,6 +70,7 @@ class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private v
         viewHolder.binding.root.setOnClickListener {
             Log.d("listposition_all", Gson().toJson(listPosition))
         }
+
         val workData = arrayListOf<ConsWorkInputList>()
         var workInputData : ConsWorkInputList
 
@@ -95,7 +95,6 @@ class ConsWorkInfoAdapter(private val dataset: List<ConsWorkInfoData>, private v
             workData.add(workInputData)
         }
         viewHolder.binding.insideRecycler.adapter?.notifyDataSetChanged()
-
     }
     override fun getItemCount() = dataset.size
 }

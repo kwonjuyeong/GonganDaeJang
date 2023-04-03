@@ -54,11 +54,12 @@ class LoginActivity : AppCompatActivity() {
                     getUserInfo = response.body()
                     val gson = Gson()
                     Log.d("login_info", gson.toJson(getUserInfo?.value))
-                    Toast.makeText(this@LoginActivity, "자동 로그인", Toast.LENGTH_SHORT).show()
+
                     if (getUserInfo?.code == 200) {
                         CoroutineScope(Dispatchers.Main).launch {
                             binding.loginLayout.visibility = GONE
                             binding.checkedLottie.playAnimation()
+                            Toast.makeText(this@LoginActivity, "자동 로그인", Toast.LENGTH_SHORT).show()
                             delay(1500)
                             moveToDash(this@LoginActivity, getUserInfo?.value?.co_code.toString(), getUserInfo?.value?.authority_code.toString(), getUserInfo?.msg.toString())
                         }
@@ -88,7 +89,6 @@ class LoginActivity : AppCompatActivity() {
                                 override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
                                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                                     getUserInfo = response.body()
-
                                     if (getUserInfo?.code == 200) {
                                         moveToDash(this@LoginActivity, getUserInfo?.value?.co_code.toString(), getUserInfo?.value?.authority_code.toString(), getUserInfo?.msg.toString())
                                     }

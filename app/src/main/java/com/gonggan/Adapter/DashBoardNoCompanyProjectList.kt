@@ -34,7 +34,6 @@ class DashBoardNoCompanyProjectListAdapter(private val dataset: List<DashBoardNo
 
         viewHolder.binding.projHistoryBtn.setOnClickListener {
             //버튼 이벤트 넣기
-
         }
     }
 

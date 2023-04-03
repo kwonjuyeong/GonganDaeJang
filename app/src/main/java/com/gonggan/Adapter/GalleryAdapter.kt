@@ -52,7 +52,6 @@ class GalleryAdapter(private val dataset: List<GalleryData>, private val token :
 
         viewHolder.binding.date.text = convertDateFormat(listPosition.cons_date)
 
-
         //갤러리 2차 아이템
         val galleryData = arrayListOf<GalleryListData>()
         var galleryInputData : GalleryListData
@@ -63,7 +62,6 @@ class GalleryAdapter(private val dataset: List<GalleryData>, private val token :
             adapter = GalleryInsideAdapter(context as Context, galleryData, token)
             if ( onFlingListener == null) snapHelper.attachToRecyclerView(viewHolder.binding.listItemRecycler)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
             })
         }
 

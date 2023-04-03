@@ -3,14 +3,10 @@ package com.gonggan.source.detailhome
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.gonggan.R
-import com.example.gonggan.databinding.ActivityMyPageBinding
 import com.example.gonggan.databinding.ActivityRootBinding
 import com.gonggan.API.GetUserInfoService
 import com.gonggan.DTO.UserInfoDTO
@@ -19,10 +15,8 @@ import com.gonggan.objects.CodeList
 import com.gonggan.objects.moveToDash
 import com.gonggan.objects.startCloseLogoutCustom
 import com.gonggan.source.dailywork.DailyWatchFragment
-import com.gonggan.source.mypage.MyPageViewModel
 import com.gonggan.source.photogallery.PhotoGalleryFragment
 import com.gonggan.source.qa.QAFragment
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,13 +48,13 @@ class RootActivity : AppCompatActivity() {
             title = "프로젝트 대시보드"
         }
 
+
         val getUserInfoService = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
         getUserInfoService.requestUserInfo(userToken, CodeList.sysCd).enqueue(object :
             Callback<UserInfoDTO> {
             override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
             override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                 getUserInfo = response.body()
-
             }
         })
 
@@ -70,6 +64,7 @@ class RootActivity : AppCompatActivity() {
             setDataAtFragment(QAFragment())
         }
 
+        context
         //로그아웃
         binding.logoutBtn.setOnClickListener {
         startCloseLogoutCustom(this@RootActivity, userToken,sharedPreference)

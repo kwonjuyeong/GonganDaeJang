@@ -32,7 +32,7 @@ class QaWatchDocFileAdapter(private val dataset: List<QADocFileData>, private va
 
         //파일 다운로드
         viewHolder.binding.downloadBtn.setOnClickListener {
-                downLoadClicked.invoke(listPosition)
+          downLoadClicked.invoke(listPosition)
         }
     }
 

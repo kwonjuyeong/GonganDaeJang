@@ -22,7 +22,6 @@ data class WorkData(
 
 class WorkAdapter(private val context: Context, private val dataset: List<WorkData>, private val cons_code : String):
     RecyclerView.Adapter<WorkAdapter.WorkViewHolder>() {
-
     class WorkViewHolder(val binding: ItemWatchWorkListsBinding) : RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): WorkViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_watch_work_lists, viewGroup, false)
@@ -44,7 +43,6 @@ class WorkAdapter(private val context: Context, private val dataset: List<WorkDa
             intent.putExtra("userId", listPosition.id)
             context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount() = dataset.size

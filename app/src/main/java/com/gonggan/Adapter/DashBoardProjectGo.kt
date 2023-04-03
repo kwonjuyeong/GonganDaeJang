@@ -83,5 +83,4 @@ class DashBoardProjectGoAdapter(private val dataset: List<DashBoardProjectGo>) :
         }
     }
     override fun getItemCount() = dataset.size
-
 }

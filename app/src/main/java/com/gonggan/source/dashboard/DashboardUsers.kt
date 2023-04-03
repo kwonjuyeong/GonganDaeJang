@@ -132,6 +132,19 @@ class DashboardUsers : AppCompatActivity() {
         job?.cancel()
     }
 
+    override fun onStop() {
+        super.onStop()
+        job?.cancel()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        CoroutineScope(Dispatchers.IO).launch {
+            job = callTimeSet(userToken, binding.timeSet)
+            job!!.join()
+        }
+    }
+
     private fun openDrawer(){
         binding.menu.setOnClickListener {
             drawer.openDrawer(GravityCompat.END)

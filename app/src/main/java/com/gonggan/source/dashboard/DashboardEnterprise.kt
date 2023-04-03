@@ -130,7 +130,21 @@ class DashboardEnterprise : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("onDestroy","onDestroy")
         job?.cancel()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        job?.cancel()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        CoroutineScope(Dispatchers.IO).launch {
+            job = callTimeSet(userToken, binding.timeSet)
+            job!!.join()
+        }
     }
 
     private fun projectCount(){

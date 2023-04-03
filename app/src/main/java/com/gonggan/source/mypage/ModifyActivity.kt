@@ -318,7 +318,7 @@ class ModifyActivity : AppCompatActivity() {
         }
 
         //회사리스트 조회===========================================================================================================================
-        val getCoListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
+        val getCoListService = callRetrofit("${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
         //co_list
         binding.coListRecycler.layoutManager = LinearLayoutManager(this)
         binding.coListRecycler.adapter = CoListAdapter(coListData, onClickSelect = { selectedTask(it) })

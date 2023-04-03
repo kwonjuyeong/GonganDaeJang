@@ -12,7 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserInfoRepository(private val sharedPreferencesManager: SharedPreferencesManager){
-
     private val infoApiService: GetUserInfoService = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
     fun getMyToken(): String {
@@ -22,13 +21,9 @@ class UserInfoRepository(private val sharedPreferencesManager: SharedPreferences
     fun getInfo(): LiveData<UserInfoDTO?> {
         val data = MutableLiveData<UserInfoDTO>()
         infoApiService.requestUserInfo(getMyToken(),CodeList.sysCd).enqueue(object : Callback<UserInfoDTO>{
-            override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
-                data.value = response.body()
-            }
-            override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {
-            }
+            override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) { data.value = response.body() }
+            override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
         })
         return data
     }
-
 }

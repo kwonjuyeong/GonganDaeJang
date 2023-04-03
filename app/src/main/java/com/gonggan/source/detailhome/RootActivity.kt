@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.gonggan.R
+import com.example.gonggan.databinding.ActivityMyPageBinding
 import com.example.gonggan.databinding.ActivityRootBinding
 import com.gonggan.API.GetUserInfoService
 import com.gonggan.DTO.UserInfoDTO
@@ -16,6 +19,7 @@ import com.gonggan.objects.CodeList
 import com.gonggan.objects.moveToDash
 import com.gonggan.objects.startCloseLogoutCustom
 import com.gonggan.source.dailywork.DailyWatchFragment
+import com.gonggan.source.mypage.MyPageViewModel
 import com.gonggan.source.photogallery.PhotoGalleryFragment
 import com.gonggan.source.qa.QAFragment
 import com.google.gson.Gson
@@ -47,8 +51,6 @@ class RootActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.include.mainToolbar)
         supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_left_arrow)
             title = "프로젝트 대시보드"
         }
 
@@ -61,7 +63,7 @@ class RootActivity : AppCompatActivity() {
 
             }
         })
-        
+
         if(activityTag == ""){
             setDataAtFragment(DailyWatchFragment())
         }else if(activityTag == "QA"){

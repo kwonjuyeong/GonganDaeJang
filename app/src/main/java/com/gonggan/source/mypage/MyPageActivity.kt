@@ -17,7 +17,6 @@ private const val TAG = "MyPageActivity"
 interface OnBackPressedListener {
     fun onBackPressed()
 }
-private lateinit var backAuthState : String
 
 class MyPageActivity : AppCompatActivity(), OnBackPressedListener{
     private lateinit var sharedPreference: SharedPreferences
@@ -32,7 +31,6 @@ class MyPageActivity : AppCompatActivity(), OnBackPressedListener{
         init()
 
         setSupportActionBar(binding.include.mainToolbar)
-
         supportActionBar?.apply {
             title = getString(R.string.my_page_eng)
         }
@@ -56,7 +54,6 @@ class MyPageActivity : AppCompatActivity(), OnBackPressedListener{
             binding.authorityText.text = it?.value?.authority_name
             Log.d("data_up", Gson().toJson(it))
             myPageViewModel.setUserInfoLiveData(myPageViewModel.getUsers())
-            backAuthState = it?.value?.authority_code.toString()
         }
         myPageViewModel.onBackPressedListener = this
     }

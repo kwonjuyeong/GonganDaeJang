@@ -27,23 +27,10 @@ class MyPageViewModel(application: Application) : AndroidViewModel(application){
         return repository.getInfo()
     }
 
-
     private val _userInfo = MutableLiveData<UserInfoDTO?>()
     val userInfo: LiveData<UserInfoDTO?> = _userInfo
 
-    /*
-    fun moveToDashBoard(context: Context, data: LiveData<UserInfoDTO?>?){
-        if (data?.value != null) {
-            moveToDash(context, data.value!!.value.co_code,  data.value!!.value.authority_code, data.value!!.msg)
-        }
-    }*/
-
     var onBackPressedListener: OnBackPressedListener? = null
-
-    fun onBackPressed() {
-        onBackPressedListener?.onBackPressed()
-    }
-
     private var userInfoLiveData: LiveData<UserInfoDTO?>? = null
 
     fun moveToDashBoard(context: Context) {

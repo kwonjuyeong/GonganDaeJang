@@ -14,7 +14,7 @@ import retrofit2.Response
 
 class DetailDashRepository(private val sharedPreferencesManager: SharedPreferencesManager){
 
-    private val infoApiService: GetUserInfoService = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
+    private val infoApiService: GetUserInfoService = ApiUtilities.callRetrofit("${CodeList.portNum}/userManage/getMyInfo/")
         .create(GetUserInfoService::class.java)
 
     fun getMyToken(): String {

@@ -55,8 +55,8 @@ class QAWatchDoc : AppCompatActivity() {
             title = getString(R.string.communication)
         }
 
-        val retroWatchQaList = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(WatchQADoc::class.java)
-        val retrofitInfo = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
+        val retroWatchQaList = ApiUtilities.callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(WatchQADoc::class.java)
+        val retrofitInfo = ApiUtilities.callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
         binding.filesRecycler.apply {
             layoutManager = LinearLayoutManager(this@QAWatchDoc)
@@ -81,7 +81,6 @@ class QAWatchDoc : AppCompatActivity() {
                             }
                         }
                     })
-
                     binding.titleText.text = watchDoc?.value?.title.toString()
                     binding.writerText.text = watchDoc?.value?.writer_name.toString()
                     binding.writeDate.text = convertDateFormat(watchDoc?.value?.reg_date)
@@ -95,8 +94,6 @@ class QAWatchDoc : AppCompatActivity() {
                         }
                     }
                     binding.filesRecycler.adapter?.notifyDataSetChanged()
-
-
             }
         })
 

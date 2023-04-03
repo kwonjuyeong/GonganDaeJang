@@ -26,7 +26,6 @@ private const val TAG = "CommentActivity"
 
 private var getReply : ReplyDTO ?= null
 private var postReplyD : PostGalleryDTO ?= null
-
 private var commentData = arrayListOf<CommentData>()
 private lateinit var commentInputData : CommentData
 
@@ -44,28 +43,18 @@ class CommentActivity : AppCompatActivity() {
 
         init()
 
-        /*
-        setSupportActionBar(binding.include.mainToolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
-            supportActionBar?.title = "댓글"
-        }*/
-
-        //부모댓글 조회 =========================================================================================================
-        //작업량
         binding.commentParentRecycler.apply {
             layoutManager = LinearLayoutManager(this@CommentActivity)
             adapter = CommentAdapter(this@CommentActivity, commentData,{updateParentReply()}, sysDocNum, userToken)
         }
 
+        //이미 등록되어있는 댓글 조회
         updateParentReply()
-
-        //댓글 작성
+        //부모 댓글 작성
         binding.postBtn.setOnClickListener {
             postParentReply()
         }
-
+        //종료
         binding.bottomBtn.setOnClickListener {
             finish()
         }
@@ -93,10 +82,9 @@ class CommentActivity : AppCompatActivity() {
         finish()
     }
 
-
-
+    //댓글 업데이트
     private fun updateParentReply(){
-        val workReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(GetReply::class.java)
+        val workReply = callRetrofit("${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(GetReply::class.java)
         workReply.requestGetReply(sysDocNum, "", CodeList.sysCd, userToken).enqueue(object :
             Callback<ReplyDTO> {
             override fun onFailure(call: Call<ReplyDTO>, t: Throwable) {
@@ -116,11 +104,11 @@ class CommentActivity : AppCompatActivity() {
         })
     }
 
-
+    //댓글 등록
     private fun postParentReply(){
         val content = binding.postEditText.text.toString()
         if(content != ""){
-            val postReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(PostReply::class.java)
+            val postReply = callRetrofit("${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(PostReply::class.java)
             postReply.requestPostReply(sysDocNum, "", CodeList.sysCd, userToken, ReplyPostRequestDTO(content)).enqueue(object :
                 Callback<PostGalleryDTO> {
                 override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }

@@ -2,6 +2,7 @@ package com.gonggan.source.mypage
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import com.gonggan.DTO.UserInfoDTO
 import com.gonggan.objects.SharedPreferencesManager
 import com.gonggan.objects.modifyInfo
 import com.gonggan.objects.moveToDash
+import com.google.gson.Gson
 
 class MyPageViewModel(application: Application) : AndroidViewModel(application){
 
@@ -25,14 +27,33 @@ class MyPageViewModel(application: Application) : AndroidViewModel(application){
         return repository.getInfo()
     }
 
+
     private val _userInfo = MutableLiveData<UserInfoDTO?>()
     val userInfo: LiveData<UserInfoDTO?> = _userInfo
 
+    /*
     fun moveToDashBoard(context: Context, data: LiveData<UserInfoDTO?>?){
-        if (data?.value != null) { // Add null-check here
+        if (data?.value != null) {
             moveToDash(context, data.value!!.value.co_code,  data.value!!.value.authority_code, data.value!!.msg)
         }
+    }*/
 
+    var onBackPressedListener: OnBackPressedListener? = null
+
+    fun onBackPressed() {
+        onBackPressedListener?.onBackPressed()
+    }
+
+    private var userInfoLiveData: LiveData<UserInfoDTO?>? = null
+
+    fun moveToDashBoard(context: Context) {
+        if (userInfoLiveData?.value != null) { // Add null-check here
+            moveToDash(context, userInfoLiveData?.value?.value?.co_code.toString(), userInfoLiveData?.value?.value?.authority_code.toString(), userInfoLiveData?.value?.msg.toString())
+        }
+    }
+
+    fun setUserInfoLiveData(userInfoLiveData: LiveData<UserInfoDTO?>?) {
+        this.userInfoLiveData = userInfoLiveData
     }
 
     fun moveToModifyUserButton(context: Context, data : LiveData<UserInfoDTO?>?){

@@ -80,7 +80,7 @@ class WorkEditPhoto : AppCompatActivity() {
         //이미지 조회================================================================================================
         binding.imageRecycler.apply {
             layoutManager = LinearLayoutManager(this@WorkEditPhoto)
-            adapter = OutsideAdapter(this@WorkEditPhoto, userToken, sysDocNum, consCode, imageOutsideData, {deleteBtn(it)}, {pickPicture(it)})
+            adapter = OutsideAdapter(this@WorkEditPhoto, userToken, sysDocNum, consCode, imageOutsideData, {deleteItem(it)}, {pickPicture(it)})
         }
 
         //원본 데이터 저장
@@ -139,7 +139,6 @@ class WorkEditPhoto : AppCompatActivity() {
                     imageOriginData.add(OutsideDivision(imageGetData.imageList[i].title, divisionOrigin))
                 }
             }
-
             for (m in 0 until imageOutsideData.size) {
                 for (j in 0 until imageGetData.imageList.size) {
                     if (imageOutsideData[m].parentTitle == imageGetData.imageList[j].title) {
@@ -163,7 +162,7 @@ class WorkEditPhoto : AppCompatActivity() {
 
     //사진 리스트 삭제(Outside)
     @SuppressLint("NotifyDataSetChanged")
-    private fun deleteBtn(data : OutSideImageInfo){
+    private fun deleteItem(data : OutSideImageInfo){
         imageOutsideData.remove(data)
         binding.imageRecycler.adapter?.notifyDataSetChanged()
     }
@@ -349,9 +348,8 @@ class WorkEditPhoto : AppCompatActivity() {
     }
 
 
-
-
     private fun compareList(origImgList : ArrayList<OutsideDivision>, chaImgList : ArrayList<OutSideImageInfo>){
+
         val convertImgList: MutableList<ConvertedImg> = mutableListOf()
         val convertOrigList: MutableList<ConvertedImg> = mutableListOf()
         var index = 0
@@ -373,9 +371,6 @@ class WorkEditPhoto : AppCompatActivity() {
         }
         convertOrigList.sortBy { it.file_index }
 
-        Log.d("original_convert", Gson().toJson(convertOrigList))
-        Log.d("change_convert", Gson().toJson(convertImgList))
-
         if(convertImgList.size != 0){
             index = convertImgList[convertImgList.size -1].file_index + 1
         }
@@ -386,7 +381,6 @@ class WorkEditPhoto : AppCompatActivity() {
             for (j in 0 until convertImgList.size) {
                 if(convertOrigList[i].origName == convertImgList[j].origName){
                 hasFile = true
-
                 if(convertOrigList[i].title != convertImgList[j].title){
                 putImg(convertImgList[j].title, convertImgList[j].file_index)
                 }
@@ -412,7 +406,7 @@ class WorkEditPhoto : AppCompatActivity() {
  }
 
     private fun delImg(fileIndex : Int){
-        val photoDelete = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}/").create(DeleteGallery::class.java)
+        val photoDelete = callRetrofit("${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}/").create(DeleteGallery::class.java)
 
         photoDelete.requestDeleteGallery(consCode, sysDocNum, workLogConsCode , fileIndex ,CodeList.sysCd, userToken).enqueue(object :
             Callback<PostGalleryDTO> {
@@ -428,7 +422,7 @@ class WorkEditPhoto : AppCompatActivity() {
     }
 
     private fun putImg(title : String, fileIndex : Int){
-        val photoModify = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}/").create(ModifyGallery::class.java)
+        val photoModify = callRetrofit("${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{work_log_cons_code}/{file_index}/").create(ModifyGallery::class.java)
         photoModify.requestModifyGallery(consCode, sysDocNum, workLogConsCode , fileIndex ,CodeList.sysCd, userToken, ModifyGalleryDTO(title)).enqueue(object :
             Callback<PostGalleryDTO> {
             override fun onFailure(call: Call<PostGalleryDTO>, t: Throwable) {Log.d("retro", t.toString())}
@@ -443,7 +437,7 @@ class WorkEditPhoto : AppCompatActivity() {
     }
 
     private fun addImg(fileIndex: Int, title : String, file: File?){
-        val photoPost = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{file_index}/").create(PostGallery::class.java)
+        val photoPost = callRetrofit("${CodeList.portNum}/projWorkLogManage/WorkDLImage/{cons_code}/{sys_doc_num}/{file_index}/").create(PostGallery::class.java)
         val fileBody = file.let { it1 -> RequestBody.create(MediaType.parse("multipart/form-data"), it1) }.let { it1 -> MultipartBody.Part.createFormData("f_image" , file?.name, it1) }
         val jsonObject = JSONObject("{\"cons_date\":\"${consDate}\", \"work_log_cons_code\":\"${workLogConsCode}\",\"cons_type_cd\":\"${consTypeCd}\", \"title\":\"${title}\"}").toString()
         val jsonBody = RequestBody.create(MediaType.parse("application/json"), jsonObject)

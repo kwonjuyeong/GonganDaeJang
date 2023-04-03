@@ -65,16 +65,14 @@ class ModifyActivity : AppCompatActivity() {
         setSupportActionBar(binding.include.mainToolbar)
         supportActionBar?.title = getString(R.string.modify_info)
 
+        //사용자 정보 표시
+        val userInfoService = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
-        //사용자 정보 표시==================================================================================================================================
-        val retrofitUserInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
-        val userInfoService: GetUserInfoService = retrofitUserInfo.create(GetUserInfoService::class.java)
-        //Code 불러오기============================================================================================================
+        //Code 불러오기
         val authSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, authList)
         binding.authoritySpinner.adapter =  authSpinner
 
-        val codeList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCodeList/{reqType}/")
-        val codeListService: GetCodeListService = codeList.create(GetCodeListService::class.java)
+        val codeListService = callRetrofit("${CodeList.portNum}/commManage/getCodeList/{reqType}/").create(GetCodeListService::class.java)
 
         codeListService.requestGetCodeList("AU00", sysCd).enqueue(object :
             Callback<GetCodeListDTO> {
@@ -91,7 +89,6 @@ class ModifyActivity : AppCompatActivity() {
                     @SuppressLint("NotifyDataSetChanged")
                     override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                         getUserInfo = response.body()
-                        Log.d("ddddd", Gson().toJson(getUserInfo?.value))
 
                         //Response code 200 : 통신성공
                         if (getUserInfo?.code == 200) {
@@ -168,15 +165,12 @@ class ModifyActivity : AppCompatActivity() {
                         }
                     }
                 })
-
-
             }else if(passwdState == 1){
                 passwdState = 0
                 binding.passwdBtn.text = "패스워드 변경"
                 binding.userPwLayout.visibility = GONE
                 binding.passwdLayoutHint.visibility = GONE
                 binding.userPwCheckLayout.visibility = GONE
-
                 binding.userPwCheck.setText("")
                 binding.userPw.setText("")
                 binding.modifyUserBtn.isEnabled = true
@@ -324,8 +318,7 @@ class ModifyActivity : AppCompatActivity() {
         }
 
         //회사리스트 조회===========================================================================================================================
-        val retrofitCo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCoList/ALL/")
-        val getCoListService: GetCoListService = retrofitCo.create(GetCoListService::class.java)
+        val getCoListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
         //co_list
         binding.coListRecycler.layoutManager = LinearLayoutManager(this)
         binding.coListRecycler.adapter = CoListAdapter(coListData, onClickSelect = { selectedTask(it) })
@@ -370,8 +363,7 @@ class ModifyActivity : AppCompatActivity() {
         }
 
 
-        val retrofitModify = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/modifyUser/")
-        val modifyUserService: ModifyUserService = retrofitModify.create(ModifyUserService::class.java)
+        val modifyUserService = callRetrofit("${CodeList.portNum}/userManage/modifyUser/").create(ModifyUserService::class.java)
 
         //회원정보수정 버튼
         binding.modifyUserBtn.setOnClickListener {
@@ -395,20 +387,20 @@ class ModifyActivity : AppCompatActivity() {
                 userPw = getSHA512(password)
             }
 
-                val userName = getUserInfo?.value?.user_name.toString()
-                val useType = getUserInfo?.value?.use_type.toString()
-                val userState = getUserInfo?.value?.user_state.toString()
-                val userPosition = binding.userPositionText.text.toString().trim()
-                val userContact = binding.userContactText.text.toString().trim()
-                val userEmail = binding.userEmailText.text.toString().trim()
+            val userName = getUserInfo?.value?.user_name.toString()
+            val useType = getUserInfo?.value?.use_type.toString()
+            val userState = getUserInfo?.value?.user_state.toString()
+            val userPosition = binding.userPositionText.text.toString().trim()
+            val userContact = binding.userContactText.text.toString().trim()
+            val userEmail = binding.userEmailText.text.toString().trim()
 
-                val coName = binding.coName.text.toString().trim()
-                val coCeo = binding.coCEOText.text.toString().trim()
-                val coCode = binding.coCode.text.toString().trim()
-                val coType = binding.coTypeText.text.toString().trim()
-                val coAddress = binding.coLocationText.text.toString().trim()
-                val coContact = binding.coContactText.text.toString().trim()
-                val coResNum = binding.coRegisnumText.text.toString().trim()
+            val coName = binding.coName.text.toString().trim()
+            val coCeo = binding.coCEOText.text.toString().trim()
+            val coCode = binding.coCode.text.toString().trim()
+            val coType = binding.coTypeText.text.toString().trim()
+            val coAddress = binding.coLocationText.text.toString().trim()
+            val coContact = binding.coContactText.text.toString().trim()
+            val coResNum = binding.coRegisnumText.text.toString().trim()
 
             val listFieldRating = ArrayList<HashMap<String, String>>()
 
@@ -416,24 +408,22 @@ class ModifyActivity : AppCompatActivity() {
             val jsonBody = RequestBody.create(MediaType.parse("application/json"), jsonObject)
             Log.d("json", jsonObject)
 
-                //modifyUser(회원수정) API 호출
-                modifyUserService.requestModify(sysCd, userToken, jsonBody).enqueue(object : Callback<ModifyUserDTO> {
-                    override fun onFailure(call: Call<ModifyUserDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
-                    override fun onResponse(call: Call<ModifyUserDTO>, response: Response<ModifyUserDTO>) {
-                        modify = response.body()
-                        if(modify?.code == 200){
-                            Toast.makeText(this@ModifyActivity, "회원정보 수정 성공", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@ModifyActivity, MyPageActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                        else{
-                            Log.d("modify_fail", modify?.code.toString())
-                            Log.d("modify_fail", modify?.msg.toString())
-                            Toast.makeText(this@ModifyActivity, "회원정보수정 실패 : ${modify?.msg.toString()}", Toast.LENGTH_SHORT).show()
-                        }
+            //modifyUser(회원수정) API 호출
+            modifyUserService.requestModify(sysCd, userToken, jsonBody).enqueue(object : Callback<ModifyUserDTO> {
+                override fun onFailure(call: Call<ModifyUserDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
+                override fun onResponse(call: Call<ModifyUserDTO>, response: Response<ModifyUserDTO>) {
+                    modify = response.body()
+                    if(modify?.code == 200){
+                        Toast.makeText(this@ModifyActivity, "회원정보 수정 성공", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@ModifyActivity, MyPageActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
-                })
+                    else{
+                        Toast.makeText(this@ModifyActivity, "회원정보수정 실패 : ${modify?.msg.toString()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
 
     }
@@ -442,7 +432,6 @@ class ModifyActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun selectedTask(data: JoinCoListData) {
         binding.coListRecycler.visibility = GONE
-
         binding.coLocationText.setText(data.co_address)
         binding.coCEOText.setText(data.co_ceo)
         binding.coTypeText.setText(data.co_type)
@@ -457,7 +446,6 @@ class ModifyActivity : AppCompatActivity() {
         userToken = sharedPreference.getString("token", "").toString()
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -468,6 +456,7 @@ class ModifyActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
     super.onBackPressed()
     val intent = Intent(this@ModifyActivity, MyPageActivity::class.java)

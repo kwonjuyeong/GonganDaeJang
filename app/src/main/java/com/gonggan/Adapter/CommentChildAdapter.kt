@@ -49,10 +49,10 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
         val commentData = arrayListOf<CommentData>()
         var commentInputData : CommentData
 
-        val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
+        val retrofit = callRetrofit("${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
         val workReply: GetReply = retrofit.create(GetReply::class.java)
 
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
+        val retrofitInfo = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/")
         val getMyInfo: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
 
         viewHolder.binding.childRecycler.layoutManager = LinearLayoutManager(context)
@@ -128,7 +128,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
         //답글 등록 버튼 =================================================
         viewHolder.binding.postBtn.setOnClickListener {
 
-            val retrofitPost = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
+            val retrofitPost = callRetrofit("${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
             val postReply: PostReply = retrofitPost.create(PostReply::class.java)
 
             val content = viewHolder.binding.postEditText.text.toString()
@@ -193,8 +193,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
                     userInfo = response.body()
 
                     if(listPosition.write_id == userInfo?.value?.id){
-                        val retrofitDelete = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-                        val deleteReplies: DeleteReply = retrofitDelete.create(DeleteReply::class.java)
+                        val deleteReplies = callRetrofit("${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(DeleteReply::class.java)
 
                         deleteReplies.requestDeleteReply(sysDocNum, listPosition.uuid, CodeList.sysCd, token).enqueue(object :
                             Callback<PostGalleryDTO> {
@@ -278,8 +277,7 @@ class CommentChildAdapter(private val context: Context, private val dataset: Lis
 
 
         viewHolder.binding.modifyGoBtn.setOnClickListener {
-            val retrofitPut = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/")
-            val putReplys: PutReply = retrofitPut.create(PutReply::class.java)
+            val putReplys = callRetrofit("${CodeList.portNum}/projWorkReplyManage/WorkReply/{sys_doc_num}/").create(PutReply::class.java)
 
             val content = viewHolder.binding.modifyEditText.text.toString()
 

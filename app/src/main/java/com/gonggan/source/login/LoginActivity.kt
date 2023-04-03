@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         val editor = sharedPreference.edit()
 
         //자동 로그인 =======================================================================================================================
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
+        val retrofitInfo = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
         if (sharedPreference.getString("userId", "").toString().isNotEmpty() && sharedPreference.getString("userPw", "").toString().isNotEmpty() && sharedPreference.getString("token", "").toString().isNotEmpty()) {
             val token = sharedPreference.getString("token", "").toString()
@@ -68,15 +68,13 @@ class LoginActivity : AppCompatActivity() {
         }
         //일반 로그인========================================================================================================================
         else {
-        val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/login/")
-        val loginService: LoginService = retrofit.create(LoginService::class.java)
+        val loginService = callRetrofit("${CodeList.portNum}/userManage/login/").create(LoginService::class.java)
 
         binding.loginBtn.setOnClickListener {
             val userId = binding.loginIdEt.text.toString().trim()
-            val passWd = binding.loginPwEt.text.toString()
-            val passwd = getSHA512(passWd)
-            val loginDTO = LoginRequestDTO(userId, passwd)
-            loginService.requestLogIn(CodeList.sysCd, loginDTO).enqueue(object : Callback<LoginDTO> {
+            val passwd = getSHA512(binding.loginPwEt.text.toString())
+
+            loginService.requestLogIn(CodeList.sysCd, LoginRequestDTO(userId, passwd)).enqueue(object : Callback<LoginDTO> {
                 val dialog = AlertDialog.Builder(this@LoginActivity)
                 override fun onFailure(call: Call<LoginDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
                 override fun onResponse(call: Call<LoginDTO>, response: Response<LoginDTO>) {
@@ -91,8 +89,6 @@ class LoginActivity : AppCompatActivity() {
                                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                                     getUserInfo = response.body()
 
-                                    Log.d("ddddd", Gson().toJson(getUserInfo?.value))
-                                    Log.d("ddddd", Gson().toJson(login?.value))
                                     if (getUserInfo?.code == 200) {
                                         moveToDash(this@LoginActivity, getUserInfo?.value?.co_code.toString(), getUserInfo?.value?.authority_code.toString(), getUserInfo?.msg.toString())
                                     }

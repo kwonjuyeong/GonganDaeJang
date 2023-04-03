@@ -13,7 +13,7 @@ import retrofit2.Response
 
 class UserInfoRepository(private val sharedPreferencesManager: SharedPreferencesManager){
 
-    private val infoApiService: GetUserInfoService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
+    private val infoApiService: GetUserInfoService = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
 
     fun getMyToken(): String {
         return sharedPreferencesManager.getString("token", "")

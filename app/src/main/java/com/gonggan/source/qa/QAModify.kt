@@ -53,7 +53,6 @@ private val usiPathUtil = UriPathUtils()
 private val indexes = ArrayList<Int>()
 
 class QAModify : AppCompatActivity() {
-
     private lateinit var binding: ActivityQamodifyBinding
     private lateinit var sharedPreference : SharedPreferences
     private lateinit var editor : SharedPreferences.Editor
@@ -87,8 +86,8 @@ class QAModify : AppCompatActivity() {
 
 
         //정보 조회========================================================================================================================================================================================
-        val retroWatchQaList = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(WatchQADoc::class.java)
-        val retroModifyQA = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(ModifyQADoc::class.java)
+        val retroWatchQaList = ApiUtilities.callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(WatchQADoc::class.java)
+        val retroModifyQA = ApiUtilities.callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(ModifyQADoc::class.java)
 
         retroWatchQaList.requestWatchQa(consCode,CodeList.sysCd, userToken ,uuid).enqueue(object :
             Callback<WatchQADocDTO> {

@@ -29,7 +29,7 @@ data class DocFileDownLoadDTO(
 @SuppressLint("SimpleDateFormat")
 fun docFileDownload(context: Context, userToken : String, data : DocFileDownLoadDTO){
         val handler = Handler(Looper.getMainLooper())
-        val spec = "http://211.107.220.103:${CodeList.portNum}/commManage/docFileDownload"
+        val spec = "${CodeList.portNum}/commManage/docFileDownload"
         val outputDir = Environment.getExternalStorageDirectory().toString() + "/" + Environment.DIRECTORY_DOWNLOADS
 
         val currentTime = System.currentTimeMillis()
@@ -154,7 +154,7 @@ fun loadFile(userToken: String ,imageView: ImageView, data : DocFileDownLoadDTO)
         val handler = Handler(Looper.getMainLooper())
         try {
             //Header
-            val url = URL("http://211.107.220.103:${CodeList.portNum}/commManage/docFileDownload")
+            val url = URL("${CodeList.portNum}/commManage/docFileDownload")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
             conn.setRequestProperty("Content-Type", "application/json;utf-8")
@@ -221,7 +221,7 @@ fun test(userToken: String , post_uuid : String, parent_uuid : String) {
         var `is`: InputStream? = null
         try {
             //Query, Path
-            val url = URL("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{$post_uuid}?parent_uuid=$parent_uuid")
+            val url = URL("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{$post_uuid}?parent_uuid=$parent_uuid")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "GET"
             conn.setRequestProperty("Content-Type", "application/json;utf-8")

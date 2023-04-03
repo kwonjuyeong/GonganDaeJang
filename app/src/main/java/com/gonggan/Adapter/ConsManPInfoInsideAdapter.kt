@@ -23,7 +23,6 @@ class ConsManPInfoInsideAdapter(private val dataset: List<ConsManPInputList>):
         val listPosition = dataset[position]
 
 
-
         viewHolder.binding.prevManpower.text = listPosition.prev_manpower.toString()
         viewHolder.binding.todayManpower.text = listPosition.today_manpower.toString()
         viewHolder.binding.nextManpower.text = listPosition.next_manpower.toString()

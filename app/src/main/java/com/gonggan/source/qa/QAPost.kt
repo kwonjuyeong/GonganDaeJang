@@ -72,7 +72,7 @@ class QAPost : AppCompatActivity() {
             title = getString(R.string.communication_post)
         }
 
-        val retrofitPostQA = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(PostQADoc::class.java)
+        val retrofitPostQA = ApiUtilities.callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(PostQADoc::class.java)
 
         binding.filesRecycler.apply {
             layoutManager = LinearLayoutManager(this@QAPost)

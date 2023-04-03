@@ -71,7 +71,7 @@ class DashNormal : AppCompatActivity() {
             adapter = CoHistoryAdapter(historyData) { changeProjList(it) }
         }
 
-        val retrofitCoHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetCoHistory::class.java)
+        val retrofitCoHisList = callRetrofit("${CodeList.portNum}/historyManage/getCoHisList/").create(GetCoHistory::class.java)
         retrofitCoHisList.requestGetCoHistory(CodeList.sysCd, userToken).enqueue(object : Callback<CoHistoryDTO> {
             override fun onFailure(call: Call<CoHistoryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
@@ -81,7 +81,7 @@ class DashNormal : AppCompatActivity() {
             ) {
                 history = response.body()
                 //회사정보 Retrofit 불러오기
-                val getCoListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
+                val getCoListService = callRetrofit("${CodeList.portNum}/commManage/getCoList/ALL/").create(GetCoListService::class.java)
 
                 getCoListService.requestGetCoList(CodeList.sysCd, GetCoListRequestDTO("ALL")).enqueue(object : Callback<GetCoListDTO> {
                     override fun onFailure(call: Call<GetCoListDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
@@ -120,7 +120,7 @@ class DashNormal : AppCompatActivity() {
             adapter = DashBoardNoCompanyProjectListAdapter(projectListData)
         }
 
-         val retrofitProjHisList = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
+        val retrofitProjHisList = callRetrofit("${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
         retrofitProjHisList.requestGetProjHistory(CodeList.sysCd, userToken).enqueue(object : Callback<ProjHistoryDTO> {
             override fun onFailure(call: Call<ProjHistoryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
@@ -176,13 +176,12 @@ class DashNormal : AppCompatActivity() {
 
     //회사 클릭 시 프로젝트 리스트 교환해주는 함수
     private fun changeProjList(data : CoHistoryD) {
-        val getProjHistory = callRetrofit("http://211.107.220.103:${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
+        val getProjHistory = callRetrofit("${CodeList.portNum}/historyManage/getCoHisList/").create(GetProjHistory::class.java)
         getProjHistory.requestGetProjHistory(CodeList.sysCd, userToken).enqueue(object : Callback<ProjHistoryDTO> {
             override fun onFailure(call: Call<ProjHistoryDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<ProjHistoryDTO>, response: Response<ProjHistoryDTO>) {
                 projHistory = response.body()
-                Log.d("project refreshed", Gson().toJson(projHistory?.value))
                 projectListData.clear()
                 for (i in 0 until projHistory?.value?.size!!) {
                     if(projHistory?.value?.get(i)?.co_code.toString() == data.co_code){
@@ -190,6 +189,7 @@ class DashNormal : AppCompatActivity() {
                         projectListData.add(projectGoData)
                     }
                 }
+                Log.d("project refreshed", Gson().toJson(projHistory?.value))
                 binding.projectAll.text = projectListData.size.toString()
                 binding.noCompanyProjectGoRecycler.adapter?.notifyDataSetChanged()
             }

@@ -11,14 +11,15 @@ import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityMyPageBinding
 import com.gonggan.objects.SharedPreferencesManager
 import com.google.gson.Gson
-private const val TAG = "MyPageActivity"
-private lateinit var backAuthState : String
 
-interface BackPressListener {
+private const val TAG = "MyPageActivity"
+
+interface OnBackPressedListener {
     fun onBackPressed()
 }
+private lateinit var backAuthState : String
 
-class MyPageActivity : AppCompatActivity(), BackPressListener{
+class MyPageActivity : AppCompatActivity(), OnBackPressedListener{
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var userToken: String
@@ -26,7 +27,6 @@ class MyPageActivity : AppCompatActivity(), BackPressListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
        val binding: ActivityMyPageBinding = DataBindingUtil.setContentView(this, R.layout.activity_my_page)
 
         init()
@@ -55,10 +55,10 @@ class MyPageActivity : AppCompatActivity(), BackPressListener{
             binding.coRegisnumText.text = it?.value?.co_regisnum
             binding.authorityText.text = it?.value?.authority_name
             Log.d("data_up", Gson().toJson(it))
-            myPageViewModel.moveToDashBoard(this, myPageViewModel.getUsers())
-            myPageViewModel.moveToModifyUserButton(this, myPageViewModel.getUsers())
+            myPageViewModel.setUserInfoLiveData(myPageViewModel.getUsers())
             backAuthState = it?.value?.authority_code.toString()
         }
+        myPageViewModel.onBackPressedListener = this
     }
     private fun init() {
         sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
@@ -77,6 +77,7 @@ class MyPageActivity : AppCompatActivity(), BackPressListener{
     }
 
     override fun onBackPressed() {
-        Log.d("clicked", "clicked")
+        Log.d("backPressed", "press")
+        myPageViewModel.moveToDashBoard(this)
     }
 }

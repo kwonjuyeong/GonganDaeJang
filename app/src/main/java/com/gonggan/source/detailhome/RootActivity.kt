@@ -52,27 +52,25 @@ class RootActivity : AppCompatActivity() {
             title = "프로젝트 대시보드"
         }
 
+        val getUserInfoService = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
+        getUserInfoService.requestUserInfo(userToken, CodeList.sysCd).enqueue(object :
+            Callback<UserInfoDTO> {
+            override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
+            override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
+                getUserInfo = response.body()
+
+            }
+        })
+        
         if(activityTag == ""){
             setDataAtFragment(DailyWatchFragment())
         }else if(activityTag == "QA"){
             setDataAtFragment(QAFragment())
         }
 
-
-        val getUserInfoService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
-        getUserInfoService.requestUserInfo(userToken, CodeList.sysCd).enqueue(object :
-            Callback<UserInfoDTO> {
-            override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
-            override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
-                getUserInfo = response.body()
-                val gson = Gson()
-                Log.d("login_info", gson.toJson(getUserInfo?.value))
-            }
-        })
-
+        //로그아웃
         binding.logoutBtn.setOnClickListener {
-            //로그아웃 버튼
-            startCloseLogoutCustom(this@RootActivity, userToken,sharedPreference)
+        startCloseLogoutCustom(this@RootActivity, userToken,sharedPreference)
         }
     }
 

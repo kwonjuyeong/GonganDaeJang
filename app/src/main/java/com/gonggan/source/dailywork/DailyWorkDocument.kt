@@ -52,7 +52,7 @@ class DailyWorkDocument : AppCompatActivity() {
             title = "공사일보 조회"
         }
 
-        //작업일보 상세보기====================================================================================================================
+        //작업일보 상세보기
         //작업량
         binding.consWorkInfoRecycler.apply {
             layoutManager = LinearLayoutManager(this@DailyWorkDocument).also { it.orientation = LinearLayoutManager.HORIZONTAL }
@@ -66,13 +66,13 @@ class DailyWorkDocument : AppCompatActivity() {
 
         updateDailyWork()
 
-        //댓글 작성
+        //댓글 페이지 이동
         binding.commentBtn.setOnClickListener {
             val intent = Intent(this@DailyWorkDocument, CommentActivity ::class.java)
             intent.putExtra("sysDocNum", sysDocNum)
             startActivity(intent)
         }
-
+        //종료
         binding.bottomBtn.setOnClickListener {
             finish()
         }
@@ -102,10 +102,9 @@ class DailyWorkDocument : AppCompatActivity() {
         finish()
     }
 
-
-
+    //공사일보 문서 조회
     private fun updateDailyWork(){
-        val detailDoc = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/DailyWork/{cons_code}/{sys_doc_num}/").create(WorkDetailDiary::class.java)
+        val detailDoc = callRetrofit("${CodeList.portNum}/projWorkLogManage/DailyWork/{cons_code}/{sys_doc_num}/").create(WorkDetailDiary::class.java)
 
         detailDoc.requestDailyWork(consCode, sysDocNum, CodeList.sysCd, userToken).enqueue(object :
             Callback<DailyWorkDTO> {
@@ -119,7 +118,6 @@ class DailyWorkDocument : AppCompatActivity() {
                 binding.nextContent.text = dailywork?.value?.cons_content_info?.next_content.toString()
                 binding.todayContent.text = dailywork?.value?.cons_content_info?.today_content.toString()
                 binding.workDiary.text = dailywork?.value?.work_diary.toString()
-
 
                 //공사일보 작업량 조회===========================================================================================
                 val insideConsTypeWork = ArrayList<String>()
@@ -181,7 +179,6 @@ class DailyWorkDocument : AppCompatActivity() {
                 binding.consWorkInfoRecycler.adapter?.notifyDataSetChanged()
 
                 //인력조회===================================================================================================
-
                 for(i in 0 until dailywork?.value?.cons_manp_info?.size!!){
                     if (!insideConsTypeList2.contains(dailywork?.value?.cons_manp_info?.get(i)?.cons_type_nm.toString())) {
                         insideConsTypeList2.add(dailywork?.value?.cons_manp_info?.get(i)?.cons_type_nm.toString())
@@ -190,7 +187,6 @@ class DailyWorkDocument : AppCompatActivity() {
                         consManpInfoData.add(consManpInfoInputData)
                     }
                 }
-
                 for (m in 0 until consManpInfoData.size) {
                     for (j in 0 until dailywork?.value?.cons_manp_info!!.size) {
                         if (consManpInfoData[m].cons_type_nm == dailywork?.value?.cons_manp_info?.get(j)?.cons_type_nm.toString()) {

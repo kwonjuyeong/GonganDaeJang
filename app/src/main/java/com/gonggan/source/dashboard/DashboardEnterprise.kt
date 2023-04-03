@@ -11,10 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gonggan.R
 import com.example.gonggan.databinding.ActivityDashEnterpriseBinding
-import com.gonggan.API.GetCurTimeInfoService
-import com.gonggan.API.GetWeatherService
 import com.gonggan.API.ProjectGoService
 import com.gonggan.API.ProjectListService
 import com.gonggan.Adapter.DashBoardProjectGo
@@ -30,12 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "DashEnterprise"
-
-private lateinit var drawer : DrawerLayout
-private lateinit var navView : NavigationView
-private lateinit var sharedPreference : SharedPreferences
-private lateinit var editor : SharedPreferences.Editor
-private lateinit var userToken : String
 //Response DTO 정의=============================================================================
 private var projectList : ProjectListDTO? = null
 private var projectGo : ProjectGoDTO? = null
@@ -44,13 +35,19 @@ private var job : Job ?= null
 
 class DashboardEnterprise : AppCompatActivity() {
     private lateinit var binding: ActivityDashEnterpriseBinding
-    //프로젝트 이동 조회=============================================================================
+    private lateinit var drawer : DrawerLayout
+    private lateinit var navView : NavigationView
+    private lateinit var sharedPreference : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+    private lateinit var userToken : String
+
     private val projectListData = arrayListOf<DashBoardProjectGo>()
     private lateinit var projectGoData: DashBoardProjectGo
 
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityDashEnterpriseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -74,33 +71,29 @@ class DashboardEnterprise : AppCompatActivity() {
         //프로젝트 상태 통계 현황 조회
         projectCount()
 
-        //프로젝트로 이동하기
         binding.enterPProjectGoRecycler.apply {
             layoutManager = LinearLayoutManager(this@DashboardEnterprise).also { it.orientation = LinearLayoutManager.HORIZONTAL }
             adapter = DashBoardProjectGoAdapter(projectListData)
         }
-
+        //프로젝트 리스트 불러오기======================================================================
         updateProjList(CodeList.project_all)
 
         binding.allProject.setOnClickListener {
              updateProjList(CodeList.project_all)
         }
-
         binding.readyProject.setOnClickListener {
             updateProjList(CodeList.project_ready)
         }
-
         binding.progressProject.setOnClickListener {
             updateProjList(CodeList.project_progress)
         }
-
         binding.stopProject.setOnClickListener {
             updateProjList(CodeList.project_stop)
         }
-
         binding.completeProject.setOnClickListener {
             updateProjList(CodeList.project_complete)
         }
+
     }
 
     private fun init(){
@@ -112,7 +105,7 @@ class DashboardEnterprise : AppCompatActivity() {
     }
 
     private fun updateProjList(code : String){
-        val retrofitProjectGo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/{projectStatus}/").create(ProjectGoService::class.java)
+        val retrofitProjectGo = callRetrofit("${CodeList.portNum}/commManage/{projectStatus}/").create(ProjectGoService::class.java)
 
         projectListData.clear()
 
@@ -141,7 +134,7 @@ class DashboardEnterprise : AppCompatActivity() {
     }
 
     private fun projectCount(){
-        val getProjectListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
+        val getProjectListService = callRetrofit("${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
 
         getProjectListService.requestProjectsList(CodeList.sysCd, userToken).enqueue(object :
             Callback<ProjectListDTO> {

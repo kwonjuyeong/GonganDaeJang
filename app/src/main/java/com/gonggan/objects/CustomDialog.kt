@@ -282,7 +282,7 @@ fun deleteDocCustom(context: Context, data : deleteDocData){
     lottyAnimation.playAnimation()
 
     deleteBtn.setOnClickListener {
-        val retroDeleteQaList = ApiUtilities.callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(DeleteQADoc::class.java)
+        val retroDeleteQaList = ApiUtilities.callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoard/{cons_code}/").create(DeleteQADoc::class.java)
         retroDeleteQaList.requestDeleteQa(data.consCode,CodeList.sysCd, data.token , data.uuid).enqueue(object :
             Callback<PostQADTO> {
             override fun onFailure(call: Call<PostQADTO>, t: Throwable) { Log.d("QAWatchDoc_error", t.toString()) }

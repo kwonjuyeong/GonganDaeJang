@@ -35,7 +35,6 @@ data class Images(
     val file : File?
 )
 
-
 data class ModifyGalleryDTO(
     val title : String
 )

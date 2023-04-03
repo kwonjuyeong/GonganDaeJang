@@ -65,16 +65,20 @@ class DashboardUsers : AppCompatActivity() {
         setContentView(binding.root)
 
         init()
+
+        //사용자 권한 체크
         requestMultiplePermissions(this)
 
         //네비게이션
         openDrawer()
         navigationItemClick()
 
+        //애니메이션
         binding.lottieAnimation.playAnimation()
 
         //날씨정보 표시
         callWeatherInfo(userToken, this@DashboardUsers, binding.weatherIcon, binding.weatherSet)
+
         //시간정보 표시
         CoroutineScope(Dispatchers.IO).launch {
             job = callTimeSet(userToken, binding.timeSet)
@@ -84,37 +88,34 @@ class DashboardUsers : AppCompatActivity() {
         //프로젝트 상태 통계 현황 조회
         projectCount()
 
-        //프로젝트 이동 리스트 불러오기
         binding.userProjectGoRecycler.apply {
             layoutManager = LinearLayoutManager(this@DashboardUsers).also { it.orientation = LinearLayoutManager.HORIZONTAL }
             adapter = DashBoardProjectGoAdapter(projectListData)
         }
 
+        //프로젝트 리스트 불러오기======================================================================
         updateProjList(project_all)
-
-        //전체 프로젝트 클릭시
+        //전체
         binding.projectAll.setOnClickListener {
             updateProjList(project_all)
         }
-
-        //준비중 프로젝트 클릭시
+        //준비
         binding.projectReady.setOnClickListener {
             updateProjList(project_ready)
         }
-        //진행중인 프로젝트 클릭 시
+        //진행
         binding.projectProgress.setOnClickListener {
             updateProjList(project_progress)
         }
-
-        //중지된 프로젝트 클릭 시
+        //중지
         binding.projectStop.setOnClickListener {
             updateProjList(project_stop)
         }
-
-        //완료된 프로젝트 클릭 시
+        //완료
         binding.projectComplete.setOnClickListener {
             updateProjList(project_complete)
         }
+
     }
 
     private fun init(){
@@ -156,7 +157,7 @@ class DashboardUsers : AppCompatActivity() {
     }
 
     private fun updateProjList(code : String){
-        val retrofitProjectGo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/commManage/{projectStatus}/").create(ProjectGoService::class.java)
+        val retrofitProjectGo = callRetrofit("${CodeList.portNum}/commManage/{projectStatus}/").create(ProjectGoService::class.java)
         projectListData.clear()
         retrofitProjectGo.requestProjectsGo(code , CodeList.sysCd, userToken).enqueue(object :
             Callback<ProjectGoDTO> {
@@ -177,9 +178,10 @@ class DashboardUsers : AppCompatActivity() {
     }
 
     private fun projectCount(){
-        val getProjectListService = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
 
-        getProjectListService.requestProjectsList(CodeList.sysCd, userToken).enqueue(object :
+        val getProjectListService = callRetrofit("${CodeList.portNum}/projStatistManage/getProjStatusStatistics/").create(ProjectListService::class.java)
+
+        getProjectListService.requestProjectsList(sysCd, userToken).enqueue(object :
             Callback<ProjectListDTO> {
             override fun onFailure(call: Call<ProjectListDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             override fun onResponse(

@@ -14,7 +14,7 @@ import java.util.HashMap
 
 object CodeList {
         //Test Port Number(Port Num : 50406, 50407)
-        const val portNum = 50406
+        const val portNum = "http://211.107.220.103:50406"
 
         //APP System Code(SY00)
         const val sysCd : String = "SY000001"

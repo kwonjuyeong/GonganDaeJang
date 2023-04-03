@@ -37,11 +37,12 @@ private var searchWork: WorkListResponseDTO? = null
 class DailyWatchFragment : Fragment() {
     private lateinit var binding: FragmentDailyWatchBinding
 
+    private var workLogData = ArrayList<WorkData>()
+    private lateinit var workLogInputData : WorkData
     private var maxNum = 0
     private var endNum = 10
 
-    private var workLogData = ArrayList<WorkData>()
-    private lateinit var workLogInputData : WorkData
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +52,15 @@ class DailyWatchFragment : Fragment() {
             token = it.getString("token").toString()
             consCode = it.getString("code").toString()
         }
+
         binding.watchDailyRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = WorkAdapter(requireContext(), workLogData, consCode.toString())
         }
 
-        //초기 접속 시 전체 문서 조회
+        //초기 접속 조회==============================================================================
         updateDailyWorkDoc(1, "", "")
-
-        //리사이클러 하단에 닿으면 추가 검색
+        //하단 닿으면 추가 조회
         binding.watchDailyRecycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!binding.watchDailyRecycler.canScrollVertically(1)) {
@@ -70,16 +71,15 @@ class DailyWatchFragment : Fragment() {
                 }
             }
         })
-
-        //검색조건 - 시작날짜 선택
+        //검색 ======================================================================================
+        //시작날짜
         binding.startDatePicker.setOnClickListener {
             callSelectCalendar(binding.startDate, requireContext())
         }
-        //검색조건 - 종료날짜 선택
+        //종료날짜
         binding.endDatePicker.setOnClickListener {
             callSelectCalendar(binding.endDate, requireContext())
         }
-
         //문서 검색 조회
         binding.searchBtn.setOnClickListener {
             endNum = maxNum
@@ -87,7 +87,6 @@ class DailyWatchFragment : Fragment() {
             val endDate = endDate(binding.endDate.text.toString())
             updateDailyWorkDoc(2, startDate, endDate)
         }
-
     }
 
     override fun onCreateView(
@@ -105,22 +104,16 @@ class DailyWatchFragment : Fragment() {
             }
     }
 
-    fun updateDailyWorkDoc(state : Int, searchStart : String, searchEnd : String){
-        val workDiary = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projWorkLogManage/WorkDiary/{cons_code}/").create(WorkDiary::class.java)
+    private fun updateDailyWorkDoc(state : Int, searchStart : String, searchEnd : String){
+        val workDiary = callRetrofit("${CodeList.portNum}/projWorkLogManage/WorkDiary/{cons_code}/").create(WorkDiary::class.java)
 
         workDiary.requestWorkDiary(consCode.toString(), searchStart, searchEnd , "0","$endNum", CodeList.sysCd, token.toString()).enqueue(object :
             Callback<WorkListResponseDTO> {
-            override fun onFailure(call: Call<WorkListResponseDTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
+            override fun onFailure(call: Call<WorkListResponseDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
+
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<WorkListResponseDTO>, response: Response<WorkListResponseDTO>) {
                 searchWork = response.body()
-
-                Log.d("response_code", searchWork?.code.toString())
-                Log.d("response_msg", searchWork?.msg.toString())
-                Log.d("response_value", Gson().toJson(searchWork?.value))
-
                 workLogData.clear()
 
                 if (searchWork?.value?.data?.size != null) {
@@ -145,11 +138,9 @@ class DailyWatchFragment : Fragment() {
                         binding.startDate.text = ""
                         binding.endDate.text = ""
                     }
-
                 }
             }
         })
-
-
     }
+
 }

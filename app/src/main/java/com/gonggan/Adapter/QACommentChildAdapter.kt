@@ -64,10 +64,10 @@ class QACommentChildAdapter(private val context: Context, private val dataset: L
         }
 
         //대댓글 조회 =================================================================================================================================
-        val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/")
+        val retrofit = callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/")
         val workReply: GetQAReply = retrofit.create(GetQAReply::class.java)
 
-        val retrofitInfo = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/getMyInfo/")
+        val retrofitInfo = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/")
         val getMyInfo: GetUserInfoService = retrofitInfo.create(GetUserInfoService::class.java)
 
         viewHolder.binding.writeDate.text = convertDateFormat4(listPosition.reg_date)
@@ -129,7 +129,7 @@ class QACommentChildAdapter(private val context: Context, private val dataset: L
         //답글 등록 버튼 =================================================
         viewHolder.binding.postBtn.setOnClickListener {
 
-            val postReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PostQAReply::class.java)
+            val postReply = callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PostQAReply::class.java)
 
             val content = viewHolder.binding.postEditText.text.toString()
 
@@ -190,7 +190,7 @@ class QACommentChildAdapter(private val context: Context, private val dataset: L
 
                     if(listPosition.writer_id == userInfo?.value?.id){
 
-                        val deleteReplys = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(DeleteQAReply::class.java)
+                        val deleteReplys = callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(DeleteQAReply::class.java)
 
                         deleteReplys.requestDeleteQaReply(listPosition.post_uuid, CodeList.sysCd, token, listPosition.uuid).enqueue(object :
                             Callback<PostQADTO> {
@@ -271,7 +271,7 @@ class QACommentChildAdapter(private val context: Context, private val dataset: L
 
 
         viewHolder.binding.modifyGoBtn.setOnClickListener {
-            val retrofitPut = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PutQAReply::class.java)
+            val retrofitPut = callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PutQAReply::class.java)
 
             val content = viewHolder.binding.modifyEditText.text.toString()
 

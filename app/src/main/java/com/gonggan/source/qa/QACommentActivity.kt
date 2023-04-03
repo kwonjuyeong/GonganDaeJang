@@ -41,15 +41,6 @@ class QACommentActivity : AppCompatActivity() {
 
         init()
 
-        /*
-        setSupportActionBar(binding.include.mainToolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
-            supportActionBar?.title = "댓글"
-        }*/
-
-        //RecyclerView
         binding.commentParentRecycler.apply {
             layoutManager = LinearLayoutManager(this@QACommentActivity)
             adapter = QACommentAdapter(this@QACommentActivity, commentData, {updateParentReply()}, userToken)
@@ -57,11 +48,12 @@ class QACommentActivity : AppCompatActivity() {
 
         updateParentReply()
 
-        //부모 댓글 등록============================
+        //댓글 등록
         binding.postBtn.setOnClickListener {
             postParentReply()
         }
-        //확인 버튼 ================================
+
+        //종료
         binding.bottomBtn.setOnClickListener {
             finish()
         }
@@ -92,13 +84,11 @@ class QACommentActivity : AppCompatActivity() {
 
     private fun updateParentReply(){
         //부모댓글 조회 =========================================================================================================
-        val getReplys = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(GetQAReply::class.java)
+        val getReplys = callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(GetQAReply::class.java)
 
         getReplys.requestGetQaReply(uuid, CodeList.sysCd, userToken, "").enqueue(object :
             Callback<ReplyQADTO> {
-            override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) {
-                Log.d("retrofit", t.toString())
-            }
+            override fun onFailure(call: Call<ReplyQADTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<ReplyQADTO>, response: Response<ReplyQADTO>) {
                 getReply = response.body()
@@ -117,7 +107,7 @@ class QACommentActivity : AppCompatActivity() {
     private fun postParentReply(){
         val content = binding.postEditText.text.toString()
         if(content != ""){
-            val postReply = callRetrofit("http://211.107.220.103:${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PostQAReply::class.java)
+            val postReply = callRetrofit("${CodeList.portNum}/projMessageBoardManage/MessageBoardReply/{post_uuid}/").create(PostQAReply::class.java)
 
             postReply.requestPostQaReply(uuid, CodeList.sysCd, userToken, "", ReplyPostRequestDTO(content)).enqueue(object :
                 Callback<PostQADTO> {

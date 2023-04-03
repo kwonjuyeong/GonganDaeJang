@@ -34,7 +34,6 @@ class ConsWorkInfoInsideAdapter(private val context: Context, private val datase
 
         viewHolder.binding.root.setOnClickListener {
             Log.d("listposition", Gson().toJson(listPosition))
-
         }
 
         //작업량 inside data================================================================================================================================

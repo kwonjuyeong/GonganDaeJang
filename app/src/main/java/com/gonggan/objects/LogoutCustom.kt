@@ -33,7 +33,7 @@ import java.util.regex.Pattern
 
 private var logout: LogoutDTO? = null
 
-private val retrofit = callRetrofit("http://211.107.220.103:${CodeList.portNum}/userManage/logout/")
+private val retrofit = callRetrofit("${CodeList.portNum}/userManage/logout/")
 private val logoutService: LogoutService = retrofit.create(LogoutService::class.java)
 private lateinit var editor: SharedPreferences.Editor
 
@@ -93,7 +93,7 @@ fun endCloseLogoutCustom(context: Context, userToken: String, drawer: DrawerLayo
     val dialog = Dialog(context)
     dialog.setContentView(R.layout.custom_dialog_logout)
 
-    val logoutParents = dialog.findViewById<ConstraintLayout>(R.id.logout_parent_layout)
+    //val logoutParents = dialog.findViewById<ConstraintLayout>(R.id.logout_parent_layout)
     val text =dialog.findViewById<TextView>(R.id.logout_text)
     val logoutBtn = dialog.findViewById<Button>(R.id.logout_btn)
     val logoutNo = dialog.findViewById<Button>(R.id.logout_cancel_btn)
@@ -137,8 +137,6 @@ fun endCloseLogoutCustom(context: Context, userToken: String, drawer: DrawerLayo
     dialog.show()
 }
 
-
-
 //PW 정규식
 fun checkPW(userPw: String): Boolean {
     //소문자, 숫자, 특수문자 최소 1글자 , 8글자 이상
@@ -149,13 +147,11 @@ fun checkPW(userPw: String): Boolean {
 //email 정규식
 fun checkEmail(email: String): Boolean {
     val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-
     return Pattern.matches(emailValidation, email)
 }
 
 //아이디 정규식
 fun checkId(userId: String): Boolean {
     val idValidation = "^[0-9a-z.].{3,}\$"
-
     return Pattern.matches(idValidation, userId)
 }

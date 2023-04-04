@@ -3,6 +3,7 @@ package com.gonggan.Adapter
 //DashBoard project list item
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,46 +32,20 @@ class DashBoardProjectGoAdapter(private val dataset: List<DashBoardProjectGo>) :
     override fun onBindViewHolder(viewHolder: DashProjectGoViewHolder, position: Int) {
         val listPosition = dataset[position]
         val context = viewHolder.binding.root.context
-
         viewHolder.binding.projectName.text = listPosition.project_name
         viewHolder.binding.projectLocation.text = listPosition.project_location
         viewHolder.binding.projectStatus.text= listPosition.project_status
         viewHolder.binding.percent.text = "${listPosition.project_progress}%"
-        when(listPosition.project_progress){
-            in 0.0..1.0 -> {
-             viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate0)
+
+        //퍼센트 게이지 나타내기
+        val resId = when (val percent = listPosition.project_progress.toInt()) {
+            in 0..9 -> R.drawable.ic_rate0 + percent
+            in 10..95 -> ((percent / 10) * 10).let { resId ->
+                R.drawable::class.java.getField("ic_rate$resId").getInt(null)
             }
-            in 1.1..9.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate10)
-            }
-            in 10.0..19.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate20)
-            }
-            in 20.0..29.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate30)
-            }
-            in 30.0..39.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate40)
-            }
-            in 40.0..49.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate50)
-            }
-            in 50.0..59.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate60)
-            }
-            in 60.0..69.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate70)
-            }
-            in 70.0..79.9 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate80)
-            }
-            in 80.0..95.0 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate90)
-            }
-            in 95.1..100.0 -> {
-                viewHolder.binding.percentImage.setImageResource(R.drawable.ic_rate100)
-            }
+            else -> R.drawable.ic_rate100
         }
+        viewHolder.binding.percentImage.setImageResource(resId)
 
         viewHolder.binding.projectClick.setOnClickListener {
             val intent = Intent(context, RootActivity::class.java)

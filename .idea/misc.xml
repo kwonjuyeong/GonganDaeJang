@@ -14,6 +14,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/ic_baseline_photo_album_24.xml" value="0.238" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/ic_baseline_vertical_split_24.xml" value="0.367" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.238" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/ic_logo_daejang.xml" value="0.241" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/ic_logo_gan.xml" value="0.241" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/ic_user_people_24.xml" value="0.282" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/item_round_background_deep_blue.xml" value="0.282" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable-v24/logout_btn.xml" value="0.238" />
@@ -42,6 +44,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/deep_blue_background.xml" value="0.2185" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/delete_btn.xml" value="0.224" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/gallery_btn.xml" value="0.238" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic__23.xml" value="0.241" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.163" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.224" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_baseline_color_arrow_right_24.xml" value="0.204" />
@@ -55,6 +58,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_baseline_vertical_split_24.xml" value="0.224" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_btn_ico_search.xml" value="0.197" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_cloud.xml" value="0.285" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_gan.xml" value="0.241" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_gong.xml" value="0.241" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_ico_arr_next_b.xml" value="0.2435" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_ico_calendar.xml" value="0.221" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_ico_company.xml" value="0.221" />
@@ -69,6 +74,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_logo.xml" value="0.241" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_logo1.xml" value="0.241" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_logo_b.xml" value="0.2995" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_logo_bb.xml" value="0.241" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_logo_gongan.xml" value="0.24" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate0.xml" value="0.211" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate10.xml" value="0.221" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/drawable/ic_rate100.xml" value="0.221" />
@@ -111,7 +118,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_normal.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_dash_users.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_gallery.xml" value="0.33" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_intro.xml" value="0.22" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_intro.xml" value="0.25" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GongGanDaeJang/app/src/main/res/layout/activity_main_page.xml" value="0.22" />

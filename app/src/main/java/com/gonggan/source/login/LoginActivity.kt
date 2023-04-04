@@ -1,5 +1,6 @@
 package com.gonggan.source.login
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,33 +28,34 @@ import retrofit2.Response
 
 //로그인 화면
 private const val TAG = "Login"
+
 private var login: LoginDTO? = null
 private var getUserInfo: UserInfoDTO? = null
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var sharedPreference: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var userToken : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        init()
+
+        //애니메이션 작동(핑크)
         binding.lottieAnimation.playAnimation()
 
-        val sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
-        val editor = sharedPreference.edit()
-
-        //자동 로그인 =======================================================================================================================
+        //자동 로그인
         val retrofitInfo = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
+        val loginService = callRetrofit("${CodeList.portNum}/userManage/login/").create(LoginService::class.java)
 
-        if (sharedPreference.getString("userId", "").toString().isNotEmpty() && sharedPreference.getString("userPw", "").toString().isNotEmpty() && sharedPreference.getString("token", "").toString().isNotEmpty()) {
-            val token = sharedPreference.getString("token", "").toString()
-            retrofitInfo.requestUserInfo(token, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
+        if (sharedPreference.getString("userId", "").toString().isNotEmpty() && sharedPreference.getString("userPw", "").toString().isNotEmpty() && userToken.isNotEmpty()) {
+            retrofitInfo.requestUserInfo(userToken, CodeList.sysCd).enqueue(object : Callback<UserInfoDTO> {
                 override fun onFailure(call: Call<UserInfoDTO>, t: Throwable) {}
                 override fun onResponse(call: Call<UserInfoDTO>, response: Response<UserInfoDTO>) {
                     getUserInfo = response.body()
-                    val gson = Gson()
-                    Log.d("login_info", gson.toJson(getUserInfo?.value))
 
                     if (getUserInfo?.code == 200) {
                         CoroutineScope(Dispatchers.Main).launch {
@@ -67,16 +69,18 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
-        //일반 로그인========================================================================================================================
+        //일반 로그인
         else {
-        val loginService = callRetrofit("${CodeList.portNum}/userManage/login/").create(LoginService::class.java)
 
         binding.loginBtn.setOnClickListener {
+
             val userId = binding.loginIdEt.text.toString().trim()
             val passwd = getSHA512(binding.loginPwEt.text.toString())
 
             loginService.requestLogIn(CodeList.sysCd, LoginRequestDTO(userId, passwd)).enqueue(object : Callback<LoginDTO> {
+
                 val dialog = AlertDialog.Builder(this@LoginActivity)
+
                 override fun onFailure(call: Call<LoginDTO>, t: Throwable) { Log.d("retrofit", t.toString()) }
                 override fun onResponse(call: Call<LoginDTO>, response: Response<LoginDTO>) {
                     login = response.body()
@@ -127,5 +131,11 @@ class LoginActivity : AppCompatActivity() {
             })
         }
     }
+    }
+
+    private fun init(){
+        sharedPreference = getSharedPreferences("user_auto", MODE_PRIVATE)
+        editor = sharedPreference.edit()
+        userToken = sharedPreference.getString("token", "").toString()
     }
 }

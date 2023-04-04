@@ -48,7 +48,6 @@ class RootActivity : AppCompatActivity() {
             title = "프로젝트 대시보드"
         }
 
-
         val getUserInfoService = callRetrofit("${CodeList.portNum}/userManage/getMyInfo/").create(GetUserInfoService::class.java)
         getUserInfoService.requestUserInfo(userToken, CodeList.sysCd).enqueue(object :
             Callback<UserInfoDTO> {
